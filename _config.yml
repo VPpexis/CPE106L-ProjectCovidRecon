@@ -24,8 +24,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   This is a project that aims to create a platform that lets user knows about Covid-19. It scrapes data
   from different legitimate sources and visualizes these data so that user can easily understand it.
 
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "CPE106L-ProjectCovidRecon" # the subpath of your site, e.g. /blog
+url: "https://vppexis.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  VPpexis
 
