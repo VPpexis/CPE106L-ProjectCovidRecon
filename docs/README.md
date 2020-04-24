@@ -1,6 +1,6 @@
 # [Project-CovidRecon](https://vppexis.github.io/CPE106L-ProjectCovidRecon/)
 
-# Project Members
+### Project Members
     1. 
     2.
     3.
@@ -8,12 +8,12 @@
     5.
     6.
 
-## Requirements
+### Requirements
 - Python 3.7
 - PyQT5
 - Tweepy
 
-## Running the Program
+### Running the Program
 1. Install al lthe requirements
 2. Run in termian 'python main.py'
 
