@@ -79,15 +79,15 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.title_status.setFont(font)
         self.title_status.setObjectName("title_status")
-        self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textBrowser.setGeometry(QtCore.QRect(370, 180, 261, 61))
-        self.textBrowser.setObjectName("textBrowser")
-        self.textBrowser_2 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textBrowser_2.setGeometry(QtCore.QRect(370, 310, 261, 61))
-        self.textBrowser_2.setObjectName("textBrowser_2")
-        self.textBrowser_3 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textBrowser_3.setGeometry(QtCore.QRect(370, 440, 261, 61))
-        self.textBrowser_3.setObjectName("textBrowser_3")
+        self.cases_textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
+        self.cases_textBrowser.setGeometry(QtCore.QRect(370, 180, 261, 61))
+        self.cases_textBrowser.setObjectName("cases_textBrowser")
+        self.death_textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
+        self.death_textBrowser.setGeometry(QtCore.QRect(370, 310, 261, 61))
+        self.death_textBrowser.setObjectName("death_textBrowser")
+        self.recoverd_textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
+        self.recoverd_textBrowser.setGeometry(QtCore.QRect(370, 440, 261, 61))
+        self.recoverd_textBrowser.setObjectName("recoverd_textBrowser")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 110, 160, 331))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
@@ -107,9 +107,6 @@ class Ui_MainWindow(object):
         self.overview_button.setIcon(icon)
         self.overview_button.setIconSize(QtCore.QSize(40, 40))
         self.overview_button.setObjectName("overview_button")
-
-        self.overview_button.clicked.connect(self.openOverview)
-
 
         
         self.verticalLayout.addWidget(self.overview_button)
@@ -185,9 +182,9 @@ class Ui_MainWindow(object):
         self.total_death.raise_()
         self.total_recovered.raise_()
         self.title_status.raise_()
-        self.textBrowser.raise_()
-        self.textBrowser_2.raise_()
-        self.textBrowser_3.raise_()
+        self.cases_textBrowser.raise_()
+        self.death_textBrowser.raise_()
+        self.recoverd_textBrowser.raise_()
         self.verticalLayoutWidget.raise_()
         self.line_3.raise_()
         self.about_button.raise_()
@@ -202,6 +199,13 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+        self.charts_button.clicked.connect(self.on_charts_clicked)
+        self.patterns_button.clicked.connect(self.on_patterns_clicked)
+        self.location_button.clicked.connect(self.on_location_clicked)
+        self.overview_button.clicked.connect(self.on_overview_clicked)
+
+    
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -219,6 +223,33 @@ class Ui_MainWindow(object):
         self.about_button.setText(_translate("MainWindow", "  ABOUT US"))
         self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
         self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
+
+    def on_charts_clicked(self):
+        self.hide_overview_ui()
+
+    def on_location_clicked(self):
+        self.hide_overview_ui()
+
+    def on_patterns_clicked(self):
+        self.hide_overview_ui()
+
+
+    def hide_overview_ui(self):
+        self.total_cases.hide()
+        self.total_death.hide()
+        self.total_recovered.hide()
+        self.cases_textBrowser.hide()
+        self.death_textBrowser.hide()
+        self.recoverd_textBrowser.hide()
+
+    def on_overview_clicked(self):
+        self.total_cases.show()
+        self.total_death.show()
+        self.total_recovered.show()
+        self.cases_textBrowser.show()
+        self.death_textBrowser.show()
+        self.recoverd_textBrowser.show() 
+
         
 import main_img
 
@@ -228,5 +259,9 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
+
+    #Sets to Frameless Window
+    #MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+
     MainWindow.show()
     sys.exit(app.exec_())
