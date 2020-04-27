@@ -85,4 +85,4 @@ twitterStream.filter(track=['COVID', 'COVID-19', 'COVID19', 'NCR', 'Manila', 'Me
 """
 
 twitterStream = Stream(auth, MyStreamListener('COVID'))
-twitterStream.filter(track=['COVID'], async_ = True)
+twitterStream.filter(track=['COVID'], is_async = True)
