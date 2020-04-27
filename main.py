@@ -8,6 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import webbrowser
 
 
 class Ui_MainWindow(object):
@@ -216,6 +217,7 @@ class Ui_MainWindow(object):
         self.location_button.setText(_translate("MainWindow", " LOCATION"))
         self.patterns_button.setText(_translate("MainWindow", " PATTERNS"))
         self.about_button.setText(_translate("MainWindow", "  ABOUT US"))
+        self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
         self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
         
 import main_img
