@@ -1,6 +1,7 @@
 # [Project-CovidRecon](https://vppexis.github.io/CPE106L-ProjectCovidRecon/)
 
 ### Project Members
+
     1. Cinco, Cedrick
     2. Directo, Claudee Khiarra
     3. Bake, Seungyoon
@@ -8,19 +9,23 @@
     5. Panugan, Van Philip
     6. Tipan, Ivan Patrick
 
+
 ### Requirements
 - Python 3.7
 - PyQT5
 - Tweepy
 
 ### Running the Program
+
 1. Install al the requirements
 2. Run in terminal 'python main.py'
+
 
 <br>
 <br>
 
 # Project Documentation
+
 
 Written by: Laurence Kobe Navarro, Claudee Directo & Cedrick Cinco
 
@@ -42,7 +47,9 @@ The purpose of the program is as follows:
 
 
 
+
 ## Scope
+
 The scope of this software is limited to the Philippines. To be specific the NCR Region and its cities only since the data is readily available due to the different sources and the increase of production of test kits. The software does not gather the user's data since it does not need it. The software will only gather source from 
 
 
@@ -53,9 +60,12 @@ The scope of this software is limited to the Philippines. To be specific the NCR
     
 * **RDS** – RDS or Relational Database Services
 
+
 ## Reference 
 The Software Design Document is divided into 11 sections with various subsections. The sections of the Software 
     
+
+
 Design Document is:
 1. Introduction
 2. Use Cases
@@ -70,6 +80,8 @@ Supplementary Documentation
 
 
 
+
+
 # [Use Case](https://mymailmapuaedu-my.sharepoint.com/:b:/g/personal/vpmpanugan_mymail_mapua_edu_ph/EYXU1spIrMJHhMdwh3PTaxQB_mQ30y2tDTq4hT5FtrIBbg?e=yOU3CJ)
 
 
@@ -81,6 +93,7 @@ Supplementary Documentation
 
 
 ## System Interfaces
+
 
 
 
