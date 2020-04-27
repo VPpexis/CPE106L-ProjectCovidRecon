@@ -1,6 +1,6 @@
-# Project Title
+# [Project-CovidRecon](https://vppexis.github.io/CPE106L-ProjectCovidRecon/)
 
-One Paragraph of project description goes here
+Project-CovidRecon is a software application based from PyQt5 and Tweepy that tracks statuses of the number of Coronavirus Disease 2019 in National Captional Region in the Philippines. Through data science and mathematical models, the cases can be predicted and visualized through charts and tables. The application also provides prediction to the number of cases in the next days through logarithmic and exponential plotting.
 
 ## Getting Started
 
@@ -8,7 +8,19 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Python 3.7
+
+```
+Can be access by entering "python" in the terminal.
+```
+
+PyQt5
+
+```
+PyQt5 designer can be accessed through Anaconda Prompt by entering "designer".
+```
+
+Tweepy
 
 ```
 Give examples
@@ -16,13 +28,48 @@ Give examples
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Python 3.7
 
-Say what the step will be
+Python is an interpreted, high-level, general-purpose programming language. The official website of Python is https://www.python.org/. After navigating the download site with your Linux browser, click the appropriate link for your version of Linux you wish to install, then click SAVE. 
 
+When the file is already downloaded, double click to extract. After then, open the Linux terminal.
+
+Type the following commands then press enter:
 ```
-Give the example
+sudo apt-get install build-essential 
+sudo apt-get install libsqlite3-dev
+sudo apt-get install libbz2-dev
 ```
+
+Type CD Python <version> in the Terminal window and press Enter so that the terminal changes its directory to the Python folder on the system.
+  
+Type and press enter:
+```
+./configure
+```
+The script begins by checking the system build type and then performs a series of tasks based on the system you’re using. This process can require a minute or two because there is a large list of items to check.
+
+Type the command below and press Enter:
+```
+sudo make altinstall
+```
+The system may ask you for your administrator password. Type your password and press Enter. At this point, a number of tasks take place as the system installs Python on your system.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 And repeat
 
