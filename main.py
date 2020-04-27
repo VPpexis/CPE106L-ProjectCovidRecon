@@ -9,6 +9,10 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import webbrowser
+import ctypes
+
+myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 
 class Ui_MainWindow(object):
@@ -256,6 +260,10 @@ import main_img
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
+
+    #Sets window icon
+    app.setWindowIcon(QtGui.QIcon('Images/logo.png'))
+
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
