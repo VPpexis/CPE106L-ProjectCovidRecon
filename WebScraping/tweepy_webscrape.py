@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-@author: claudeedirecto
-"""
-
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
@@ -29,7 +23,7 @@ class MyStreamListener(StreamListener):
         self.track = track
 
     def on_data(self, data):
-        conn = sqlite3.connect('tweets.db')
+        conn = sqlite3.connect('tweets1.db')
         c = conn.cursor()
         data = json.loads(data)
         _username = data['user']['screen_name']
@@ -72,10 +66,5 @@ class MyStreamListener(StreamListener):
 auth = OAuthHandler(ckey, csecret)
 auth.set_access_token(atoken, asecret)
 
-"""
-queries = 'COVID', 'COVID-19', 'COVID19', 'NCR', 'Manila', 'Metro Manila', 'Coronavirus', 'Cases'
-
-"""
-
-twitterStream = Stream(auth, MyStreamListener('COVID'))
-twitterStream.filter(track=['COVID'], is_async = True)
+twitterStream = Stream(auth, MyStreamListener('COVID-19'))
+twitterStream.filter(track=['COVID-19'], is_async=True)
