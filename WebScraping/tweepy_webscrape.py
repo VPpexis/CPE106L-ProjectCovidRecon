@@ -5,10 +5,7 @@ import json
 import sqlite3
 import re
 
-ckey="rBcSxk6sGyOt4iRS4kJlvQzxJ"
-csecret="KvUGjEsUOshd9EcqJD8CFDGaRtehTGS3AvaQ1HZf8d7yEBEh75"
-atoken="115838090-srTO3Pw5NydC4BWSGR7BumJfAZi7f3DyjRIV0k0M"
-asecret="dtd6cdRjpxrlKqByvfJq620XReprYLYwyLtc1sXaUvVeW"
+import twitter_credentials
 
 class SaveErrortoFile():
     """in progress"""
@@ -59,12 +56,14 @@ class MyStreamListener(StreamListener):
                 print('error with saving file')
         return(True)
 
-    def on_error(self, status):
-        print(status)
+    def on_error(self, status_code):
+        print(status_code)
+        if status_code == 420:
+            return False
 
 
-auth = OAuthHandler(ckey, csecret)
-auth.set_access_token(atoken, asecret)
+auth = OAuthHandler(twitter_credentials.ckey, twitter_credentials.csecret)
+auth.set_access_token(twitter_credentials.atoken, twitter_credentials.asecret)
 
 twitterStream = Stream(auth, MyStreamListener('COVID'))
 twitterStream.filter(track=['COVID'], is_async=True)
