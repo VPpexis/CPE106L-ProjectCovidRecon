@@ -79,6 +79,72 @@ Design Document is:
 Supplementary Documentation    
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+# [Use Case](https://mymailmapuaedu-my.sharepoint.com/:b:/g/personal/vpmpanugan_mymail_mapua_edu_ph/EYXU1spIrMJHhMdwh3PTaxQB_mQ30y2tDTq4hT5FtrIBbg?e=yOU3CJ)
+=======
+
+
+## Overview
+
+# Use Cases
+
+## Actors
+1. **Customer User** - The customer is the user who uses or benefit from the software application. This is an abstraction or generalization of the users as they all perform similar actions but for different reasons. The actions that they may perform are: (1) to show or display the overview of the status of COVID-19 in Metro Manila, (2) visualize the data into charts for demonstrating the relationships, increments, and decrements as well as the patterns in each data points through a pie chart, bar chart and line charts, (3) show the geographical location of the cases in Metro Manila by the whole region or a specific city, (4) and predict the number of cases/growth through logarithmic and exponential models.
+
+2. **Software Developer** - 
+
+## List of Use Case
+* Customer Use Cases
+    - Display Status (Overview)
+        - Show Total Cases
+        - Show Total Deaths
+        - Show Total Recovered
+
+    - Visualize Data through Charts (Details)
+        - Display Pie Chart(Detail)
+        - Display Bar Chart(Detail)
+        - Display Line Chart(Detail)
+
+    - Show Geographical Location of Data (Overview)
+        - Show all cities (Detail)
+        - Show a specify city (Detail)
+
+    - Predict Information
+        - Exponential Model (Detail)
+        - Logarithmic Model (Detail)
+
+    - Display Developer Team Informations (Detail)
+
+## Use Case Diagram
+* CovidRecon Monitoring App - Entire Use Cases in the Software Application
+![alt text](UseCaseDiagram.png)
+
+* Customer - Essential Use Cases
+![alt text](Customer-EssentialUseCases.png)
+
+* Software Developer - Essential Use Cases
+![alt text](SoftwareDeveloper-EssentialUseCases.png)
+
+
+## Use Cases
+* Customer Use Cases: Display (Overview)
+
+    | **Use case name**: Display Status (Overview)  | **ID**: DO                | **Priority**: High  |   |   |
+    |-------------------------------------------|-----------------------|-----------------|---|---|
+    | **Primary Actor**: Customer (Client)          | **Use Case Type**: System | **Level**: Overview |   |   |
+
+    **_Brief Description_**
+    
+    This use case describes the main interface of the software application in a workflow. It shows the current status and the percentile of the total number of the case, the total number of deaths and the total number of recovered patients limited only in the National Capital Region (NCR) in the Philippines. The cities covered in the statistical overview in this window are Manila, Quezon City, Caloocan, Las Piñas, Makati, Malabon, Mandaluyong, Marikina, Muntinlupa, Navotas, Parañaque, Pasay, Pasig, San Juan, Taguig, and Valenzuela. The data stored in the database reflects in this use case since all of the information regarding the latest number of COVID-19 patients is updated from time to time through scraping.
+
+    **_Goal_**
+
+    To deliver the latest statistical number of COVID-19 patients in Metro Manila accurately and precisely to the client with a friendly interface.
+
+    **_Sucess Measurement:_**
+=======
+>>>>>>> 1cf18a818cf447488ecb4ce0de4f42d7397ba9c4
 
 
 
@@ -87,14 +153,42 @@ Supplementary Documentation
 
 
 
+<<<<<<< HEAD
+In this section, we will discuss the design overview of the application. The application will have an Interface, Interaction, Database, WebScrapper, StreamListener, and IOAuthenticator. The Interface is the main control of the application where the user can interact with the software through the interaction façade. Thus, access to the database. Furthermore, the database can be modified by both the WebScrapper and TweppyStreamListener which can use the TwitterAPIAuthenticator to authenticate the API.
+
+>>>>>>> 0bd9d925fd7cf92027b206c40448cfe86072efc4
+=======
+>>>>>>> 1cf18a818cf447488ecb4ce0de4f42d7397ba9c4
 
 ## System Architecture
 
 
 
 ## System Interfaces
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+- **User Interfaces**
+
+The user interface for the system allows the user to get the latest updates regarding the COVID-19 cases in the NCR Region. The user can also access and visualize the data regarding the COVID-19 in the NCR region. It also shows a graph of the progress of the COVID-19 in the NCR. Lastly, it also shows the cases per each city in the NCR. The interface has buttons according to the data it needs to visualize. This allows for ease of navigation using only the mouse.
+
+- **Software Interfaces**
+
+## Constraints and Assumptions
+
+- **List Assumptions**
+    
+    1. It assumed that the database is in MySQL format.
+
+- **List of Dependencies**
+=======
+>>>>>>> 1cf18a818cf447488ecb4ce0de4f42d7397ba9c4
 
 
+<<<<<<< HEAD
+>>>>>>> 0bd9d925fd7cf92027b206c40448cfe86072efc4
+=======
+>>>>>>> 1cf18a818cf447488ecb4ce0de4f42d7397ba9c4
 
 
 # System Object Model
