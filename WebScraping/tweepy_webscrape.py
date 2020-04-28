@@ -62,8 +62,10 @@ class MyStreamListener(StreamListener):
                 print('error with saving file')
         return(True)
 
-    def on_error(self, status):
-        print(status)
+    def on_error(self, status_code):
+        print(status_code)
+        if status_code == 420:
+            return False
 
 
 auth = OAuthHandler(twitter_credentials.ckey, twitter_credentials.csecret)
