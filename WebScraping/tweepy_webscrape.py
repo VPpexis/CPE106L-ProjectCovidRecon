@@ -66,5 +66,5 @@ class MyStreamListener(StreamListener):
 auth = OAuthHandler(ckey, csecret)
 auth.set_access_token(atoken, asecret)
 
-twitterStream = Stream(auth, MyStreamListener('COVID-19'))
-twitterStream.filter(track=['COVID-19'], is_async=True)
+twitterStream = Stream(auth, MyStreamListener('COVID'))
+twitterStream.filter(track=['COVID'], is_async=True)
