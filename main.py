@@ -15,6 +15,7 @@ myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 
+
 class Ui_MainWindow(object):
 
     def openOverview(self):
@@ -83,6 +84,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.title_status.setFont(font)
         self.title_status.setObjectName("title_status")
+
         self.cases_textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
         self.cases_textBrowser.setGeometry(QtCore.QRect(370, 180, 261, 61))
         self.cases_textBrowser.setObjectName("cases_textBrowser")
@@ -186,6 +188,7 @@ class Ui_MainWindow(object):
         self.total_death.raise_()
         self.total_recovered.raise_()
         self.title_status.raise_()
+
         self.cases_textBrowser.raise_()
         self.death_textBrowser.raise_()
         self.recoverd_textBrowser.raise_()
@@ -203,6 +206,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
 
         self.charts_button.clicked.connect(self.on_charts_clicked)
         self.patterns_button.clicked.connect(self.on_patterns_clicked)
@@ -225,6 +229,7 @@ class Ui_MainWindow(object):
         self.location_button.setText(_translate("MainWindow", " LOCATION"))
         self.patterns_button.setText(_translate("MainWindow", " PATTERNS"))
         self.about_button.setText(_translate("MainWindow", "  ABOUT US"))
+
         self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
         self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
 
@@ -260,6 +265,7 @@ import main_img
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
+
 
     #Sets window icon
     app.setWindowIcon(QtGui.QIcon('Images/logo.png'))

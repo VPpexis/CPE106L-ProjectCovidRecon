@@ -1,6 +1,7 @@
 # [Project-CovidRecon](https://vppexis.github.io/CPE106L-ProjectCovidRecon/)
 
 ### Project Members
+
     1. Cinco, Cedrick
     2. Directo, Claudee Khiarra
     3. Bake, Seungyoon
@@ -8,19 +9,23 @@
     5. Panugan, Van Philip
     6. Tipan, Ivan Patrick
 
+
 ### Requirements
 - Python 3.7
 - PyQT5
 - Tweepy
 
 ### Running the Program
+
 1. Install al the requirements
 2. Run in terminal 'python main.py'
+
 
 <br>
 <br>
 
 # Project Documentation
+
 
 Written by: Laurence Kobe Navarro, Claudee Directo & Cedrick Cinco
 
@@ -42,7 +47,9 @@ The purpose of the program is as follows:
 
 
 
+
 ## Scope
+
 The scope of this software is limited to the Philippines. To be specific the NCR Region and its cities only since the data is readily available due to the different sources and the increase of production of test kits. The software does not gather the user's data since it does not need it. The software will only gather source from 
 
 
@@ -53,9 +60,12 @@ The scope of this software is limited to the Philippines. To be specific the NCR
     
 * **RDS** – RDS or Relational Database Services
 
+
 ## Reference 
 The Software Design Document is divided into 11 sections with various subsections. The sections of the Software 
     
+
+
 Design Document is:
 1. Introduction
 2. Use Cases
@@ -69,6 +79,7 @@ Design Document is:
 Supplementary Documentation    
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 # [Use Case](https://mymailmapuaedu-my.sharepoint.com/:b:/g/personal/vpmpanugan_mymail_mapua_edu_ph/EYXU1spIrMJHhMdwh3PTaxQB_mQ30y2tDTq4hT5FtrIBbg?e=yOU3CJ)
 =======
@@ -132,229 +143,29 @@ Supplementary Documentation
     To deliver the latest statistical number of COVID-19 patients in Metro Manila accurately and precisely to the client with a friendly interface.
 
     **_Sucess Measurement:_**
+=======
+>>>>>>> 1cf18a818cf447488ecb4ce0de4f42d7397ba9c4
 
-    The main interface will be rated and we ask for feedback by the user for the maintenance and improvement of the application and verify if it is acceptable for public use.
 
-    **_Precondition:_**
 
-    - The Display Status (Overview) has successfully passed through verification and authorization.
+# [Use Case](https://mymailmapuaedu-my.sharepoint.com/:b:/g/personal/vpmpanugan_mymail_mapua_edu_ph/EYXU1spIrMJHhMdwh3PTaxQB_mQ30y2tDTq4hT5FtrIBbg?e=yOU3CJ)
 
-    - The statistical number of the Coronavirus Disease 2019 (COVID-19) is accurate in accordance with the official announcement of the Department of Health (DOH) and other authorized and credible sources on Twitter. The data extraction from Twitter will be used to draw and generate the results in the main interface of the application.
 
-    **_Relationships:_**
-    
-    - Includes: _Show Status: Show Cases, Show Recoved, Show Deaths_
-    - Extend: None
-    - Depends on: None
 
-    **_Typical Flow of Events:_**
 
-    1. A window is generated and has the main window.
-    2. The data is pulled from the database for display.
-    3. The user views the data and provides feedback to the developers.
-
-    **_Assumptions:_**
-    
-    1. It is assumed that the data used is up to date for the day.
-
-    **_Implementation Constraints and Specifications:_**
-    
-    * Insert here
-
-* Customer Use Cases Illustrate Charts (Details)
-    
-    | **Use case name**: Illustrate Charts (Details)  | **ID**: IC               | **Priority**: Medium  |   |   |
-    |-------------------------------------------|-----------------------|-----------------|---|---|
-    | **Primary Actor**: Customer (Client)          | **Use Case Type**: System | **Level**: Detail |   |   |
-
-    **_Brief Descriptions:_**
-    
-    This use case is a visual representation of the Display Status use case. It shows case also the number of cases, recovered, and deaths of COVID – 19 cases through a Pie chart, Bar chart, Line Chart. The charts are renewed from time to time through the web scraping of the developers to update the database.
-
-    **_Goal_**
-
-    To be able to use the data and show case into an accurate visual representation of the data.
-
-    **_Sucess Measurement:_**
-
-    The charts are generated depending on what the user wanted and thru proper feedback if the charts are accurate for viewing.
-
-    **_Precondition:_**
-
-    The user choose to view the illustrate chart feature of the application
-
-    **_Trigger:_**
-
-    The user clicked the illustrate chart button
-
-    **_Relationships:_**
-    - Includes: show stored data
-    - Extend: None
-    - Depends on: None
-
-    **_Typical Flow of Events:_**
-    1.  A window is generated while hiding the main window.
-	2.  The data from it is pulled into the window to make a chart.
-	3.  The User choose which kind of chart the user wants to see for the visual representation.
-    4.  The User gives feedback if the data is accurate or not to provide a better experience of the app.
-
-    **_Assumption_**
-    1.  It is assumed that the data is up to date with web scraping from the sources of information for the creation of charts. 
-    2.  It is assumed that the data used is the same as the one in the Status for the generation of charts.
-
-    **_Implementation Constraints and Specifications_**
-    - Insert Here
-
-* Customer Use Cases: Show Geographical Data (Details)
-
-    | **Use case name**: Show Graphical Data (Details)  | **ID**: SGD               | **Priority**: Medium  |   |   |
-    |-------------------------------------------|-----------------------|-----------------|---|---|
-    | **Primary Actor**: Customer (Client)          | **Use Case Type**: System | **Level**: Detail |   |   |
-
-    **_Brief Descriptions:_**
-
-    This use case is also a visual representation of the Data. The difference is the showcasing of the data using the map of the NCR. There is a feature which is show cases the status of the city on COVID-19 cases. 
-
-    **_Goal_**
-    
-    The successful generation of the map representation of the data as a whole region, and individual cities.
-
-    **_Sucess Measurement:_**
-
-    The geographical map data is reviewed by the user as acceptable for use. 
-
-    **_Precondition:_**
-
-    The data is sufficient enough to show case the number of cases on COVID-19
-
-    **_Trigger:_**
-    
-    The user clicked the show geographical data button
-
-    **_Relationships:_**
-
-    - Includes: Show all cities.
-	- Extend: Show a specific city.
-    - Depends on: None
-
-    **_Typical Flow of Events:_**
-
-    1.  A window is generated while hiding the main window.
-	2.  The data from the database is pulled for creation of the geographical map.
-	3.  A representation of the NCR is shown in the window.
-    4.  The User is given an option to choose a city and view the status of it which will generate another geographical map for it.
-
-    **_Assumption_** 
-    
-    
-    **_Implementation Constraints and Specifications_**
-    
-    - Insert Here
-
-
-* Predict Infection for Tomorrow (Details)
-
-    | **Use case name**: Predict Infection for Tomorrow  | **ID**: PIT               | **Priority**: High  |   |   |
-    |-------------------------------------------|-----------------------|-----------------|---|---|
-    | **Primary Actor**: Customer (Client)          | **Use Case Type**: System | **Level**: Detail |   |   |
-
-    **_Brief Descriptions:_**
-
-    This use case is where the data from the web scraping has been calculated for an accurate prediction of the increase or decrease of cases of the whole NCR region.
-
-    **_Goal_**
-
-    The prediction results is shown in the window. 
-
-    **_Sucess Measurement:_**
-
-    The data from the previous data is done and been used as a basis to understand, if the prediction is close or off by how much percentile.
-
-    **_Precondition:_**
-
-    The data is sufficient enough to be used for a prediction of the increase or decrease of cases.
-
-    **_Trigger:_**
-
-    The user clicked the Prediction for Infection Tomorrow button
-
-    **_Relationships:_**
-
-    - Includes: Show Prediction result
-	- Extend: None
-    - Depends on: Non
-
-    **_Typical Flow of Events:_**
-
-    1.  A window is generated while hiding the main window.
-	2.  The data from the database is pulled from the data from present day.
-	3.  Using a formula, a process in the background calculates the cases of people for tomorrow.
-    4.  The prediction result is shown in the window. The user is given a chance to provide feedback if the result will be accurate or not.
-
-    **_Assumption Constraints and Specifications_**
-
-    1. It is assumed that the formula correctly predicts the results for tomorrow.
-    2. It is assumed that the data for the calculation of prediction is sufficient enough.
-
-* Customer Use Cases: About Us (Details)
-
-    | **Use case name**: About Us (Details)  | **ID**: AU               | **Priority**: Medium  |   |   |
-    |-------------------------------------------|-----------------------|-----------------|---|---|
-    | **Primary Actor**: Customer (Client)          | **Use Case Type**: System | **Level**: Detail |   |   |
-
-    **_Brief Descriptions:_**
-    
-    This use case is where the information shown about the people who worked and helped developed the project. This includes a contact information for feedback and improvements for the application
-
-    **_Goal_**
-
-    To provide contact information and details about the project.
-
-    **_Sucess Measurement:_**
-
-    The information of each individual member and developer is present on the window.
-
-    **_Precondition:_**
-
-    - 
-
-    **_Trigger:_**
-    
-    The user clicked the Prediction for About Us button
-
-    **_Relationships:_**
-
-    - Includes: Display Developer Team Information
-    - Extend: None
-    - Depends on: Non
-
-    **_Typical Flow of Events:_**
-
-    1.  A window is generated while hiding the main window.
-    2.  The  information of each developer is displayed.
-
-    **_Assumption_**
-
-    It is assumed that the data about the developer is updated.
-    
-    **_Implementation Constraints and Specifications_**
-
-    - Insert Here
-
-# Design Overview
-
-## Introduction
-
+<<<<<<< HEAD
 In this section, we will discuss the design overview of the application. The application will have an Interface, Interaction, Database, WebScrapper, StreamListener, and IOAuthenticator. The Interface is the main control of the application where the user can interact with the software through the interaction façade. Thus, access to the database. Furthermore, the database can be modified by both the WebScrapper and TweppyStreamListener which can use the TwitterAPIAuthenticator to authenticate the API.
 
 >>>>>>> 0bd9d925fd7cf92027b206c40448cfe86072efc4
+=======
+>>>>>>> 1cf18a818cf447488ecb4ce0de4f42d7397ba9c4
 
 ## System Architecture
 
-![alt text](SystemArchitecture.jpg)
 
 
 ## System Interfaces
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 - **User Interfaces**
@@ -370,10 +181,14 @@ The user interface for the system allows the user to get the latest updates rega
     1. It assumed that the database is in MySQL format.
 
 - **List of Dependencies**
+=======
+>>>>>>> 1cf18a818cf447488ecb4ce0de4f42d7397ba9c4
 
-    1. This application does requires python3 to run and libraries to conduct its functionality such as pyqt, tweepy, pandas, and many more.
 
+<<<<<<< HEAD
 >>>>>>> 0bd9d925fd7cf92027b206c40448cfe86072efc4
+=======
+>>>>>>> 1cf18a818cf447488ecb4ce0de4f42d7397ba9c4
 
 
 # System Object Model
