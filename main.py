@@ -8,8 +8,15 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from UI import news_ui
+from WebScraping import DOH_Scrapper
+from WebScraping import COVID19_Scrapper
 import webbrowser
 import ctypes
+
+myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+
 
 myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
@@ -43,6 +50,7 @@ class Ui_MainWindow(object):
         self.total_cases = QtWidgets.QLabel(self.centralwidget)
         self.total_cases.setEnabled(True)
         self.total_cases.setGeometry(QtCore.QRect(240, 130, 531, 51))
+
         font = QtGui.QFont()
         font.setFamily("Montserrat")
         font.setPointSize(17)
@@ -110,11 +118,34 @@ class Ui_MainWindow(object):
         self.overview_button.setIcon(icon)
         self.overview_button.setIconSize(QtCore.QSize(40, 40))
         self.overview_button.setObjectName("overview_button")
-
-
-
-        
         self.verticalLayout.addWidget(self.overview_button)
+
+
+        #News_UI
+        self.doh_list = news_ui.news_ui(self.centralwidget)
+        self.doh_list.setObjectName('doh_list')
+        ws = DOH_Scrapper.DOH_Scrapper()
+        ws.run()
+        rawData = ws.getData()
+        array_data = []
+
+        for x in rawData:
+            data = news_ui.News()
+            data.ArticleName = x[0]
+            data.ArticleLink = x[1]
+            array_data.append(data)
+        self.doh_list.add_News(array_data)
+
+
+        #Data for Overview
+        self.overview_data = COVID19_Scrapper.COVID19_Scrapper()
+        data = []
+        data = self.overview_data.x
+        self.cases_textBrowser.setText(data[0])
+        self.death_textBrowser.setText(data[1])
+        self.recoverd_textBrowser.setText(data[2])
+
+
         self.charts_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -149,6 +180,19 @@ class Ui_MainWindow(object):
         self.patterns_button.setIconSize(QtCore.QSize(40, 40))
         self.patterns_button.setObjectName("patterns_button")
         self.verticalLayout.addWidget(self.patterns_button)
+
+        self.news_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.news_button.setFont(font)
+        self.news_button.setAutoFillBackground(True)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap("Images/news.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.news_button.setIcon(icon4)
+        self.news_button.setIconSize(QtCore.QSize(40,40))
+        self.verticalLayout.addWidget(self.news_button)
+
+
         self.line_3 = QtWidgets.QFrame(self.centralwidget)
         self.line_3.setGeometry(QtCore.QRect(200, 0, 16, 711))
         self.line_3.setFrameShape(QtWidgets.QFrame.VLine)
@@ -195,12 +239,17 @@ class Ui_MainWindow(object):
         self.about_button.raise_()
         self.label.raise_()
         self.label_3.raise_()
+
+        self.doh_list.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.actionAbout_Us = QtWidgets.QAction(MainWindow)
         self.actionAbout_Us.setObjectName("actionAbout_Us")
+
+
+        self.hide_news_ui()
 
         #initiate ui for patterns and hide
         self.textBrowser_Current = QtWidgets.QTextBrowser(self.centralwidget)
@@ -239,16 +288,16 @@ class Ui_MainWindow(object):
 
         #until here
 
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
 
         self.charts_button.clicked.connect(self.on_charts_clicked)
         self.patterns_button.clicked.connect(self.on_patterns_clicked)
         self.location_button.clicked.connect(self.on_location_clicked)
         self.overview_button.clicked.connect(self.on_overview_clicked)
-        
-        
+        self.news_button.clicked.connect(self.on_news_clicked)
+
     
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -264,6 +313,22 @@ class Ui_MainWindow(object):
         self.location_button.setText(_translate("MainWindow", " LOCATION"))
         self.patterns_button.setText(_translate("MainWindow", " PATTERNS"))
         self.about_button.setText(_translate("MainWindow", "  ABOUT US"))
+
+        self.news_button.setText(_translate("MainWindow", "DOH NEWS"))
+        self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
+        self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
+
+    def on_charts_clicked(self):
+        self.hide_news_ui()
+        self.hide_overview_ui()
+
+    def on_location_clicked(self):
+        self.hide_news_ui()
+        self.hide_overview_ui()
+
+    def on_patterns_clicked(self):
+        self.hide_news_ui()
+        self.hide_overview_ui()
         self.label_Current.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline; color:#ffffff;\">Current</span></p></body></html>"))
         self.label_Tomorrow.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline; color:#ffffff;text-align:center;\">Next 24 Hours</span></p></body></html>"))
         self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
@@ -294,6 +359,13 @@ class Ui_MainWindow(object):
         self.death_textBrowser.hide()
         self.recoverd_textBrowser.hide()
 
+
+    def hide_news_ui(self):
+        self.doh_list.hide()
+
+    def on_overview_clicked(self):
+        self.hide_news_ui()
+
     def hide_patterns_ui(self):
         self.textBrowser_Current.hide()
         self.textBrowser_Tomorrow.hide()
@@ -308,19 +380,32 @@ class Ui_MainWindow(object):
         self.death_textBrowser.show()
         self.recoverd_textBrowser.show()
 
+    def on_news_clicked(self):
+        self.hide_overview_ui()
+        self.doh_list.show()
+
     def on_patterns_ui(self):
         self.textBrowser_Current.show()
         self.textBrowser_Tomorrow.show()
         self.label_Current.show()
         self.label_Tomorrow.show()
 
+
 import main_img
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
+
+    #Sets window icon
+    app.setWindowIcon(QtGui.QIcon('Images/logo.png'))
+
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
+
+    #Sets to Frameless Window
+    #MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+
     MainWindow.show()
     sys.exit(app.exec_())

@@ -74,14 +74,15 @@ auth.set_access_token(atoken, asecret)
 
 """
 queries = 'COVID', 'COVID-19', 'COVID19', 'NCR', 'Manila', 'Metro Manila', 'Coronavirus', 'Cases'
-
 twitterStream = Stream(auth, MyStreamListener(queries))
 twitterStream.filter(track = [queries], async_ = True)
-
 """
 """
 twitterStream = Stream(auth, MyStreamListener('COVID', 'COVID-19', 'COVID19', 'NCR', 'Manila', 'Metro Manila', 'Coronavirus', 'Cases'))
-twitterStream.filter(track=['COVID', 'COVID-19', 'COVID19', 'NCR', 'Manila', 'Metro Manila', 'Coronavirus', 'Cases'], async_ = True)
+twitterStream.filter(track=['COVID', 'COVID-19', 'COVID19', 'NCR', 'Manila', 'Metro Manila', 'Coronavirus', 'Cases'], is_async = True)
+
+
+
 """
 
 twitterStream = Stream(auth, MyStreamListener('COVID'))
