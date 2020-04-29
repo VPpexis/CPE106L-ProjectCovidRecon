@@ -1,8 +1,6 @@
 # [Project-CovidRecon](https://vppexis.github.io/CPE106L-ProjectCovidRecon/)
 
-<<<<<<< HEAD
 Project-CovidRecon is a software application based from PyQt5 and Tweepy that tracks statuses of the number of Coronavirus Disease 2019 in National Captional Region in the Philippines. Through data science and mathematical models, the cases can be predicted and visualized through charts and tables. The application also provides prediction to the number of cases in the next days through logarithmic and exponential plotting.
-=======
 ### Project Members
 
     1. Cinco, Cedrick
@@ -12,42 +10,33 @@ Project-CovidRecon is a software application based from PyQt5 and Tweepy that tr
     5. Panugan, Van Philip
     6. Tipan, Ivan Patrick
 
->>>>>>> ceb7354528e20ce058e088f23cdb41ffa48e7915
 
 ## Getting Started
 
-<<<<<<< HEAD
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-=======
 ### Running the Program
 
 1. Install al the requirements
 2. Run in terminal 'python main.py'
 
->>>>>>> ceb7354528e20ce058e088f23cdb41ffa48e7915
 
 ### Prerequisites
 
 Python 3.7
 
-<<<<<<< HEAD
 ```
 Can be access by entering "python" in the terminal.
 ```
-=======
 
 Written by: Laurence Kobe Navarro, Claudee Directo & Cedrick Cinco
->>>>>>> ceb7354528e20ce058e088f23cdb41ffa48e7915
 
 PyQt5
 
-<<<<<<< HEAD
 ```
 PyQt5 designer can be accessed through Anaconda Prompt by entering "designer".
 ```
 
 Tweepy
-=======
 # Introduction
 Data Science and mathematical models can help in shedding light on the evolution of the novel Coronavirus pandemic. By predicting, visualizing, and analyzing the virus, we will be able to put up an immunity against it through the help of data and information. This is an application that can forecast real-time COVID-19 data that can fill the gap between users and various sources of information in order to produce reliable data.  As the world plunged into a pandemic caused by COVID-19, both technology and medical field tries to understand how the virus had spread exponentially across the globe as well as on how to cure it. As people get wary about the health implications this pandemic poses on their health, economic, and social activity – they also want to gain information. However, to this day, there isn't a well-centered outlet to get data visualization and prediction of COVID-19, false information might constitute to the delay of the dissection of current data. With this application, it aims to bridge the user and the different sources of data that could visualize it for beneficiaries – not just for the people, but for health workers, and even for the common knowledge of the government. It delivers visualized data, its analysis, and the prediction of the movement of the virus. 
 
@@ -61,7 +50,6 @@ The purpose of the program is as follows:
 * To predict the logarithmic and exponential pattern
     
 * To show the geographical status of each province.
->>>>>>> ceb7354528e20ce058e088f23cdb41ffa48e7915
 
 ```
 Give examples
@@ -71,7 +59,6 @@ Give examples
 
 Python 3.7
 
-<<<<<<< HEAD
 Python is an interpreted, high-level, general-purpose programming language. The official website of Python is https://www.python.org/. After navigating the download site with your Linux browser, click the appropriate link for your version of Linux you wish to install, then click SAVE. 
 
 When the file is already downloaded, double click to extract. After then, open the Linux terminal.
@@ -82,12 +69,10 @@ sudo apt-get install build-essential
 sudo apt-get install libsqlite3-dev
 sudo apt-get install libbz2-dev
 ```
-=======
 
 ## Scope
 
 The scope of this software is limited to the Philippines. To be specific the NCR Region and its cities only since the data is readily available due to the different sources and the increase of production of test kits. The software does not gather the user's data since it does not need it. The software will only gather source from 
->>>>>>> ceb7354528e20ce058e088f23cdb41ffa48e7915
 
 Type CD Python <version> in the Terminal window and press Enter so that the terminal changes its directory to the Python folder on the system.
   
@@ -97,7 +82,6 @@ Type and press enter:
 ```
 The script begins by checking the system build type and then performs a series of tasks based on the system you’re using. This process can require a minute or two because there is a large list of items to check.
 
-<<<<<<< HEAD
 Type the command below and press Enter:
 ```
 sudo make altinstall
@@ -105,7 +89,6 @@ sudo make altinstall
 The system may ask you for your administrator password. Type your password and press Enter. At this point, a number of tasks take place as the system installs Python on your system.
 
 
-=======
 ## Definitions, Acronyms, and Abbreviations
 * **Tweepy** – Tweepy is a Python library to access the Twitter API. It is usually used for simple automation and creating twitter function and bots. With Tweepy, developers can accumulate tweets, create and delete tweets, and follow or unfollow users. 
     
@@ -130,7 +113,6 @@ Design Document is:
 8. Dynamic Model
 9. Non-function Requirements
 Supplementary Documentation    
->>>>>>> ceb7354528e20ce058e088f23cdb41ffa48e7915
 
 
 <<<<<<< HEAD
