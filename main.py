@@ -18,6 +18,9 @@ myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 
+myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+
 class Ui_MainWindow(object):
 
     def openOverview(self):
@@ -121,11 +124,9 @@ class Ui_MainWindow(object):
         #News_UI
         self.doh_list = news_ui.news_ui(self.centralwidget)
         self.doh_list.setObjectName('doh_list')
-
         ws = DOH_Scrapper.DOH_Scrapper()
         ws.run()
         rawData = ws.getData()
-
         array_data = []
 
         for x in rawData:
@@ -133,22 +134,16 @@ class Ui_MainWindow(object):
             data.ArticleName = x[0]
             data.ArticleLink = x[1]
             array_data.append(data)
-
         self.doh_list.add_News(array_data)
 
 
         #Data for Overview
-        
         self.overview_data = COVID19_Scrapper.COVID19_Scrapper()
-
         data = []
         data = self.overview_data.x
-
         self.cases_textBrowser.setText(data[0])
         self.death_textBrowser.setText(data[1])
         self.recoverd_textBrowser.setText(data[2])
-        
-
 
 
         self.charts_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
@@ -253,7 +248,46 @@ class Ui_MainWindow(object):
         self.actionAbout_Us = QtWidgets.QAction(MainWindow)
         self.actionAbout_Us.setObjectName("actionAbout_Us")
 
+
         self.hide_news_ui()
+
+        #initiate ui for patterns and hide
+        self.textBrowser_Current = QtWidgets.QTextBrowser(self.centralwidget)
+        self.textBrowser_Current.setGeometry(QtCore.QRect(270, 310, 201, 61))
+        self.textBrowser_Current.setObjectName("textBrowser_Current")
+        self.textBrowser_Tomorrow = QtWidgets.QTextBrowser(self.centralwidget)
+        self.textBrowser_Tomorrow.setGeometry(QtCore.QRect(540, 310, 201, 61))
+        self.textBrowser_Tomorrow.setObjectName("textBrowser_Tomorrow")
+        self.label_Current = QtWidgets.QLabel(self.centralwidget)
+        self.label_Current.setGeometry(QtCore.QRect(320, 260, 231, 61))
+        self.label_Current.setObjectName("label_Current")
+        font = QtGui.QFont()
+        font.setFamily("Montserrat")
+        font.setPointSize(17)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_Current.setFont(font)
+        self.label_Tomorrow = QtWidgets.QLabel(self.centralwidget)
+        self.label_Tomorrow.setGeometry(QtCore.QRect(525, 260, 231, 61))
+        self.label_Tomorrow.setObjectName("label_Tomorrow")
+        self.label_Tomorrow.setAlignment(QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setFamily("Montserrat")
+        font.setPointSize(17)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_Tomorrow.setFont(font)
+
+        self.label_Current.raise_()
+        self.label_Tomorrow.raise_()
+
+        self.textBrowser_Current.hide()
+        self.textBrowser_Tomorrow.hide()
+        self.label_Current.hide()
+        self.label_Tomorrow.hide()
+
+        #until here
+
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -265,7 +299,6 @@ class Ui_MainWindow(object):
         self.news_button.clicked.connect(self.on_news_clicked)
 
     
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "COVIDRecon"))
@@ -280,6 +313,7 @@ class Ui_MainWindow(object):
         self.location_button.setText(_translate("MainWindow", " LOCATION"))
         self.patterns_button.setText(_translate("MainWindow", " PATTERNS"))
         self.about_button.setText(_translate("MainWindow", "  ABOUT US"))
+
         self.news_button.setText(_translate("MainWindow", "DOH NEWS"))
         self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
         self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
@@ -295,6 +329,26 @@ class Ui_MainWindow(object):
     def on_patterns_clicked(self):
         self.hide_news_ui()
         self.hide_overview_ui()
+        self.label_Current.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline; color:#ffffff;\">Current</span></p></body></html>"))
+        self.label_Tomorrow.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline; color:#ffffff;text-align:center;\">Next 24 Hours</span></p></body></html>"))
+        self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
+        self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
+   
+    def on_overview_clicked(self):
+        self.on_overview_ui()
+        self.hide_patterns_ui()
+   
+    def on_charts_clicked(self):
+        self.hide_overview_ui()
+        self.hide_patterns_ui()
+
+    def on_location_clicked(self):
+        self.hide_overview_ui()
+        self.hide_patterns_ui()
+
+    def on_patterns_clicked(self):
+        self.hide_overview_ui()
+        self.on_patterns_ui()
 
 
     def hide_overview_ui(self):
@@ -305,11 +359,20 @@ class Ui_MainWindow(object):
         self.death_textBrowser.hide()
         self.recoverd_textBrowser.hide()
 
+
     def hide_news_ui(self):
         self.doh_list.hide()
 
     def on_overview_clicked(self):
         self.hide_news_ui()
+
+    def hide_patterns_ui(self):
+        self.textBrowser_Current.hide()
+        self.textBrowser_Tomorrow.hide()
+        self.label_Current.hide()
+        self.label_Tomorrow.hide()
+
+    def on_overview_ui(self):
         self.total_cases.show()
         self.total_death.show()
         self.total_recovered.show()
@@ -321,7 +384,13 @@ class Ui_MainWindow(object):
         self.hide_overview_ui()
         self.doh_list.show()
 
-        
+    def on_patterns_ui(self):
+        self.textBrowser_Current.show()
+        self.textBrowser_Tomorrow.show()
+        self.label_Current.show()
+        self.label_Tomorrow.show()
+
+
 import main_img
 
 if __name__ == "__main__":
