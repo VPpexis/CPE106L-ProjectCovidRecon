@@ -30,5 +30,20 @@ for items in data_cases['country'].tolist():
     else:
         print(items + ' is not in the NCR cities list')
 
+ncr_cities.replace('Manila', 'City of Manila', inplace=True)
+ncr_cities.replace('Kalookan City', 'Caloocan', inplace=True)
+ncr_cities.replace('Makati City', 'Makati', inplace=True)
+ncr_cities.replace('Pasay City', 'Pasay', inplace=True)
+ncr_cities.replace('Pasig City', 'Pasig', inplace=True)
+
+data_cases.rename(columns={'country':'City'}, inplace=True)
+data_cases.rename(columns={'total_cases':'Total Cases'}, inplace=True)
+
+#combined=ncr_cities.merge(data_cases, on= 'City')
+
+
+
+
+
 
 # %%
