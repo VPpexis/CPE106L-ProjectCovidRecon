@@ -6,18 +6,21 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-
+import matplotlib.pyplot as plt
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 import webbrowser
-import ctypes
 
-myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+import sys
+import time
 
+import numpy as np
 
+from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar)
+from matplotlib.figure import Figure
 
 class Ui_MainWindow(object):
-
+             
     def openOverview(self):
         self.window=QtWidgets.QMainWindow()
         self.ui=Ui_MainWindow()
@@ -155,6 +158,9 @@ class Ui_MainWindow(object):
         self.line_3.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_3.setObjectName("line_3")
+        self.chartsView = QtWidgets.QGraphicsView(self.centralwidget)
+        self.chartsView.setGeometry(QtCore.QRect(230, 110, 541, 471))
+        self.chartsView.setObjectName("chartsView")
         self.about_button = QtWidgets.QPushButton(self.centralwidget)
         self.about_button.setGeometry(QtCore.QRect(20, 490, 158, 39))
         font = QtGui.QFont()
@@ -204,6 +210,10 @@ class Ui_MainWindow(object):
         self.actionAbout_Us = QtWidgets.QAction(MainWindow)
         self.actionAbout_Us.setObjectName("actionAbout_Us")
 
+        ### Essential para nakatago yung laman ng charts,location patterns bukod sa overview
+        self.chartsView.raise_()
+        self.chartsView.hide()
+        
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -235,14 +245,54 @@ class Ui_MainWindow(object):
 
     def on_charts_clicked(self):
         self.hide_overview_ui()
+        self.chartsView.show()
+        self.setup_chart()
+    
+    def setup_chart(self):
+    # Making the layout for the graph
+        layout = QtWidgets.QVBoxLayout(self.chartsView)
+    # sample graph nalang to sa baba
+        static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
+        layout.addWidget(static_canvas)
+
+
+        dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
+        layout.addWidget(dynamic_canvas)
+    
+
+        self._static_ax = static_canvas.figure.subplots()
+        t = np.linspace(0, 10, 501)
+        self._static_ax.plot(t, np.tan(t), ".")
+
+        self._dynamic_ax = dynamic_canvas.figure.subplots()
+        self._timer = dynamic_canvas.new_timer(
+            50, [(self._update_canvas, (), {})])
+        self._timer.start()
+        
+    ### Sample Graph Pwede tangalin _update_canvas
+    def _update_canvas(self):
+        self._dynamic_ax.clear()
+        t = np.linspace(0, 10, 101)
+        # Use fixed vertical limits to prevent autoscaling changing the scale
+        # of the axis.
+        self._dynamic_ax.set_ylim(-1.1, 1.1)
+        # Shift the sinusoid as a function of time.
+        self._dynamic_ax.plot(t, np.sin(t + time.time()))
+        self._dynamic_ax.figure.canvas.draw()
 
     def on_location_clicked(self):
         self.hide_overview_ui()
-
+        self.hide_charts_ui()
+        
     def on_patterns_clicked(self):
         self.hide_overview_ui()
-
-
+        self.hide_charts_ui()
+    
+    ### define nalang another method pag nagkaron ng pagbabago sa location and patterns
+    ### Update nalang mga methods
+    def hide_charts_ui(self):
+        self.chartsView.hide()
+        
     def hide_overview_ui(self):
         self.total_cases.hide()
         self.total_death.hide()
@@ -252,6 +302,7 @@ class Ui_MainWindow(object):
         self.recoverd_textBrowser.hide()
 
     def on_overview_clicked(self):
+        self.hide_charts_ui()
         self.total_cases.show()
         self.total_death.show()
         self.total_recovered.show()
