@@ -50,7 +50,6 @@ class Ui_MainWindow(object):
         self.total_cases = QtWidgets.QLabel(self.centralwidget)
         self.total_cases.setEnabled(True)
         self.total_cases.setGeometry(QtCore.QRect(240, 130, 531, 51))
-
         font = QtGui.QFont()
         font.setFamily("Montserrat")
         font.setPointSize(17)
@@ -90,15 +89,31 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.title_status.setFont(font)
         self.title_status.setObjectName("title_status")
-        self.cases_textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
+      
+        self.cases_textBrowser = QtWidgets.QLabel(self.centralwidget)
         self.cases_textBrowser.setGeometry(QtCore.QRect(370, 180, 261, 61))
         self.cases_textBrowser.setObjectName("cases_textBrowser")
-        self.death_textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
+        self.cases_textBrowser.setStyleSheet("QLabel { background-color : white; color : black; }")
+        self.cases_textBrowser.setAlignment(QtCore.Qt.AlignCenter)
+        self.death_textBrowser = QtWidgets.QLabel(self.centralwidget)
         self.death_textBrowser.setGeometry(QtCore.QRect(370, 310, 261, 61))
         self.death_textBrowser.setObjectName("death_textBrowser")
-        self.recoverd_textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
+        self.death_textBrowser.setStyleSheet("QLabel { background-color : white; color : black; }")
+        self.death_textBrowser.setAlignment(QtCore.Qt.AlignCenter)
+        self.recoverd_textBrowser = QtWidgets.QLabel(self.centralwidget)
         self.recoverd_textBrowser.setGeometry(QtCore.QRect(370, 440, 261, 61))
         self.recoverd_textBrowser.setObjectName("recoverd_textBrowser")
+        self.recoverd_textBrowser.setStyleSheet("QLabel { background-color : white; color : black; }")
+        self.recoverd_textBrowser.setAlignment(QtCore.Qt.AlignCenter)
+        fontfortextbrowser = QtGui.QFont()
+        fontfortextbrowser.setFamily("Montserrat")
+        fontfortextbrowser.setPointSize(25)
+        fontfortextbrowser.setBold(False)
+        fontfortextbrowser.setWeight(100)
+        self.cases_textBrowser.setFont(fontfortextbrowser)
+        self.death_textBrowser.setFont(fontfortextbrowser)
+        self.recoverd_textBrowser.setFont(fontfortextbrowser)
+
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 110, 160, 331))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
@@ -128,22 +143,15 @@ class Ui_MainWindow(object):
         ws.run()
         rawData = ws.getData()
         array_data = []
-
         for x in rawData:
             data = news_ui.News()
             data.ArticleName = x[0]
             data.ArticleLink = x[1]
             array_data.append(data)
         self.doh_list.add_News(array_data)
+        #/News UI
 
-
-        #Data for Overview
-        self.overview_data = COVID19_Scrapper.COVID19_Scrapper()
-        data = []
-        data = self.overview_data.x
-        self.cases_textBrowser.setText(data[0])
-        self.death_textBrowser.setText(data[1])
-        self.recoverd_textBrowser.setText(data[2])
+        
 
 
         self.charts_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
@@ -239,7 +247,6 @@ class Ui_MainWindow(object):
         self.about_button.raise_()
         self.label.raise_()
         self.label_3.raise_()
-
         self.doh_list.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -248,55 +255,62 @@ class Ui_MainWindow(object):
         self.actionAbout_Us = QtWidgets.QAction(MainWindow)
         self.actionAbout_Us.setObjectName("actionAbout_Us")
 
-
-        self.hide_news_ui()
-
-        #initiate ui for patterns and hide
-        self.textBrowser_Current = QtWidgets.QTextBrowser(self.centralwidget)
+        #Patterns UI
+        fontforLabel = QtGui.QFont()
+        fontforLabel.setFamily("Montserrat")
+        fontforLabel.setPointSize(17)
+        fontforLabel.setBold(False)
+        fontforLabel.setWeight(50)
+        self.textBrowser_Current = QtWidgets.QLabel(self.centralwidget)
+        self.textBrowser_Current.setStyleSheet("QLabel { background-color : white; color : black; }")
+        self.textBrowser_Current.setAlignment(QtCore.Qt.AlignCenter)
         self.textBrowser_Current.setGeometry(QtCore.QRect(270, 310, 201, 61))
         self.textBrowser_Current.setObjectName("textBrowser_Current")
-        self.textBrowser_Tomorrow = QtWidgets.QTextBrowser(self.centralwidget)
+        self.textBrowser_Tomorrow = QtWidgets.QLabel(self.centralwidget)
+        self.textBrowser_Tomorrow.setStyleSheet("QLabel { background-color : white; color : black; }")
+        self.textBrowser_Tomorrow.setAlignment(QtCore.Qt.AlignCenter)
         self.textBrowser_Tomorrow.setGeometry(QtCore.QRect(540, 310, 201, 61))
         self.textBrowser_Tomorrow.setObjectName("textBrowser_Tomorrow")
+        fontfortextbrowser1 = QtGui.QFont()
+        fontfortextbrowser1.setFamily("Montserrat")
+        fontfortextbrowser1.setPointSize(25)
+        fontfortextbrowser1.setBold(False)
+        fontfortextbrowser1.setWeight(100)
+        self.textBrowser_Current.setFont(fontfortextbrowser1)
+        self.textBrowser_Tomorrow.setFont(fontfortextbrowser1)
         self.label_Current = QtWidgets.QLabel(self.centralwidget)
         self.label_Current.setGeometry(QtCore.QRect(320, 260, 231, 61))
         self.label_Current.setObjectName("label_Current")
-        font = QtGui.QFont()
-        font.setFamily("Montserrat")
-        font.setPointSize(17)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_Current.setFont(font)
+        self.label_Current.setFont(fontforLabel)
         self.label_Tomorrow = QtWidgets.QLabel(self.centralwidget)
         self.label_Tomorrow.setGeometry(QtCore.QRect(525, 260, 231, 61))
         self.label_Tomorrow.setObjectName("label_Tomorrow")
         self.label_Tomorrow.setAlignment(QtCore.Qt.AlignCenter)
-        font = QtGui.QFont()
-        font.setFamily("Montserrat")
-        font.setPointSize(17)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_Tomorrow.setFont(font)
-
+        self.label_Tomorrow.setFont(fontforLabel)
         self.label_Current.raise_()
         self.label_Tomorrow.raise_()
-
-        self.textBrowser_Current.hide()
-        self.textBrowser_Tomorrow.hide()
-        self.label_Current.hide()
-        self.label_Tomorrow.hide()
-
-        #until here
+        #/Patterns UI
 
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+        #Data for Overview
+        self.overview_data = COVID19_Scrapper.COVID19_Scrapper()
+        data = []
+        data = self.overview_data.x
+        self.cases_textBrowser.setText(data[0])
+        self.death_textBrowser.setText(data[1])
+        self.recoverd_textBrowser.setText(data[2])
+        #/Data for Overview
 
         self.charts_button.clicked.connect(self.on_charts_clicked)
         self.patterns_button.clicked.connect(self.on_patterns_clicked)
         self.location_button.clicked.connect(self.on_location_clicked)
         self.overview_button.clicked.connect(self.on_overview_clicked)
         self.news_button.clicked.connect(self.on_news_clicked)
+
+        self.on_overview_clicked()
 
     
     def retranslateUi(self, MainWindow):
@@ -313,44 +327,17 @@ class Ui_MainWindow(object):
         self.location_button.setText(_translate("MainWindow", " LOCATION"))
         self.patterns_button.setText(_translate("MainWindow", " PATTERNS"))
         self.about_button.setText(_translate("MainWindow", "  ABOUT US"))
-
-        self.news_button.setText(_translate("MainWindow", "DOH NEWS"))
-        self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
-        self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
-
-    def on_charts_clicked(self):
-        self.hide_news_ui()
-        self.hide_overview_ui()
-
-    def on_location_clicked(self):
-        self.hide_news_ui()
-        self.hide_overview_ui()
-
-    def on_patterns_clicked(self):
-        self.hide_news_ui()
-        self.hide_overview_ui()
+        
         self.label_Current.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline; color:#ffffff;\">Current</span></p></body></html>"))
         self.label_Tomorrow.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline; color:#ffffff;text-align:center;\">Next 24 Hours</span></p></body></html>"))
         self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
         self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
    
-    def on_overview_clicked(self):
-        self.on_overview_ui()
-        self.hide_patterns_ui()
-   
-    def on_charts_clicked(self):
-        self.hide_overview_ui()
-        self.hide_patterns_ui()
+        self.news_button.setText(_translate("MainWindow", "DOH NEWS"))
+        self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
+        self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
 
-    def on_location_clicked(self):
-        self.hide_overview_ui()
-        self.hide_patterns_ui()
-
-    def on_patterns_clicked(self):
-        self.hide_overview_ui()
-        self.on_patterns_ui()
-
-
+#hide methods
     def hide_overview_ui(self):
         self.total_cases.hide()
         self.total_death.hide()
@@ -358,13 +345,12 @@ class Ui_MainWindow(object):
         self.cases_textBrowser.hide()
         self.death_textBrowser.hide()
         self.recoverd_textBrowser.hide()
+    
+    #def hide_charts_ui(self):
+        #wala pa
 
-
-    def hide_news_ui(self):
-        self.doh_list.hide()
-
-    def on_overview_clicked(self):
-        self.hide_news_ui()
+    #def hide_location_ui(self):
+        #wala pa
 
     def hide_patterns_ui(self):
         self.textBrowser_Current.hide()
@@ -372,6 +358,12 @@ class Ui_MainWindow(object):
         self.label_Current.hide()
         self.label_Tomorrow.hide()
 
+    def hide_news_ui(self):
+        self.doh_list.hide()
+
+    
+
+    #show methods
     def on_overview_ui(self):
         self.total_cases.show()
         self.total_death.show()
@@ -380,16 +372,58 @@ class Ui_MainWindow(object):
         self.death_textBrowser.show()
         self.recoverd_textBrowser.show()
 
-    def on_news_clicked(self):
-        self.hide_overview_ui()
-        self.doh_list.show()
+    #def on_charts_ui(self):
+        #wala pa
+
+    #def on_location_ui(self):
+        #wala pa
 
     def on_patterns_ui(self):
         self.textBrowser_Current.show()
         self.textBrowser_Tomorrow.show()
         self.label_Current.show()
         self.label_Tomorrow.show()
+        
+    
+    def on_news_ui(self):
+        self.doh_list.show()
 
+
+    #button clicked methods
+    def on_overview_clicked(self):
+        self.on_overview_ui()
+        #self.hide_charts_ui()
+        #self.hide_location_ui()
+        self.hide_patterns_ui()
+        self.hide_news_ui()
+   
+    def on_charts_clicked(self):
+        self.hide_overview_ui()
+        #self.on_charts_ui()
+        #self.hide_location_ui()
+        self.hide_patterns_ui()
+        self.hide_news_ui()
+
+    def on_location_clicked(self):
+        self.hide_overview_ui()
+        #self.hide_charts_ui()
+        #self.on_location_ui()
+        self.hide_patterns_ui()
+        self.hide_news_ui()
+
+    def on_patterns_clicked(self):
+        self.hide_overview_ui()
+        #self.hide_charts_ui()
+        #self.hide_location_ui()
+        self.on_patterns_ui()
+        self.hide_news_ui()
+
+    def on_news_clicked(self):
+        self.hide_overview_ui()
+        #self.hide_charts_ui()
+        #self.hide_location_ui()
+        self.hide_patterns_ui()
+        self.on_news_ui()
 
 import main_img
 
