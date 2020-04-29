@@ -3,7 +3,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 
-class WebScrapping():
+class DOH_Scrapper():
     def __init__(self):
         self.articleName = []
         self.articleLink = []
@@ -40,7 +40,7 @@ class WebScrapping():
         
 
 if __name__ == '__main__':
-    ws = WebScrapping()
+    ws = DOH_Scrapper()
     ws.run()
     dataNews = ws.getData()
 
