@@ -9,6 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from UI import news_ui
+from WebScraping import WebScrapping
 import webbrowser
 import ctypes
 
@@ -128,9 +129,26 @@ class Ui_MainWindow(object):
         self.doh_list.addItem('Gsflajf;alksdjfajflajsfalkfjlakjfsdk')
         '''
 
+        #News_UI
         self.doh_list = news_ui.news_ui(self.centralwidget)
-        self.doh_list.addItem('GOVERNMENT LAUNCHES PUBLIC-PRIVATE TASK FORCE T3 (TEST, TRACE AND TREAT) TO SIGNIFICANTLY EXPAND RT-PCR TESTING CAPACITY')
         self.doh_list.setObjectName('doh_list')
+
+        news1 = news_ui.News()
+        news2 = news_ui.News()
+
+        ws = WebScrapping.WebScrapping()
+        ws.run()
+        rawData = ws.getData()
+
+        array_data = []
+
+        for x in rawData:
+            data = news_ui.News()
+            data.ArticleName = x[0]
+            data.ArticleLink = x[1]
+            array_data.append(data)
+
+        self.doh_list.add_News(array_data)
 
 
         self.charts_button = QtWidgets.QPushButton(self.verticalLayoutWidget)

@@ -7,7 +7,7 @@ class news_ui(QtWidgets.QListWidget):
         self.setGeometry(QtCore.QRect(240, 110, 520, 450))
         self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.setWordWrap(True)
-        self.setSpacing(2)
+        self.setSpacing(5)
         self.itemClicked.connect(self.listwidgetclicked)
 
     def add_News(self, NewsList):
@@ -16,7 +16,6 @@ class news_ui(QtWidgets.QListWidget):
             self.addItem(x.ArticleName)
 
     def listwidgetclicked(self, item):
-        print('click -> {}'.format(item.text()))
         for x in  self.NewsList:
             if item.text() == x.ArticleName:
                 if x.ArticleLink == '':
