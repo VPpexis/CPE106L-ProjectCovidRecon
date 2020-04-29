@@ -9,7 +9,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from UI import news_ui
-from WebScraping import WebScrapping
+from WebScraping import DOH_Scrapper
+from WebScraping import COVID19_Scrapper
 import webbrowser
 import ctypes
 
@@ -116,27 +117,12 @@ class Ui_MainWindow(object):
         self.overview_button.setObjectName("overview_button")
         self.verticalLayout.addWidget(self.overview_button)
 
-        #For testing.
-
-        '''
-        self.doh_list = QtWidgets.QListWidget(self.centralwidget)
-        self.doh_list.setGeometry(QtCore.QRect(240, 110, 520, 450))
-        self.doh_list.setObjectName('doh_list')
-        self.doh_list.addItem('GOVERNMENT LAUNCHES PUBLIC-PRIVATE TASK FORCE T3 (TEST, TRACE AND TREAT) TO SIGNIFICANTLY EXPAND RT-PCR TESTING CAPACITY')
-        self.doh_list.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.doh_list.setWordWrap(True)
-        self.doh_list.setSpacing(2)
-        self.doh_list.addItem('Gsflajf;alksdjfajflajsfalkfjlakjfsdk')
-        '''
 
         #News_UI
         self.doh_list = news_ui.news_ui(self.centralwidget)
         self.doh_list.setObjectName('doh_list')
 
-        news1 = news_ui.News()
-        news2 = news_ui.News()
-
-        ws = WebScrapping.WebScrapping()
+        ws = DOH_Scrapper.DOH_Scrapper()
         ws.run()
         rawData = ws.getData()
 
@@ -149,6 +135,20 @@ class Ui_MainWindow(object):
             array_data.append(data)
 
         self.doh_list.add_News(array_data)
+
+
+        #Data for Overview
+        
+        self.overview_data = COVID19_Scrapper.COVID19_Scrapper()
+
+        data = []
+        data = self.overview_data.x
+
+        self.cases_textBrowser.setText(data[0])
+        self.death_textBrowser.setText(data[1])
+        self.recoverd_textBrowser.setText(data[2])
+        
+
 
 
         self.charts_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
