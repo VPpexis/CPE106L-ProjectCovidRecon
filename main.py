@@ -19,8 +19,6 @@ import numpy as np
 from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
 
-myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 class Ui_MainWindow(object):
              
@@ -207,9 +205,6 @@ class Ui_MainWindow(object):
         self.line_3.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_3.setObjectName("line_3")
-        self.chartsView = QtWidgets.QGraphicsView(self.centralwidget)
-        self.chartsView.setGeometry(QtCore.QRect(230, 110, 541, 471))
-        self.chartsView.setObjectName("chartsView")
         self.about_button = QtWidgets.QPushButton(self.centralwidget)
         self.about_button.setGeometry(QtCore.QRect(20, 490, 158, 39))
         font = QtGui.QFont()
@@ -261,9 +256,20 @@ class Ui_MainWindow(object):
         self.actionAbout_Us.setObjectName("actionAbout_Us")
 
 
-        ### Essential para nakatago yung laman ng charts,location patterns bukod sa overview
+        #Charts UI
+        self.chartsView = QtWidgets.QGraphicsView(self.centralwidget)
+        self.chartsView.setGeometry(QtCore.QRect(230, 110, 541, 471))
+        self.chartsView.setObjectName("chartsView")
         self.chartsView.raise_()
         self.chartsView.hide()
+        
+        #Location UI
+        self.locationView = QtWidgets.QGraphicsView(self.centralwidget)
+        self.locationView.setGeometry(QtCore.QRect(230, 110, 541, 471))
+        self.locationView.setObjectName("locationView")
+        self.locationView.raise_()
+        self.locationView.hide()
+        
         
 
         #Patterns UI
@@ -348,20 +354,13 @@ class Ui_MainWindow(object):
         self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
         self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
 
-
-    def on_charts_clicked(self):
-        self.hide_overview_ui()
-        self.chartsView.show()
-        self.setup_chart()
     
     def setup_chart(self):
     # Making the layout for the graph
         layout = QtWidgets.QVBoxLayout(self.chartsView)
-    # sample graph nalang to sa baba
+        
         static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
         layout.addWidget(static_canvas)
-
-
         dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
         layout.addWidget(dynamic_canvas)
     
@@ -375,31 +374,14 @@ class Ui_MainWindow(object):
             50, [(self._update_canvas, (), {})])
         self._timer.start()
         
-    ### Sample Graph Pwede tangalin _update_canvas
+    ### Sample Graph _update_canvas(removable)
     def _update_canvas(self):
         self._dynamic_ax.clear()
         t = np.linspace(0, 10, 101)
-        # Use fixed vertical limits to prevent autoscaling changing the scale
-        # of the axis.
         self._dynamic_ax.set_ylim(-1.1, 1.1)
-        # Shift the sinusoid as a function of time.
         self._dynamic_ax.plot(t, np.sin(t + time.time()))
         self._dynamic_ax.figure.canvas.draw()
 
-    def on_location_clicked(self):
-        self.hide_overview_ui()
-        self.hide_charts_ui()
-        
-    def on_patterns_clicked(self):
-        self.hide_overview_ui()
-        self.hide_charts_ui()
-    
-    ### define nalang another method pag nagkaron ng pagbabago sa location and patterns
-    ### Update nalang mga methods
-    def hide_charts_ui(self):
-        self.chartsView.hide()
-        
-#hide methods
     def hide_overview_ui(self):
         self.total_cases.hide()
         self.total_death.hide()
@@ -408,15 +390,12 @@ class Ui_MainWindow(object):
         self.death_textBrowser.hide()
         self.recoverd_textBrowser.hide()
     
-    #def hide_charts_ui(self):
-        #wala pa
+    def hide_charts_ui(self):
+        self.chartsView.hide()
 
-
-    def on_overview_clicked(self):
-        self.hide_charts_ui()
         
-    #def hide_location_ui(self):
-        #wala pa
+    def hide_location_ui(self):
+        self.locationView.hide()
 
     def hide_patterns_ui(self):
         self.textBrowser_Current.hide()
@@ -438,11 +417,12 @@ class Ui_MainWindow(object):
         self.death_textBrowser.show()
         self.recoverd_textBrowser.show()
 
-    #def on_charts_ui(self):
-        #wala pa
+    def on_charts_ui(self):
+        self.chartsView.show()
+        self.setup_chart()
 
-    #def on_location_ui(self):
-        #wala pa
+    def on_location_ui(self):
+        self.locationView.show()
 
     def on_patterns_ui(self):
         self.textBrowser_Current.show()
@@ -458,36 +438,37 @@ class Ui_MainWindow(object):
     #button clicked methods
     def on_overview_clicked(self):
         self.on_overview_ui()
-        #self.hide_charts_ui()
-        #self.hide_location_ui()
+        self.hide_charts_ui()
+        self.hide_location_ui()
         self.hide_patterns_ui()
         self.hide_news_ui()
    
     def on_charts_clicked(self):
         self.hide_overview_ui()
-        #self.on_charts_ui()
-        #self.hide_location_ui()
+        self.on_charts_ui()
+        self.hide_location_ui()
         self.hide_patterns_ui()
         self.hide_news_ui()
 
     def on_location_clicked(self):
         self.hide_overview_ui()
-        #self.hide_charts_ui()
-        #self.on_location_ui()
+        self.hide_charts_ui()
+        self.on_location_ui()
         self.hide_patterns_ui()
         self.hide_news_ui()
+        
 
     def on_patterns_clicked(self):
         self.hide_overview_ui()
-        #self.hide_charts_ui()
-        #self.hide_location_ui()
+        self.hide_charts_ui()
+        self.hide_location_ui()
         self.on_patterns_ui()
         self.hide_news_ui()
 
     def on_news_clicked(self):
         self.hide_overview_ui()
-        #self.hide_charts_ui()
-        #self.hide_location_ui()
+        self.hide_charts_ui()
+        self.hide_location_ui()
         self.hide_patterns_ui()
         self.on_news_ui()
 
