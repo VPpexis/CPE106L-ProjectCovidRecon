@@ -239,6 +239,7 @@ class Ui_MainWindow(object):
         self.total_death.raise_()
         self.total_recovered.raise_()
         self.title_status.raise_()
+
         self.cases_textBrowser.raise_()
         self.death_textBrowser.raise_()
         self.recoverd_textBrowser.raise_()
@@ -303,6 +304,7 @@ class Ui_MainWindow(object):
         self.death_textBrowser.setText(data[1])
         self.recoverd_textBrowser.setText(data[2])
         #/Data for Overview
+
 
         self.charts_button.clicked.connect(self.on_charts_clicked)
         self.patterns_button.clicked.connect(self.on_patterns_clicked)
@@ -430,6 +432,7 @@ import main_img
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
+
 
     #Sets window icon
     app.setWindowIcon(QtGui.QIcon('Images/logo.png'))
