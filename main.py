@@ -405,9 +405,9 @@ class Ui_MainWindow(object):
             
             df = pd.DataFrame(result, columns=['date','cases'])
             data_cases = df[['date','cases']]
-            dates_x = data_cases['date'].tolist()
-            cases_y= np.cumsum(data_cases['cases'].tolist())
-
+            dates_x = data_cases['date']
+            ## Turn cases per day into cases increased per day
+            cases_y= np.cumsum(data_cases['cases'])
             plt.style.use('ggplot')
             
             self._static_ax = static_canvas.figure.subplots()
