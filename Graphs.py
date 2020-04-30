@@ -6,6 +6,7 @@ import webbrowser
 import pandas as pd 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import mysql.connector
 
 register_matplotlib_converters()
@@ -75,6 +76,8 @@ class Ui_MainWindow(object):
         
         self._static_ax = static_canvas.figure.subplots()
         self._static_ax.plot(dates_x,cases_y,label='Cases',color='r')
+        static_canvas.figure.autofmt_xdate()
+        static_canvas.figure.fmt_xdata = mdates.DateFormatter('%m-%d')
         
         plt.xlabel('Dates')
         plt.ylabel('Total Cases')
