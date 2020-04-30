@@ -44,13 +44,22 @@ for items in data_cases['City'].tolist():
 
 #ncr_cities.to_csv('temp.txt')
 
+combined=ncr_cities.merge(data_cases, on = 'City')
+#combined = ncr_cities.merge(data_cases, on= 'City', how = 'right')
 
+#For geo-intensity map plot
+ncr_map = combined.plot(
+        column = 'city_mun_res',
+        cmap = 'OrRd',
+        figsize = (10,10),
+        legend = True,
+        scheme = 'user_defined'
+        classification_keywords = {'bins':[10, 20, 50, 100, 500, 1000, 5000, 10000, 500000]},
+        edgecolor = 'black',
+        linewidth = (0,4)
+        )
 
-#combined=ncr_cities.merge(data_cases, on= 'City')
-
-
-
-
-
+ncr_map.set_title('Total Confirmed Coronavirus Cases in NCR', fondict = {'fontsize':20}, pad = 12,5)
+ncr_map.set_axis_off()
 
 # %%
