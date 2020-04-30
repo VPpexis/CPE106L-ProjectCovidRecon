@@ -15,7 +15,6 @@ import webbrowser
 import sys
 import time
 import numpy as np
-import ctypes
 
 from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
@@ -259,10 +258,38 @@ class Ui_MainWindow(object):
 
         #Charts UI
         self.chartsView = QtWidgets.QGraphicsView(self.centralwidget)
-        self.chartsView.setGeometry(QtCore.QRect(230, 110, 541, 471))
+        self.chartsView.setGeometry(QtCore.QRect(228, 149, 541, 441))
         self.chartsView.setObjectName("chartsView")
+        self.updateChart = QtWidgets.QPushButton(self.centralwidget)
+        self.updateChart.setGeometry(QtCore.QRect(550, 110, 221, 31))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.updateChart.setFont(font)
+        self.updateChart.setObjectName("updateChart")
+        self.updateChart.setText("Update")
+        self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(230, 100, 311, 51))
+        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.prevDate = QtWidgets.QDateEdit(self.horizontalLayoutWidget)
+        self.prevDate.setObjectName("prevDate")
+        self.horizontalLayout.addWidget(self.prevDate)
+        self.currentDate = QtWidgets.QDateEdit(self.horizontalLayoutWidget)
+        self.currentDate.setObjectName("currentDate")
+        self.horizontalLayout.addWidget(self.currentDate)
+        self.updateChart.raise_()
+        self.horizontalLayoutWidget.raise_()
+        self.prevDate.raise_()
+        self.currentDate.raise_()
         self.chartsView.raise_()
         self.chartsView.hide()
+        self.updateChart.hide()
+        self.horizontalLayoutWidget.hide()
+        self.prevDate.hide()
+        self.currentDate.hide()
+        #/ChartUI 
         
         #Location UI
         self.locationView = QtWidgets.QGraphicsView(self.centralwidget)
@@ -392,6 +419,10 @@ class Ui_MainWindow(object):
     
     def hide_charts_ui(self):
         self.chartsView.hide()
+        self.updateChart.hide()
+        self.horizontalLayoutWidget.hide()
+        self.prevDate.hide()
+        self.currentDate.hide()
 
         
     def hide_location_ui(self):
@@ -419,7 +450,12 @@ class Ui_MainWindow(object):
 
     def on_charts_ui(self):
         self.chartsView.show()
+        self.updateChart.show()
+        self.horizontalLayoutWidget.show()
+        self.prevDate.show()
+        self.currentDate.hide()
         self.setup_chart()
+        
 
     def on_location_ui(self):
         self.locationView.show()
