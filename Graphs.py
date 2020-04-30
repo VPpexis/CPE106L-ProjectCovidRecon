@@ -75,17 +75,16 @@ class Ui_MainWindow(object):
         plt.style.use('ggplot')
         
         self._static_ax = static_canvas.figure.subplots()
+        static_canvas.figure.autofmt_xdate() 
+        static_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
         self._static_ax.plot(dates_x,cases_y,label='Cases',color='r')
-        static_canvas.figure.autofmt_xdate()
-        static_canvas.figure.fmt_xdata = mdates.DateFormatter('%m-%d')
         
         plt.xlabel('Dates')
         plt.ylabel('Total Cases')
         plt.title('COVID Cases by Dates (NCR)')
         
-        plt.legend()
+        self._static_ax.legend()
         plt.tight_layout()
-        
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "COVIDRecon"))

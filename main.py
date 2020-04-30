@@ -5,20 +5,27 @@
 # Created by: PyQt5 UI code generator 5.13.2
 #
 # WARNING! All changes made in this file will be lost!
-
-import matplotlib.pyplot as plt
 from PyQt5 import QtCore, QtGui, QtWidgets
 from UI import news_ui
 from WebScraping import DOH_Scrapper
 from WebScraping import COVID19_Scrapper
-import webbrowser
-import sys
-import time
-import numpy as np
-
 from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
+from pandas.plotting import register_matplotlib_converters
+import webbrowser
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import mysql.connector 
 
+register_matplotlib_converters()
+data = mysql.connector.connect(
+    host="myrds1.cijcu6ghykxh.ap-southeast-1.rds.amazonaws.com",
+    user="myrds",
+    passwd="admin123",
+    database="myrds1"
+)
 
 class Ui_MainWindow(object):
              
@@ -289,6 +296,7 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget.hide()
         self.prevDate.hide()
         self.currentDate.hide()
+        self.chartlayout = 0
         #/ChartUI 
         
         #Location UI
@@ -385,30 +393,35 @@ class Ui_MainWindow(object):
     
     def setup_chart(self):
     # Making the layout for the graph
-        layout = QtWidgets.QVBoxLayout(self.chartsView)
-        static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
-        layout.addWidget(static_canvas)
-        dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
-        layout.addWidget(dynamic_canvas)
+        if self.chartlayout == 0:
+            layout = QtWidgets.QVBoxLayout(self.chartsView)
+            static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))  
+            layout.addWidget(static_canvas)
+            self.chartlayout = 1
+
+            cursor = data.cursor()
+            cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
+            result = cursor.fetchall()
+            
+            df = pd.DataFrame(result, columns=['date','cases'])
+            data_cases = df[['date','cases']]
+            dates_x = data_cases['date'].tolist()
+            cases_y= data_cases['cases'].tolist()
+            
+            plt.style.use('ggplot')
+            
+            self._static_ax = static_canvas.figure.subplots()
+            self._static_ax.plot(dates_x,cases_y,label='Cases',color='r')
+            static_canvas.figure.autofmt_xdate()
+            static_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+            
+            plt.xlabel('Dates')
+            plt.ylabel('Total Cases')
+            plt.title('COVID Cases by Dates (NCR)')
+            
+            self._static_ax.legend()
+            plt.tight_layout()
     
-
-        self._static_ax = static_canvas.figure.subplots()
-        t = np.linspace(0, 10, 501)
-        self._static_ax.plot(t, np.tan(t), ".")
-
-        self._dynamic_ax = dynamic_canvas.figure.subplots()
-        self._timer = dynamic_canvas.new_timer(
-            50, [(self._update_canvas, (), {})])
-        self._timer.start()
-        
-    ### Sample Graph _update_canvas(removable)
-    def _update_canvas(self):
-        self._dynamic_ax.clear()
-        t = np.linspace(0, 10, 101)
-        self._dynamic_ax.set_ylim(-1.1, 1.1)
-        self._dynamic_ax.plot(t, np.sin(t + time.time()))
-        self._dynamic_ax.figure.canvas.draw()
-
     def hide_overview_ui(self):
         self.total_cases.hide()
         self.total_death.hide()
@@ -453,7 +466,7 @@ class Ui_MainWindow(object):
         self.updateChart.show()
         self.horizontalLayoutWidget.show()
         self.prevDate.show()
-        self.currentDate.hide()
+        self.currentDate.show()
         self.setup_chart()
         
 
