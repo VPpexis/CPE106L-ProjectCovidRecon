@@ -1,6 +1,7 @@
 import pandas as pd
 import mysql.connector
 
+#Should be run on a server
 
 df = pd.read_csv('DB/COVID-19 Data 20204030.csv', encoding = "ISO-8859-1")
 is_NCR = df['RegionRes']=='NCR'
