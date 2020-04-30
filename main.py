@@ -406,8 +406,8 @@ class Ui_MainWindow(object):
             df = pd.DataFrame(result, columns=['date','cases'])
             data_cases = df[['date','cases']]
             dates_x = data_cases['date'].tolist()
-            cases_y= data_cases['cases'].tolist()
-            
+            cases_y= np.cumsum(data_cases['cases'].tolist())
+
             plt.style.use('ggplot')
             
             self._static_ax = static_canvas.figure.subplots()
