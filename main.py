@@ -362,7 +362,7 @@ class Ui_MainWindow(object):
         self.location_button.clicked.connect(self.on_location_clicked)
         self.overview_button.clicked.connect(self.on_overview_clicked)
         self.news_button.clicked.connect(self.on_news_clicked)
-
+        ##self.updateChart.clicked.connect(self.update_chart_clicked)
         self.on_overview_clicked()
 
     
@@ -395,8 +395,8 @@ class Ui_MainWindow(object):
     # Making the layout for the graph
         if self.chartlayout == 0:
             layout = QtWidgets.QVBoxLayout(self.chartsView)
-            static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))  
-            layout.addWidget(static_canvas)
+            self.static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))  
+            layout.addWidget(self.static_canvas)
             self.chartlayout = 1
 
             cursor = data.cursor()
@@ -408,16 +408,15 @@ class Ui_MainWindow(object):
             dates_x = data_cases['date']
             ## Turn cases per day into cases increased per day
             cases_y= np.cumsum(data_cases['cases'])
-            plt.style.use('ggplot')
             
-            self._static_ax = static_canvas.figure.subplots()
+        
+            self._static_ax = self.static_canvas.figure.subplots()
             self._static_ax.plot(dates_x,cases_y,label='Cases',color='r')
-            static_canvas.figure.autofmt_xdate()
-            static_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
-            
-            plt.xlabel('Dates')
-            plt.ylabel('Total Cases')
-            plt.title('COVID Cases by Dates (NCR)')
+            self.static_canvas.figure.autofmt_xdate()
+            self.static_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+            self._static_ax.set_title("COVID-19 Cases")
+            self._static_ax.set_xlabel("Dates")
+            self._static_ax.set_ylabel("Total Cases")
             
             self._static_ax.legend()
             plt.tight_layout()
@@ -498,7 +497,9 @@ class Ui_MainWindow(object):
         self.hide_location_ui()
         self.hide_patterns_ui()
         self.hide_news_ui()
-
+    
+    ##def update_chart_clicked(self):
+    
     def on_location_clicked(self):
         self.hide_overview_ui()
         self.hide_charts_ui()
