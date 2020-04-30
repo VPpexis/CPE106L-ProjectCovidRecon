@@ -359,7 +359,6 @@ class Ui_MainWindow(object):
     def setup_chart(self):
     # Making the layout for the graph
         layout = QtWidgets.QVBoxLayout(self.chartsView)
-        
         static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
         layout.addWidget(static_canvas)
         dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
