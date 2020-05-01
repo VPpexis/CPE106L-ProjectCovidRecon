@@ -1,1 +1,4 @@
 WebScraping/twitter_credentials.py
+WebScraping/__pycache__/
+UI/__pycache__/
+__pycache__/
