@@ -54,7 +54,7 @@ ncr_map = combined.plot(
         figsize = (10,10),
         legend = True,
         scheme = 'user_defined'
-        classification_keywords = {'bins':[10, 20, 50, 100, 500, 1000, 5000, 10000, 500000]},
+        classification_kwds = {'bins':[10, 20, 50, 100, 500, 1000, 5000, 10000, 500000]},
         edgecolor = 'black',
         linewidth = (0,4)
         )
