@@ -79,3 +79,8 @@ combined['coords'] = [coords[0] for coords in combined['coords']]
 for idx, row in combined.iterrows():
     plt.annotate(s=row['City'], xy=row['coords'],horizontalalignment='center')
     
+    
+    
+    
+    
+    
