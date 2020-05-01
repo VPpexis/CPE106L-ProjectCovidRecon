@@ -1,8 +1,9 @@
-#%%
 import pandas as pd 
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import mysql.connector
+import mapclassify
+import descartes
 
 #Connects to the db server
 data = mysql.connector.connect(
@@ -13,56 +14,54 @@ data = mysql.connector.connect(
 )
 
 cursor = data.cursor()
-cursor.execute("SELECT * FROM temp")
+cursor.execute("SELECT city_mun_res, COUNT(city_mun_res) FROM casesByNCR GROUP BY city_mun_res HAVING COUNT(city_mun_res) > 1;")
 result = cursor.fetchall()
 
-#Imports data from db and place it to a table
-df = pd.DataFrame(result, columns=['index','country','total_cases','total_deaths','total_recovered'])
-df.rename(columns={'country':'City','total_cases':'Total Cases'}, inplace=True)
-data_cases = df[['City','Total Cases']]
+df = pd.DataFrame(result, columns=['city_mun_res','COUNT(city_mun_res)'])
+df.rename(columns={'city_mun_res': 'City','COUNT(city_mun_res)':'Cases_per_City'}, inplace=True)
+df = df.set_index('City')
+df.drop(["Davao City",""], inplace=True)
 
-#Imports the map and changes the headers
-ncr_cities = gpd.read_file('ShapeFiles_NCR/Metropolitan Manila.shp')
-ncr_cities.rename(columns={'NAME_2':'City'}, inplace=True)
+ncr_cities = gpd.read_file('NCR_Map/NCR_PH.shp')
+ncr_cities.rename(columns={'name_2':'City'}, inplace=True)
 
-#Changes the Cities name.
+
+# #Changes the Cities name.
+ncr_cities.replace('Valenzuela', 'City of Valenzuela', inplace=True)
+ncr_cities.replace('San Juan', 'City of San Juan', inplace=True)
+ncr_cities.replace('Taguig', 'Taguig City', inplace=True)
+ncr_cities.replace('Pateros', 'Pateros', inplace=True)
+ncr_cities.replace('Quezon City', 'Quezon City', inplace=True)
+ncr_cities.replace('Pasay City', 'Pasay City',inplace=True)
+ncr_cities.replace('Pasig City', 'City of Pasig', inplace=True)
+ncr_cities.replace('Parañaque', 'City of Parañaque', inplace=True)
+ncr_cities.replace('Navotas', 'City of Navotas', inplace=True)
+ncr_cities.replace('Marikina', 'City of Marikina', inplace=True)
+ncr_cities.replace('Muntinlupa', 'City of Muntinlupa', inplace=True)
+ncr_cities.replace('Mandaluyong', 'City of Mandaluyong', inplace=True)
 ncr_cities.replace('Manila', 'City of Manila', inplace=True)
-ncr_cities.replace('Kalookan City', 'Caloocan', inplace=True)
-ncr_cities.replace('Makati City', 'Makati', inplace=True)
-ncr_cities.replace('Pasay City', 'Pasay', inplace=True)
-ncr_cities.replace('Pasig City', 'Pasig', inplace=True)
+ncr_cities.replace('Makati City', 'City of Makati', inplace=True)
+ncr_cities.replace('Malabon', 'City of Malabon', inplace=True)
+ncr_cities.replace('Las Piñas', 'City of Las Piñas', inplace=True)
+ncr_cities.replace('Kalookan City', 'Caloocan City', inplace=True)
 
 
-for items in data_cases['City'].tolist():
-    ncr_cities_list = ncr_cities['City'].tolist()
 
-    if items in ncr_cities_list:
-        pass
-    else:
+for index,rows in df.iterrows():
+    if index not in ncr_cities['City'].to_list():
         print(items + ' is not in the NCR cities list')
-
-
-#ncr_cities.to_csv('temp.txt')
-
-combined=ncr_cities.merge(data_cases, on = 'City')
-#combined = ncr_cities.merge(data_cases, on= 'City', how = 'right')
-
-#For geo-intensity map plot
-ncr_map = combined.plot(
-        column = 'city_mun_res',
+    else:
+        pass
+        
+combined=ncr_cities.merge(df, on = 'City')
+ax =combined.plot(column = 'Cases_per_City',
         cmap = 'OrRd',
         figsize = (10,10),
         legend = True,
         scheme = 'user_defined',
         classification_kwds = {'bins':[10, 20, 50, 100, 500, 1000, 5000, 10000, 500000]},
         edgecolor = 'black',
-        linewidth = (0,4)
-        )
-
-ncr_map.set_title('Total Confirmed Coronavirus Cases in NCR', fondict = {'fontsize':20}, pad = 12.5)
-ncr_map.set_axis_off()
-ncr_cities.plot()
-
-# %%
-
-# %%
+        linewidth = (0,0.8))
+ax.set_title('Total Confirmed COVID-19 Cases in NCR Today', fontdict =
+                  {'fontsize':20}, pad=12.5)
+ax.get_legend().set_bbox_to_anchor((1.3,0.3))
