@@ -74,6 +74,13 @@ class location_widget(QLabel):
         ax.set_title('Total Confirmed COVID-19 Cases in NCR Today', fontdict =
                         {'fontsize':20}, pad=12.5)
         ax.get_legend().set_bbox_to_anchor((1.3,0.3))
+        #ax.get_legend().set_bbox_to_anchor((0.9,0.3))
+        ax.annotate('Source: Wikipedia - https://en.wikipedia.org/wiki/Metro_Manila', xy=(0.6, .05), xycoords='figure fraction', fontsize=12, color='#FFFFFF')
+        combined['coords'] = combined['geometry'].apply(lambda x: x.representative_point().coords[:])
+        combined['coords'] = [coords[0] for coords in combined['coords']]
+        for idx, row in combined.iterrows():
+            plt.annotate(s=row['City'], xy=row['coords'],horizontalalignment='center')
+
         plt.savefig(os.path.join(sys.path[0], 'images\location.jpg'))
 
         pixmap = QPixmap(os.path.join(sys.path[0], 'images\location.jpg'))
