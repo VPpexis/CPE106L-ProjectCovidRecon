@@ -72,20 +72,19 @@ class location_widget(QLabel):
                 edgecolor = 'black',
                 linewidth = (0,0.8))
         ax.set_title('Total Confirmed COVID-19 Cases in NCR Today', fontdict =
-                        {'fontsize':20}, pad=12.5)
+                        {'fontsize':27}, pad=12.5)
         ax.get_legend().set_bbox_to_anchor((1.3,0.3))
-        plt.savefig(os.path.join(sys.path[0], 'images\location.jpg'))
-
-        pixmap = QPixmap(os.path.join(sys.path[0], 'images\location.jpg'))
+        plt.savefig(os.path.join(sys.path[0], 'images\location.png'))
+        pixmap = QPixmap(os.path.join(sys.path[0], 'images\location.png'))
+        pixmap = pixmap.scaled(650,570, Qt.KeepAspectRatio)
         self.setPixmap(pixmap)
         self.resize(pixmap.width(),pixmap.height())
 
-
-if __name__ == '__main__':
-    app = QApplication([])
-    volume = location_widget()
-    volume.show()
-    app.exec_()
+#if __name__ == '__main__':
+#    app = QApplication([])
+#    volume = location_widget()
+#    volume.show()
+#    app.exec_()
 
 
         
