@@ -133,10 +133,34 @@ Run the following commands to install Python.
 
 ## User Manual
 
+**Requirements:**
+*Anaconda (Latest Version)
+
 **Instructions:**
 
-1. **Understanding How to Use the Program**
+1. **Installing the Program** <br />
+    - To install the program, clone the repository by entering:
+    ```
+    $ git clone "https://github.com/VPpexis/CPE106L-ProjectCovidRecon.git"
+    ```
+    
+    - Open the `Anaconda Prompt` terminal and run:
+    
+    ```
+    $ conda env create -f environment.yml
+    ```
+    
+    - Run the newly created environment.
+    ```
+    $ conda activate CPE106_Proj
+    ```
+   
+    - Run the program by going to the specified directory and run:
+    ```
+    $ python main.py
+    ```
 
+2. **How to Use the Program** <br />
 
 
 
@@ -184,7 +208,7 @@ Run the following commands to install Python.
 * **Use Case Diagram**<br />
 - This diagram shows the interaction of the user within the system. It also shows the relationship between the user and the different use cases in which the user is involved.
 
-![UseCase]
+![UseCase](docs/UseCaseDiagram.png)
 
 
 ## Sample Screenshots
