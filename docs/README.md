@@ -1,14 +1,53 @@
 # COVIDRecon
 ![GitHub Logo](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/logo-github.jpg) <br />
+[![last-commit](https://img.shields.io/github/last-commit/HollowMan6/Retro-Snaker)](../../graphs/commit-activity)
+[![stars](https://img.shields.io/github/stars/HollowMan6/Retro-Snaker?style=social)](../../stargazers)
+[![forks](https://img.shields.io/github/forks/HollowMan6/Retro-Snaker?style=social)](../../network/members)
+
+## Getting Started
+**Project-CovidRecon** is a software application based from PyQt5 and Tweepy that tracks statuses of the number of Coronavirus Disease 2019 in National Captional Region in the Philippines. Through data science and mathematical models, the cases can be predicted and visualized through charts and tables. The application also provides prediction to the number of cases in the next days through logarithmic and exponential plotting.
 
 ### Project Members
+    1. Cinco, Cedrick - Front End
+    2. Baek, Seungyoon - Back End
+    3. Directo, Claudee Khiarra - Back End
+    4. Navarro, Laurence Kobe - Front End
+    5. Panugan, Van Philip - Full Stack 
+    6. Tipan, Ivan Patrick - Database Creator
 
-    1. Cinco, Cedrick
-    2. Baek, Seungyoon 
-    3. Directo, Claudee Khiarra 
-    4. Navarro, Laurence Kobe
-    5. Panugan, Van Philip
-    6. Tipan, Ivan Patrick
+This instructions will get you a copy of the project and running on your local machine for development and testing purpose.
+
+### Prerequesites
+    Anaconda (Latest Version)
+
+### Installing
+A step by step seires of example and guide to install the needed packages to run the project.
+- To install the program, clone the repository by entering:
+    ```
+    $ git clone "https://github.com/VPpexis/CPE106L-ProjectCovidRecon.git"
+    ```
+    
+- Open the Anaconda Prompt terminal and run:
+    ```
+   
+    $ conda env create -f environment.yml
+    ```
+    
+- Run the newly created environment.
+    ```
+    $ conda activate CPE106_Proj
+    ```
+   
+- Run the program by going to the specified directory and run:
+    ```
+    $ python main.py
+    ```
+
+### Built With
+* [Visual Studio Code](https://code.visualstudio.com/) - Coding Editor
+* [Anaconda](https://anaconda.org/) - Python Environment
+* [MySQLWorkBench](https://www.mysql.com/products/workbench/) - Database Management
+
 
 ## Table of Contents
 
@@ -133,8 +172,6 @@ Run the following commands to install Python.
 
 ## User Manual
 
-**Requirements:**
-*Anaconda (Latest Version)
 
 **Instructions:**
 
