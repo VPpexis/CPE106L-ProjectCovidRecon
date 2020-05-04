@@ -29,11 +29,6 @@ class news_ui(QtWidgets.QListWidget):
                 break
 
 
-class News():
-    def __init__(self):
-        self.ArticleName = ''
-        self.ArticleLink = ''
-
 if __name__ == '__main__':
     import sys
     app = QtWidgets.QApplication([])

@@ -13,9 +13,6 @@ def ncrdb(databaseloc):
     cases_NCR = cases_NCR.drop('RegionRes', 1)
     cases_NCR = cases_NCR.fillna('')
 
-
-    #print(cases_NCR)
-
     mydb = mysql.connector.connect(
         host = 'myrds1.cijcu6ghykxh.ap-southeast-1.rds.amazonaws.com',
         user = 'myrds',
@@ -25,11 +22,9 @@ def ncrdb(databaseloc):
 
     mycursor = mydb.cursor()
 
-
     sql = 'INSERT IGNORE INTO casesByNCR(case_code, age, age_group, sex, date_rep_conf, removal_type, admitted, city_mun_res, health_status) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);'
     cases_NCR = cases_NCR.values.tolist()
     mycursor.executemany(sql, cases_NCR)
-
     mydb.commit()
 
 def ph_DB(databaseloc):
@@ -37,8 +32,6 @@ def ph_DB(databaseloc):
 
     cases_ph = df.fillna('')
 
-    print(cases_ph)
-
     mydb = mysql.connector.connect(
         host = 'myrds1.cijcu6ghykxh.ap-southeast-1.rds.amazonaws.com',
         user = 'myrds',
@@ -48,10 +41,8 @@ def ph_DB(databaseloc):
 
     mycursor = mydb.cursor()
 
-
     sql = 'INSERT IGNORE INTO casesByPH(case_code, age, age_group, sex, date_rep_conf, removal_type, admitted, region_res, city_mun_res, health_status) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);'
     cases_ph = cases_ph.values.tolist()
-    print(cases_ph)
     mycursor.executemany(sql, cases_ph)
 
     mydb.commit()

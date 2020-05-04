@@ -38,6 +38,7 @@ class getpastdate():
             return final_results
 
         except ValueError:
+            #print('Not a number!')
             return
 
     def patterns_expected(self):
@@ -46,10 +47,17 @@ class getpastdate():
         week1=math.log(gpd.get_past(7))
         week2=math.log(gpd.get_past(14))
         week3=math.log(gpd.get_past(21))
+        #self.textBrowser_Current.setText(str(week0)) #current
         varA=(week0-week3)/3
+        #print("A="+str(varA))
         varB=((week0+week1+week2+week3)/4)-1.5*varA
+        #print("B="+str(varB))
         expected=math.exp((varA)*(4)+varB)
+
         return int(expected)
+
+    
+
 
 if __name__ == '__main__':
     gpd = getpastdate()
