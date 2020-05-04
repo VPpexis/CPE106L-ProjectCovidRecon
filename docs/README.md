@@ -224,17 +224,17 @@ Run the following commands to install Python.
 
 ## Sample Screenshots
 
-![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_main.png)
+![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_main.png) <br />
 Figure 1.0 * *Main Interface* *
 
-![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_charts.png)
+![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_charts.png) <br />
 Figure 2.0 * *Graph Interface* *
 
-![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_geoloc.png)
+![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_geoloc.png) <br />
 Figure 3.0 * *Geographical Location Tab Interface* *
 
-![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_patterns.png)
+![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_pattern.png) <br />
 Figure 4.0 * *Prediction of Patterns* *
 
-![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_news.png)
+![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_news.png) <br />
 Figure 5.0 * *Department of Health News* *
