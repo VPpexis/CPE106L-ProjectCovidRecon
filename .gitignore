@@ -1,6 +1,7 @@
 WebScraping/twitter_credentials.py
 WebScraping/__pycache__/
 UI/__pycache__/
+UnitTest/__pycache__
 __pycache__/
 Images/location.png
 
