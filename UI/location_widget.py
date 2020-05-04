@@ -72,7 +72,7 @@ class location_widget(QLabel):
                 edgecolor = 'black',
                 linewidth = (0,0.8))
         ax.set_title('Total Confirmed COVID-19 Cases in NCR Today', fontdict =
-                        {'fontsize':20}, pad=12.5)
+                        {'fontsize':27}, pad=12.5)
         ax.get_legend().set_bbox_to_anchor((1.3,0.3))
         #ax.get_legend().set_bbox_to_anchor((0.9,0.3))
         ax.annotate('Source: Wikipedia - https://en.wikipedia.org/wiki/Metro_Manila', xy=(0.6, .05), xycoords='figure fraction', fontsize=12, color='#FFFFFF')
@@ -84,15 +84,15 @@ class location_widget(QLabel):
         plt.savefig(os.path.join(sys.path[0], 'images\location.jpg'))
 
         pixmap = QPixmap(os.path.join(sys.path[0], 'images\location.jpg'))
+
         self.setPixmap(pixmap)
         self.resize(pixmap.width(),pixmap.height())
 
-
-if __name__ == '__main__':
-    app = QApplication([])
-    volume = location_widget()
-    volume.show()
-    app.exec_()
+#if __name__ == '__main__':
+#    app = QApplication([])
+#    volume = location_widget()
+#    volume.show()
+#    app.exec_()
 
 
         
