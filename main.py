@@ -17,9 +17,10 @@ import time
 import numpy as np
 import ctypes
 from location_widget import location_widget
-
 from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
+import matplotlib.dates as mdates
+import mysql.connector
   
 
 class Ui_MainWindow(object):
@@ -197,7 +198,6 @@ class Ui_MainWindow(object):
         self.about_button.setIcon(icon4)
         self.about_button.setIconSize(QtCore.QSize(30, 30))
         self.about_button.setObjectName("about_button")
-        
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(270, 10, 71, 81))
         self.label.setStyleSheet("image: url(:/header/Images/philippines.png);")
@@ -220,7 +220,6 @@ class Ui_MainWindow(object):
         self.total_death.raise_()
         self.total_recovered.raise_()
         self.title_status.raise_()
-
         self.cases_textBrowser.raise_()
         self.death_textBrowser.raise_()
         self.recoverd_textBrowser.raise_()
@@ -237,14 +236,12 @@ class Ui_MainWindow(object):
         self.actionAbout_Us = QtWidgets.QAction(MainWindow)
         self.actionAbout_Us.setObjectName("actionAbout_Us")
 
-        
         #Charts UI
         self.chartsView = QtWidgets.QGraphicsView(self.centralwidget)
         self.chartsView.setGeometry(QtCore.QRect(250, 130, 541, 471))
         self.chartsView.setObjectName("chartsView")
-        self.chartsView.raise_()
-        self.chartsView.hide()
-        
+        self.setup_chart()
+
         #Location UI
         self.locationView = QtWidgets.QLabel(self.centralwidget)
         self.locationView.setGeometry(QtCore.QRect(240, 110, 660, 520))
@@ -324,7 +321,6 @@ class Ui_MainWindow(object):
         self.location_button.clicked.connect(self.on_location_clicked)
         self.overview_button.clicked.connect(self.on_overview_clicked)
         self.news_button.clicked.connect(self.on_news_clicked)
-
         self.on_overview_clicked()
 
     
@@ -355,30 +351,36 @@ class Ui_MainWindow(object):
     
     def setup_chart(self):
     # Making the layout for the graph
+        mydb = mysql.connector.connect(
+        host = 'myrds1.cijcu6ghykxh.ap-southeast-1.rds.amazonaws.com',
+        user = 'myrds',
+        passwd = 'admin123',
+        database = 'myrds1'
+        )
+        mycursor = mydb.cursor()
+        mycursor.execute('SELECT date_rep_conf, COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;')
+        myresults = mycursor.fetchall()
+        
+        x = []
+        y = []
+        for row in myresults:
+            x.append(row[0])
+            y.append(row[1])
+        print(y)
+
         layout = QtWidgets.QVBoxLayout(self.chartsView)
-        
-        static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
+        static_canvas = FigureCanvasQTAgg(Figure(figsize=(5,10)))
         layout.addWidget(static_canvas)
-        dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
-        layout.addWidget(dynamic_canvas)
-    
-
-        self._static_ax = static_canvas.figure.subplots()
-        t = np.linspace(0, 10, 501)
-        self._static_ax.plot(t, np.tan(t), ".")
-
-        self._dynamic_ax = dynamic_canvas.figure.subplots()
-        self._timer = dynamic_canvas.new_timer(
-            50, [(self._update_canvas, (), {})])
-        self._timer.start()
         
-    ### Sample Graph _update_canvas(removable)
-    def _update_canvas(self):
-        self._dynamic_ax.clear()
-        t = np.linspace(0, 10, 101)
-        self._dynamic_ax.set_ylim(-1.1, 1.1)
-        self._dynamic_ax.plot(t, np.sin(t + time.time()))
-        self._dynamic_ax.figure.canvas.draw()
+        static_canvas.figure.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d/%Y'))
+        static_canvas.figure.gca().xaxis.set_major_locator(mdates.DayLocator(interval=5))
+        self._static_ax = static_canvas.figure.add_subplot(111)
+        self._static_ax.clear()
+        self._static_ax.plot(x,y)
+        self._static_ax.set_title('Cases per day.')
+        static_canvas.figure.autofmt_xdate()
+        static_canvas.draw()
+
 
     def hide_overview_ui(self):
         self.total_cases.hide()
@@ -402,7 +404,6 @@ class Ui_MainWindow(object):
 
     def hide_news_ui(self):
         self.doh_list.hide()
-
     
 
     #show methods
@@ -416,7 +417,6 @@ class Ui_MainWindow(object):
 
     def on_charts_ui(self):
         self.chartsView.show()
-        self.setup_chart()
 
     def on_location_ui(self):
         self.locationView.show()
@@ -426,11 +426,9 @@ class Ui_MainWindow(object):
         self.textBrowser_Tomorrow.show()
         self.label_Current.show()
         self.label_Tomorrow.show()
-        
     
     def on_news_ui(self):
         self.doh_list.show()
-
 
     #button clicked methods
     def on_overview_clicked(self):
@@ -469,12 +467,11 @@ class Ui_MainWindow(object):
         self.hide_patterns_ui()
         self.on_news_ui()
 
-import main_img
 
+import main_img
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-
 
     #Sets window icon
     app.setWindowIcon(QtGui.QIcon('Images/logo.png'))
@@ -482,9 +479,6 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-
-    #Sets to Frameless Window
-    #MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
 
     MainWindow.show()
     sys.exit(app.exec_())
