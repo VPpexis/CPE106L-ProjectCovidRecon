@@ -78,12 +78,14 @@ Run the following commands to install Python.
   ##### Packages:
 * **Pandas** <br />
   - Run the following command to install `pandas` using pip
+
     ```
     $ pip install pandas 
     ```
 
 * **BeautifulSoup4** <br />
   - Run the following command to install `beautifulsoup4` using pip
+
     ```
     $ pip install beautifulsoup4
     ```
@@ -102,12 +104,15 @@ Run the following commands to install Python.
 
 * **Numpy** <br />
   - Run the following command to install `numpy` using pip
+
     ``` 
     $ pip install numpy
     ```
 
 * **PyQt** <br />
+
   - To install `PyQt`, type in the terminal:
+  
     ```
     $ pip3 install --user pyqt5  
     $ sudo apt-get install python3-pyqt5  
