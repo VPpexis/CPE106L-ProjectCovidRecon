@@ -291,9 +291,14 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.prevDate = QtWidgets.QDateEdit(self.horizontalLayoutWidget)
+        self.prevDate.setMinimumDate(QtCore.QDate(2020, 3, 8))
+        self.prevDate.setDate(QtCore.QDate(2020, 3, 8))
         self.prevDate.setObjectName("prevDate")
         self.horizontalLayout.addWidget(self.prevDate)
         self.currentDate = QtWidgets.QDateEdit(self.horizontalLayoutWidget)
+        self.currentDate.setMinimumDateTime(QtCore.QDateTime(QtCore.QDate(2020, 3, 9), QtCore.QTime(0, 0, 0)))
+        self.currentDate.setMinimumDate(QtCore.QDate(2020, 3, 9))
+        self.currentDate.setDate(QtCore.QDate(2020, 3, 9))
         self.currentDate.setObjectName("currentDate")
         self.horizontalLayout.addWidget(self.currentDate)
         self.updateChart_button.raise_()
@@ -435,9 +440,8 @@ class Ui_MainWindow(object):
             dynamic_ax.plot(x,y,label='Cases',color='r')
             
             dynamic_ax.legend()
-            dynamic_ax.set_xlabel('Dates')
+            dynamic_ax.set_xlabel('Dates of Report')
             dynamic_ax.set_ylabel('Number of Cases')
-
             dynamic_ax.set_title('COVID-19 Cases')
             self.layoutlim = 1
         
@@ -461,6 +465,9 @@ class Ui_MainWindow(object):
         self.dynamic_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
         dynamic_ax.plot(x,y,label='Cases',color='r')
         dynamic_ax.legend()
+        dynamic_ax.set_xlabel('Dates of Report')
+        dynamic_ax.set_ylabel('Number of Cases')
+        dynamic_ax.set_title('COVID-19 Cases')
         
     def delete_canvas(self):
         self.dynamic_canvas.deleteLater()
