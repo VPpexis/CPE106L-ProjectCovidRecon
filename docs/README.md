@@ -112,7 +112,7 @@ Run the following commands to install Python.
 * **PyQt** <br />
 
   - To install `PyQt`, type in the terminal:
-  
+
     ```
     $ pip3 install --user pyqt5  
     $ sudo apt-get install python3-pyqt5  
@@ -181,7 +181,10 @@ Run the following commands to install Python.
         2.4 Show Geographical Data (Overview)<br />
   
 ## System Architecture
-* **Case Diagram**<br />
+* **Use Case Diagram**<br />
+- This diagram shows the interaction of the user within the system. It also shows the relationship between the user and the different use cases in which the user is involved.
+
+![UseCase]
 
 
 ## Sample Screenshots
