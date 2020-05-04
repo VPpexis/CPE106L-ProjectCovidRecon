@@ -1,4 +1,4 @@
-# COVIDRecon (https://vppexis.github.io/CPE106L-ProjectCovidRecon/)
+# COVIDRecon
 ![GitHub Logo](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/logo-github.jpg) <br />
 
 ### Project Members
