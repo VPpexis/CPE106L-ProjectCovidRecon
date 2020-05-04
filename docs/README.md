@@ -2,6 +2,7 @@
 ![GitHub Logo](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/logo-github.jpg) <br />
 ![Stars](https://img.shields.io/github/stars/HollowMan6/Retro-Snaker?style=social)
 ![Forks](https://img.shields.io/github/forks/VPpexis/CPE106L-ProjectCovidRecon)
+![Commits](https://img.shields.io/github/last-commit/VPpexis/CPE106L-ProjectCovidRecon)
 
 ## Getting Started
 **Project-CovidRecon** is a software application based from PyQt5 and Tweepy that tracks statuses of the number of Coronavirus Disease 2019 in National Captional Region in the Philippines. Through data science and mathematical models, the cases can be predicted and visualized through charts and tables. The application also provides prediction to the number of cases in the next days through logarithmic and exponential plotting.
