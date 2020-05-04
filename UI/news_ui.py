@@ -27,6 +27,11 @@ class news_ui(QtWidgets.QListWidget):
                     return
                 webbrowser.open(x.ArticleLink)
                 break
+    
+class News():
+    def __init__(self):
+        self.ArticleName = ''
+        self.ArticleLink = ''
 
 
 if __name__ == '__main__':
