@@ -18,22 +18,23 @@ data = mysql.connector.connect(
 )
 
 class Ui_MainWindow(object):
+    
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(781, 616)
         MainWindow.setToolTipDuration(0)
+        self.layoutlim =0
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.chartsView = QtWidgets.QGraphicsView(self.centralwidget)
         self.chartsView.setGeometry(QtCore.QRect(228, 149, 541, 441))
         self.chartsView.setObjectName("chartsView")
-        self.updateChart = QtWidgets.QPushButton(self.centralwidget)
-        self.updateChart.setGeometry(QtCore.QRect(550, 110, 221, 31))
+        self.updateChart_button = QtWidgets.QPushButton(self.centralwidget)
+        self.updateChart_button.setGeometry(QtCore.QRect(550, 110, 221, 31))
         font = QtGui.QFont()
         font.setPointSize(14)
-        self.updateChart.setFont(font)
-        self.updateChart.setObjectName("updateChart")
-        self.updateChart.setText("Update")
+        self.updateChart_button.setFont(font)
+        self.updateChart_button.setObjectName("updateChart_button")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(230, 100, 311, 51))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
@@ -53,42 +54,64 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.actionAbout_Us = QtWidgets.QAction(MainWindow)
         self.actionAbout_Us.setObjectName("actionAbout_Us")
-        self.updateChart.raise_()
+        self.updateChart_button.raise_()
         self.horizontalLayoutWidget.raise_()
         self.prevDate.raise_()
         self.currentDate.raise_()
         self.chartsView.raise_()
         
-        layout = QtWidgets.QVBoxLayout(self.chartsView)
-        static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
-        layout.addWidget(static_canvas)
-
+        self.updateChart_button.clicked.connect(self._update_button)
+    
+    def data_gather(self):
         cursor = data.cursor()
         cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
         result = cursor.fetchall()
+            
+        self.df = pd.DataFrame(result, columns=['date','cases'])
+        self.data_cases = self.df[['date','cases']]
         
-        df = pd.DataFrame(result, columns=['date','cases'])
-        data_cases = df[['date','cases']]
-        dates_x = data_cases['date'].tolist()
-        cases_y= data_cases['cases'].tolist()
         
-        plt.style.use('ggplot')
+    def setup_chart(self):
         
-        self._static_ax = static_canvas.figure.subplots()
-        static_canvas.figure.autofmt_xdate() 
-        static_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
-        self._static_ax.plot(dates_x,cases_y,label='Cases',color='r')
+        layout = QtWidgets.QVBoxLayout(self.chartsView)
+        self.dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
+        layout.addWidget(self.dynamic_canvas)
+            
+        x = self.data_cases['date']
+        y = np.cumsum(self.data_cases['cases'])
         
-        plt.xlabel('Dates')
-        plt.ylabel('Total Cases')
-        plt.title('COVID Cases by Dates (NCR)')
+            
+        self._dynamic_ax = self.dynamic_canvas.figure.subplots()
+        self.dynamic_canvas.figure.autofmt_xdate() 
+        self.dynamic_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+        self._dynamic_ax.plot(x,y,label='Cases',color='r')
         
-        self._static_ax.legend()
-        plt.tight_layout()
+    
+            
+        self._dynamic_ax.legend()
+        self.layoutlim = 1
+    
+    def update_chart(self):
+        self.minDate= self.prevDate.date()
+        self.maxDate = self.currentDate.date()
+        print(self.df)
+        
+    def delete_canvas(self):
+        self.dynamic_canvas.deleteLater()
+        
+    def _update_button(self):
+        
+        self.data_gather()
+        if self.layoutlim == 0:
+            self.setup_chart()    
+        else:
+            self.update_chart()
+            
+        
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "COVIDRecon"))
-        self.updateChart.setText(_translate("MainWindow", "Update"))
+        self.updateChart_button.setText(_translate("MainWindow", "Update"))
         
 
 import main_img

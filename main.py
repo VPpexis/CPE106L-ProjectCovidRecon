@@ -267,13 +267,13 @@ class Ui_MainWindow(object):
         self.chartsView = QtWidgets.QGraphicsView(self.centralwidget)
         self.chartsView.setGeometry(QtCore.QRect(228, 149, 541, 441))
         self.chartsView.setObjectName("chartsView")
-        self.updateChart = QtWidgets.QPushButton(self.centralwidget)
-        self.updateChart.setGeometry(QtCore.QRect(550, 110, 221, 31))
+        self.updateChart_button = QtWidgets.QPushButton(self.centralwidget)
+        self.updateChart_button.setGeometry(QtCore.QRect(550, 110, 221, 31))
         font = QtGui.QFont()
         font.setPointSize(14)
-        self.updateChart.setFont(font)
-        self.updateChart.setObjectName("updateChart")
-        self.updateChart.setText("Update")
+        self.updateChart_button.setFont(font)
+        self.updateChart_button.setObjectName("updateChart_button")
+        self.updateChart_button.setText("Update")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(230, 100, 311, 51))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
@@ -286,13 +286,13 @@ class Ui_MainWindow(object):
         self.currentDate = QtWidgets.QDateEdit(self.horizontalLayoutWidget)
         self.currentDate.setObjectName("currentDate")
         self.horizontalLayout.addWidget(self.currentDate)
-        self.updateChart.raise_()
+        self.updateChart_button.raise_()
         self.horizontalLayoutWidget.raise_()
         self.prevDate.raise_()
         self.currentDate.raise_()
         self.chartsView.raise_()
         self.chartsView.hide()
-        self.updateChart.hide()
+        self.updateChart_button.hide()
         self.horizontalLayoutWidget.hide()
         self.prevDate.hide()
         self.currentDate.hide()
@@ -356,13 +356,12 @@ class Ui_MainWindow(object):
         self.recoverd_textBrowser.setText(data[2])
         #/Data for Overview
 
-
+        self.updateChart_button.clicked.connect(self.on_update_chart_clicked)
         self.charts_button.clicked.connect(self.on_charts_clicked)
         self.patterns_button.clicked.connect(self.on_patterns_clicked)
         self.location_button.clicked.connect(self.on_location_clicked)
         self.overview_button.clicked.connect(self.on_overview_clicked)
         self.news_button.clicked.connect(self.on_news_clicked)
-        ##self.updateChart.clicked.connect(self.update_chart_clicked)
         self.on_overview_clicked()
 
     
@@ -395,32 +394,33 @@ class Ui_MainWindow(object):
     # Making the layout for the graph
         if self.chartlayout == 0:
             layout = QtWidgets.QVBoxLayout(self.chartsView)
-            self.static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))  
-            layout.addWidget(self.static_canvas)
-            self.chartlayout = 1
-
+            static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))  
+            layout.addWidget(static_canvas)
             cursor = data.cursor()
             cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
             result = cursor.fetchall()
             
             df = pd.DataFrame(result, columns=['date','cases'])
-            data_cases = df[['date','cases']]
-            dates_x = data_cases['date']
-            ## Turn cases per day into cases increased per day
-            cases_y= np.cumsum(data_cases['cases'])
-            
+            self.data_cases = df[['date','cases']]
+            dates_x = self.data_cases['date']
+            cases_y= np.cumsum(self.data_cases['cases'])
         
-            self._static_ax = self.static_canvas.figure.subplots()
-            self._static_ax.plot(dates_x,cases_y,label='Cases',color='r')
-            self.static_canvas.figure.autofmt_xdate()
-            self.static_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+            self._static_ax =static_canvas.figure.subplots()
+            self.lines = self._static_ax.plot(dates_x,cases_y,label='Cases',color='r')
+            static_canvas.figure.autofmt_xdate()
+            static_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
             self._static_ax.set_title("COVID-19 Cases")
             self._static_ax.set_xlabel("Dates")
             self._static_ax.set_ylabel("Total Cases")
-            
+            self._static_ax.grid(color='grey', linewidth=1)
             self._static_ax.legend()
-            plt.tight_layout()
-    
+            self.chartlayout = 1
+        elif self.chartlayout == 1:
+            layout = QtWidgets.QVBoxLayout(self.chartsView)
+            static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
+            self._static_ax = static_canvas.figure.subplots()
+            self.lines = self._static_ax.plot(2,1,label='Ca ses',color='r')
+     
     def hide_overview_ui(self):
         self.total_cases.hide()
         self.total_death.hide()
@@ -431,7 +431,7 @@ class Ui_MainWindow(object):
     
     def hide_charts_ui(self):
         self.chartsView.hide()
-        self.updateChart.hide()
+        self.updateChart_button.hide()
         self.horizontalLayoutWidget.hide()
         self.prevDate.hide()
         self.currentDate.hide()
@@ -462,7 +462,7 @@ class Ui_MainWindow(object):
 
     def on_charts_ui(self):
         self.chartsView.show()
-        self.updateChart.show()
+        self.updateChart_button.show()
         self.horizontalLayoutWidget.show()
         self.prevDate.show()
         self.currentDate.show()
@@ -497,9 +497,14 @@ class Ui_MainWindow(object):
         self.hide_location_ui()
         self.hide_patterns_ui()
         self.hide_news_ui()
-    
-    ##def update_chart_clicked(self):
-    
+        
+    def on_update_chart_clicked(self):
+        self.minDate= self.prevDate.date()
+        self.maxDate = self.currentDate.date()
+        print(self.minDate)
+        print(self.maxDate)
+        self.setup_chart()
+        
     def on_location_clicked(self):
         self.hide_overview_ui()
         self.hide_charts_ui()
