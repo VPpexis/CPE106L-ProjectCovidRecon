@@ -4,8 +4,8 @@
 ### Project Members
 
     1. Cinco, Cedrick
-    2. Directo, Claudee Khiarra
-    3. Bake, Seungyoon
+    2. Baek, Seungyoon 
+    3. Directo, Claudee Khiarra 
     4. Navarro, Laurence Kobe
     5. Panugan, Van Philip
     6. Tipan, Ivan Patrick
@@ -121,20 +121,36 @@ Run the following commands to install Python.
 ### Languages
 
 ## User Cases
+
 1. Actors
      * **Customer User** <br />
-     
+        1.1 Customer is a user who works with the features of the program. The program consist of different tabs such as 'to look overall status of cases, deaths and recovered patients', view the cases in graph form, 'to view latest Department of Health news', and 'to look information about the developers redirecting to Github Repository'.
+
+        All of these aforementioned actions of use cases are all the features that the customer may access in the entire program.
          
      * **Software Developer** <br />
-     
+        1.2 The main role of a software developer is to identify, test and maintain the database where the sources come from and the future bugs that the customer user may experience from the application.
+
+        The developer gets data from the following sources such as Department Health Offical and trusted Twitter news accounts by using Tweepy webscraping. The developer is the one who will normalize data storing it to the database. These data will be the sole basis in the overall functionality of the tracker program.
         
 2. List of Use Cases
      * **Customer User Cases** <br />
-     
+        2.1 Display Status (Overview)
+          2.1.2 Show Total Cases (Detail)
+          2.1.3 Show Total Deaths (Detail)
+          2.1.4 Show Total Recoveries (Detail)
+        2.2 Visualize Data through Charts (Overview)
+          2.2.1 Display Graph
+        2.3 Show Geographical Location of Data (Overview)
+        2.4 Preview Latest Updates (Detail)
+        2.5 Predict Cases (Overall)
+        2.6 Display Developer Team Informations (Detail)
 
      * **Software Developer Case** <br />
-     
-            
+        2.1 Show Status (Detail)
+        2.2 Show Stored Data (Detail)
+        2.3 Save Data in Database (Detail)
+        2.4 Show Geographical Data (Overview)
   
 ## System Architecture
 * **Case Diagram**
