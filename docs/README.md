@@ -1,6 +1,6 @@
-# [Project-CovidRecon](https://vppexis.github.io/CPE106L-ProjectCovidRecon/)
+# COVIDRecon
+![GitHub Logo](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/logo-github.jpg) <br />
 
-Project-CovidRecon is a software application based from PyQt5 and Tweepy that tracks statuses of the number of Coronavirus Disease 2019 in National Captional Region in the Philippines. Through data science and mathematical models, the cases can be predicted and visualized through charts and tables. The application also provides prediction to the number of cases in the next days through logarithmic and exponential plotting.
 ### Project Members
 
     1. Cinco, Cedrick
@@ -10,65 +10,35 @@ Project-CovidRecon is a software application based from PyQt5 and Tweepy that tr
     5. Panugan, Van Philip
     6. Tipan, Ivan Patrick
 
+## Table of Contents
 
-## Getting Started
+- [Overview](#overview) <br />
+  - [Purpose](#purpose) <br />
+- [Introduction](#introduction) <br />
+  - [Scope](#scope) <br />
+  - [Requirements](#requirements) <br />
+  - [Definitions] (definitions-acronyms-and-abbreviations)
+ - [Target Audience](#target-audience) <br />
+ - [Focus Areas](#focus-areas) <br />
+    - [Scenarios](#scenarios) <br />
+    - [Languages](#languages) <br />
+ - [User Stories](#user-stories) <br />
+ - [System Architecture](#system-architecture) <br />
+  - [User Stories](#user-stories) <br />
+ - [Sample Screenshots](#sample-screenshots) <br />
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-### Running the Program
-
-1. Install al the requirements
-2. Run in terminal 'python main.py'
-
-
-### Prerequisites
-
-Python 3.7
-
-```
-Can be access by entering "python" in the terminal.
-```
-
-Written by: Laurence Kobe Navarro, Claudee Directo & Cedrick Cinco
-
-PyQt5
-
-```
-PyQt5 designer can be accessed through Anaconda Prompt by entering "designer".
-```
-
-Tweepy
-# Introduction
-Data Science and mathematical models can help in shedding light on the evolution of the novel Coronavirus pandemic. By predicting, visualizing, and analyzing the virus, we will be able to put up an immunity against it through the help of data and information. This is an application that can forecast real-time COVID-19 data that can fill the gap between users and various sources of information in order to produce reliable data.  As the world plunged into a pandemic caused by COVID-19, both technology and medical field tries to understand how the virus had spread exponentially across the globe as well as on how to cure it. As people get wary about the health implications this pandemic poses on their health, economic, and social activity – they also want to gain information. However, to this day, there isn't a well-centered outlet to get data visualization and prediction of COVID-19, false information might constitute to the delay of the dissection of current data. With this application, it aims to bridge the user and the different sources of data that could visualize it for beneficiaries – not just for the people, but for health workers, and even for the common knowledge of the government. It delivers visualized data, its analysis, and the prediction of the movement of the virus. 
+## Overview
+Project-CovidRecon is a software application based from PyQt5 and Tweepy that tracks statuses of the number of Coronavirus Disease 2019 in National Captional Region in the Philippines. Through data science and mathematical models, the cases can be predicted and visualized through charts and tables. The application also provides prediction to the number of cases in the next days through logarithmic and exponential plotting.
 
 ## Purpose
 The purpose of the program is as follows:
-    
 * To gather COVID-19 data cases and its location
-    
-*  To visualize the data into charts.
-    
+* To visualize the data into charts.
 * To predict the logarithmic and exponential pattern
-    
 * To show the geographical status of each province.
 
-```
-Give examples
-```
-
-### Installing
-
-Python 3.7
-
-Python is an interpreted, high-level, general-purpose programming language. The official website of Python is https://www.python.org/. After navigating the download site with your Linux browser, click the appropriate link for your version of Linux you wish to install, then click SAVE. 
-
-When the file is already downloaded, double click to extract. After then, open the Linux terminal.
-
-Type the following commands then press enter:
-```
-sudo apt-get install build-essential 
-sudo apt-get install libsqlite3-dev
-sudo apt-get install libbz2-dev
-```
+# Introduction
+Data Science and mathematical models can help in shedding light on the evolution of the novel Coronavirus pandemic. By predicting, visualizing, and analyzing the virus, we will be able to put up an immunity against it through the help of data and information. This is an application that can forecast real-time COVID-19 data that can fill the gap between users and various sources of information in order to produce reliable data.  As the world plunged into a pandemic caused by COVID-19, both technology and medical field tries to understand how the virus had spread exponentially across the globe as well as on how to cure it. As people get wary about the health implications this pandemic poses on their health, economic, and social activity – they also want to gain information. However, to this day, there isn't a well-centered outlet to get data visualization and prediction of COVID-19, false information might constitute to the delay of the dissection of current data. With this application, it aims to bridge the user and the different sources of data that could visualize it for beneficiaries – not just for the people, but for health workers, and even for the common knowledge of the government. It delivers visualized data, its analysis, and the prediction of the movement of the virus. 
 
 ## Scope
 
@@ -89,6 +59,48 @@ sudo make altinstall
 The system may ask you for your administrator password. Type your password and press Enter. At this point, a number of tasks take place as the system installs Python on your system.
 
 
+### Requirements
+* **An IDE** <br />
+The developers used Visual Studio Code. Download it by going to the VS Code website https://code.visualstudio.com/, and choose what works for your system.
+
+* **Python** <br />
+Python is an interpreted, high-level, general-purpose programming language. The official website of Python is https://www.python.org/. After navigating the download site with your Linux browser, click the appropriate link for your version of Linux you wish to install, then click SAVE. <br />
+Run the following commands to install Python. 
+  ```
+  $ sudo apt update
+  $ sudo apt install python3 python3-pip3
+  ```
+  And to verify, run:
+  ```
+  $ python3 --version
+  ```
+
+  ##### Packages:
+* **Pandas** <br />
+  - Run the following command to install pandas using pip
+    ```
+    $ pip install pandas 
+    ```
+    
+* **Numpy** <br />
+  - Run the following command to install numpy using pip
+    ```
+    $ pip install numpy
+    ```
+
+* **PyQt** <br />
+  - To install PyQt, type in the terminal:
+    ```
+    $ pip3 install --user pyqt5  
+    $ sudo apt-get install python3-pyqt5  
+    $ sudo apt-get install pyqt5-dev-tools
+    $ sudo apt-get install qttools5-dev-tools
+    ```
+    **Modules used in the program:**
+    ```
+    from PyQt5 import QtCore, QtGui, QtWidgets
+    ```
+
 ## Definitions, Acronyms, and Abbreviations
 * **Tweepy** – Tweepy is a Python library to access the Twitter API. It is usually used for simple automation and creating twitter function and bots. With Tweepy, developers can accumulate tweets, create and delete tweets, and follow or unfollow users. 
     
@@ -96,172 +108,35 @@ The system may ask you for your administrator password. Type your password and p
     
 * **RDS** – RDS or Relational Database Services
 
+## User Manual
 
-## Reference 
-The Software Design Document is divided into 11 sections with various subsections. The sections of the Software 
-    
+**Instructions:**
 
+## Target Audience
 
-Design Document is:
-1. Introduction
-2. Use Cases
-3. Design Overview
-4. System Object Model
-5. Object Descriptions
-6. Object Collaborations
-7. Data Design
-8. Dynamic Model
-9. Non-function Requirements
-Supplementary Documentation    
+## Focus Areas
 
+### Scenarios
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-# [Use Case](https://mymailmapuaedu-my.sharepoint.com/:b:/g/personal/vpmpanugan_mymail_mapua_edu_ph/EYXU1spIrMJHhMdwh3PTaxQB_mQ30y2tDTq4hT5FtrIBbg?e=yOU3CJ)
-=======
+### Languages
 
+## User Cases
+1. Actors
+     * **Customer User** <br />
+     
+         
+     * **Software Developer** <br />
+     
+        
+2. List of Use Cases
+     * **Customer User Cases** <br />
+     
 
-
-
-<<<<<<< HEAD
-=======
-## Actors
-1. **Customer User** - The customer is the user who uses or benefit from the software application. This is an abstraction or generalization of the users as they all perform similar actions but for different reasons. The actions that they may perform are: (1) to show or display the overview of the status of COVID-19 in Metro Manila, (2) visualize the data into charts for demonstrating the relationships, increments, and decrements as well as the patterns in each data points through a pie chart, bar chart and line charts, (3) show the geographical location of the cases in Metro Manila by the whole region or a specific city, (4) and predict the number of cases/growth through logarithmic and exponential models.
->>>>>>> ceb7354528e20ce058e088f23cdb41ffa48e7915
-
-
-
-
-
-<<<<<<< HEAD
-=======
-    - Predict Information
-        - Exponential Model (Detail)
-        - Logarithmic Model (Detail)
->>>>>>> ceb7354528e20ce058e088f23cdb41ffa48e7915
-
-
-
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-<<<<<<< HEAD
-Explain how to run the automated tests for this system
-=======
-    **_Brief Description_**
-    
-    This use case describes the main interface of the software application in a workflow. It shows the current status and the percentile of the total number of the case, the total number of deaths and the total number of recovered patients limited only in the National Capital Region (NCR) in the Philippines. The cities covered in the statistical overview in this window are Manila, Quezon City, Caloocan, Las Piñas, Makati, Malabon, Mandaluyong, Marikina, Muntinlupa, Navotas, Parañaque, Pasay, Pasig, San Juan, Taguig, and Valenzuela. The data stored in the database reflects in this use case since all of the information regarding the latest number of COVID-19 patients is updated from time to time through scraping.
->>>>>>> ceb7354528e20ce058e088f23cdb41ffa48e7915
-
-### Break down into end to end tests
-
-<<<<<<< HEAD
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-=======
-    To deliver the latest statistical number of COVID-19 patients in Metro Manila accurately and precisely to the client with a friendly interface.
-
-    **_Sucess Measurement:_**
-=======
->>>>>>> 1cf18a818cf447488ecb4ce0de4f42d7397ba9c4
-
-
-
-# [Use Case](https://mymailmapuaedu-my.sharepoint.com/:b:/g/personal/vpmpanugan_mymail_mapua_edu_ph/EYXU1spIrMJHhMdwh3PTaxQB_mQ30y2tDTq4hT5FtrIBbg?e=yOU3CJ)
-
-
-
-
-<<<<<<< HEAD
-In this section, we will discuss the design overview of the application. The application will have an Interface, Interaction, Database, WebScrapper, StreamListener, and IOAuthenticator. The Interface is the main control of the application where the user can interact with the software through the interaction façade. Thus, access to the database. Furthermore, the database can be modified by both the WebScrapper and TweppyStreamListener which can use the TwitterAPIAuthenticator to authenticate the API.
-
->>>>>>> 0bd9d925fd7cf92027b206c40448cfe86072efc4
-=======
->>>>>>> 1cf18a818cf447488ecb4ce0de4f42d7397ba9c4
-
+     * **Software Developer Case** <br />
+     
+            
+  
 ## System Architecture
+* **Case Diagram**
 
-
-
-## System Interfaces
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-- **User Interfaces**
-
-The user interface for the system allows the user to get the latest updates regarding the COVID-19 cases in the NCR Region. The user can also access and visualize the data regarding the COVID-19 in the NCR region. It also shows a graph of the progress of the COVID-19 in the NCR. Lastly, it also shows the cases per each city in the NCR. The interface has buttons according to the data it needs to visualize. This allows for ease of navigation using only the mouse.
-
-- **Software Interfaces**
-
-## Constraints and Assumptions
-
-- **List Assumptions**
-    
-    1. It assumed that the database is in MySQL format.
-
-- **List of Dependencies**
-=======
->>>>>>> 1cf18a818cf447488ecb4ce0de4f42d7397ba9c4
-
-
-<<<<<<< HEAD
->>>>>>> 0bd9d925fd7cf92027b206c40448cfe86072efc4
-=======
->>>>>>> 1cf18a818cf447488ecb4ce0de4f42d7397ba9c4
-
-
-# System Object Model
->>>>>>> ceb7354528e20ce058e088f23cdb41ffa48e7915
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+## Sample Screenshots
