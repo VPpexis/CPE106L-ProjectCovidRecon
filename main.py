@@ -389,38 +389,65 @@ class Ui_MainWindow(object):
         self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
         self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
 
-    
-    def setup_chart(self):
-    # Making the layout for the graph
-        if self.chartlayout == 0:
-            layout = QtWidgets.QVBoxLayout(self.chartsView)
-            static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))  
-            layout.addWidget(static_canvas)
-            cursor = data.cursor()
-            cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
-            result = cursor.fetchall()
-            
-            df = pd.DataFrame(result, columns=['date','cases'])
-            self.data_cases = df[['date','cases']]
-            dates_x = self.data_cases['date']
-            cases_y= np.cumsum(self.data_cases['cases'])
+    def data_gather(self):
+        cursor = data.cursor()
+        cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
+        result = cursor.fetchall()  
+        self.df = pd.DataFrame(result, columns=['date','cases'])
+        self.data_cases = self.df[['date','cases']]
+        self.date_x = self.data_cases['date']
+        self.cases_y = self.data_cases['cases']
         
-            self._static_ax =static_canvas.figure.subplots()
-            self.lines = self._static_ax.plot(dates_x,cases_y,label='Cases',color='r')
-            static_canvas.figure.autofmt_xdate()
-            static_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
-            self._static_ax.set_title("COVID-19 Cases")
-            self._static_ax.set_xlabel("Dates")
-            self._static_ax.set_ylabel("Total Cases")
-            self._static_ax.grid(color='grey', linewidth=1)
-            self._static_ax.legend()
-            self.chartlayout = 1
-        elif self.chartlayout == 1:
-            layout = QtWidgets.QVBoxLayout(self.chartsView)
-            static_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
-            self._static_ax = static_canvas.figure.subplots()
-            self.lines = self._static_ax.plot(2,1,label='Ca ses',color='r')
-     
+    def setup_chart(self):
+    # Date gather
+        cursor = data.cursor()
+        cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
+        result = cursor.fetchall()  
+        self.df = pd.DataFrame(result, columns=['date','cases'])
+        self.data_cases = self.df[['date','cases']]
+        date_x = self.data_cases['date']
+        cases_y = self.data_cases['cases']
+        
+    # Making the layout for the graph
+        self.layout = QtWidgets.QVBoxLayout(self.chartsView)
+        self.dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
+        self.layout.addWidget(self.dynamic_canvas)
+            
+        x = date_x
+        y = np.cumsum(cases_y)
+        
+        dynamic_ax = self.dynamic_canvas.figure.subplots()
+        self.dynamic_canvas.figure.autofmt_xdate() 
+        self.dynamic_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+        dynamic_ax.plot(x,y,label='Cases',color='r')
+          
+        dynamic_ax.legend()
+        self.layoutlim = 1
+        
+    def update_chart(self):
+        self.minDate= self.prevDate.date().toPyDate()
+        self.maxDate = self.currentDate.date().toPyDate()
+        cursor = data.cursor()
+        cursor.execute("SELECT date_rep_conf,Count(date_rep_conf) from casesByNCR where date_rep_conf between %s AND %s group by date_rep_conf having count(date_rep_conf) > 1;", (self.minDate,self.maxDate))
+        #cursor.execute("INSERT INTO table VALUES (%s, %s, %s)", (var1, var2, var3))
+        result = cursor.fetchall()  
+        df = pd.DataFrame(result, columns=['date','cases'])
+        data_cases = df[['date','cases']]
+        x = data_cases['date']
+        y = np.cumsum(data_cases['cases'])
+
+        self.dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
+        self.layout.addWidget(self.dynamic_canvas)
+        
+        dynamic_ax = self.dynamic_canvas.figure.subplots()
+        self.dynamic_canvas.figure.autofmt_xdate() 
+        self.dynamic_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+        dynamic_ax.plot(x,y,label='Cases',color='r')
+        dynamic_ax.legend()
+        
+    def delete_canvas(self):
+        self.dynamic_canvas.deleteLater()
+          
     def hide_overview_ui(self):
         self.total_cases.hide()
         self.total_death.hide()
@@ -499,11 +526,11 @@ class Ui_MainWindow(object):
         self.hide_news_ui()
         
     def on_update_chart_clicked(self):
-        self.minDate= self.prevDate.date()
-        self.maxDate = self.currentDate.date()
-        print(self.minDate)
-        print(self.maxDate)
-        self.setup_chart()
+        if self.layoutlim == 0:
+            self.setup_chart()    
+        else:
+            self.delete_canvas()
+            self.update_chart()
         
     def on_location_clicked(self):
         self.hide_overview_ui()

@@ -65,36 +65,53 @@ class Ui_MainWindow(object):
     def data_gather(self):
         cursor = data.cursor()
         cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
-        result = cursor.fetchall()
-            
+        result = cursor.fetchall()  
         self.df = pd.DataFrame(result, columns=['date','cases'])
         self.data_cases = self.df[['date','cases']]
+        self.date_x = self.data_cases['date']
+        self.cases_y = self.data_cases['cases']
         
         
     def setup_chart(self):
         
-        layout = QtWidgets.QVBoxLayout(self.chartsView)
+        self.layout = QtWidgets.QVBoxLayout(self.chartsView)
         self.dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
-        layout.addWidget(self.dynamic_canvas)
+        self.layout.addWidget(self.dynamic_canvas)
             
-        x = self.data_cases['date']
-        y = np.cumsum(self.data_cases['cases'])
+        x = self.date_x
+        y = np.cumsum(self.cases_y)
         
-            
-        self._dynamic_ax = self.dynamic_canvas.figure.subplots()
+        dynamic_ax = self.dynamic_canvas.figure.subplots()
         self.dynamic_canvas.figure.autofmt_xdate() 
         self.dynamic_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
-        self._dynamic_ax.plot(x,y,label='Cases',color='r')
-        
-    
-            
-        self._dynamic_ax.legend()
+        dynamic_ax.plot(x,y,label='Cases',color='r')
+          
+        dynamic_ax.legend()
         self.layoutlim = 1
     
     def update_chart(self):
-        self.minDate= self.prevDate.date()
-        self.maxDate = self.currentDate.date()
-        print(self.df)
+        self.minDate= self.prevDate.date().toPyDate()
+        self.maxDate = self.currentDate.date().toPyDate()
+        cursor = data.cursor()
+        cursor.execute("SELECT date_rep_conf,Count(date_rep_conf) from casesByNCR where date_rep_conf between %s AND %s group by date_rep_conf having count(date_rep_conf) > 1;", (self.minDate,self.maxDate))
+        #cursor.execute("INSERT INTO table VALUES (%s, %s, %s)", (var1, var2, var3))
+        result = cursor.fetchall()  
+        df = pd.DataFrame(result, columns=['date','cases'])
+        data_cases = df[['date','cases']]
+        x = data_cases['date']
+        y = np.cumsum(data_cases['cases'])
+
+        self.dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
+        self.layout.addWidget(self.dynamic_canvas)
+        
+        dynamic_ax = self.dynamic_canvas.figure.subplots()
+        self.dynamic_canvas.figure.autofmt_xdate() 
+        self.dynamic_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+        dynamic_ax.plot(x,y,label='Cases',color='r')
+        dynamic_ax.legend()
+        ##new_dates_x = self.data_cases['date']
+        #new_df = new_dates_x.query(self.minDate <= 'date' < self.maxDate)
+        #print(new_df)
         
     def delete_canvas(self):
         self.dynamic_canvas.deleteLater()
@@ -105,6 +122,7 @@ class Ui_MainWindow(object):
         if self.layoutlim == 0:
             self.setup_chart()    
         else:
+            self.delete_canvas()
             self.update_chart()
             
         
