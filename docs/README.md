@@ -77,19 +77,19 @@ Run the following commands to install Python.
 
   ##### Packages:
 * **Pandas** <br />
-  - Run the following command to install pandas using pip
+  - Run the following command to install `pandas` using pip
     ```
     $ pip install pandas 
     ```
 
 * **BeautifulSoup4** <br />
-  - Run the following command to install beautifulsoup4 using pip
+  - Run the following command to install `beautifulsoup4` using pip
     ```
     $ pip install beautifulsoup4
     ```
 
 * **Geopandas** <br />
-  - When using pip to install Geopandas, some dependencies must first be installed correctly.
+  - When using pip to install `geopandas`, some dependencies must first be installed correctly.
   - Dependecies: shapely, fiona, pyproj and rtree.
   - Run the following command to install geopandas using pip
     ```
@@ -101,13 +101,13 @@ Run the following commands to install Python.
     ```
 
 * **Numpy** <br />
-  - Run the following command to install numpy using pip
+  - Run the following command to install `numpy` using pip
     ``` 
     $ pip install numpy
     ```
 
 * **PyQt** <br />
-  - To install PyQt, type in the terminal:
+  - To install `PyQt`, type in the terminal:
     ```
     $ pip3 install --user pyqt5  
     $ sudo apt-get install python3-pyqt5  
@@ -148,13 +148,11 @@ Run the following commands to install Python.
 ## User Cases
 
 1. Actors
-     * **Customer User** <br />
-        1.1 Customer is a user who works with the features of the program. The program consist of different tabs such as 'to look overall status of cases, deaths and recovered patients', view the cases in graph form, 'to view latest Department of Health news', and 'to look information about the developers redirecting to Github Repository'.
-
-        All of these aforementioned actions of use cases are all the features that the customer may access in the entire program.
+     * **1.1 Customer User** <br />
+        Customer is a user who interacts with the graphical interface and features of the program. The program consist of different tabs having their own unique features such as `OVERVIEW`, `GRAPHS`, `LOCATION`, `PATTERNS`, `DOH NEWS`, and `ABOUT US`. The actions that the customer may access with the program are 'to look overall status of cases, deaths and recovered patients', view the cases in graph form, 'to view latest Department `of Health news', and 'to look information about the developers redirecting to Github Repository'.
          
-     * **Software Developer** <br />
-        1.2 The main role of a software developer is to identify, test and maintain the database where the sources come from and the future bugs that the customer user may experience from the application.
+     * **1.2 Software Developer** <br />
+        The main role of a software developer is to identify, test and maintain the database where the sources come from and the future bugs that the customer user may experience from the application. <br />
 
         The developer gets data from the following sources such as Department Health Offical and trusted Twitter news accounts by using Tweepy webscraping. The developer is the one who will normalize data storing it to the database. These data will be the sole basis in the overall functionality of the tracker program.
         
@@ -178,6 +176,7 @@ Run the following commands to install Python.
         2.4 Show Geographical Data (Overview)<br />
   
 ## System Architecture
-* **Case Diagram**
+* **Case Diagram**<br />
+
 
 ## Sample Screenshots
