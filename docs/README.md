@@ -81,10 +81,28 @@ Run the following commands to install Python.
     ```
     $ pip install pandas 
     ```
-    
+
+* **BeautifulSoup4** <br />
+  - Run the following command to install beautifulsoup4 using pip
+    ```
+    $ pip install beautifulsoup4
+    ```
+
+* **Geopandas** <br />
+  - When using pip to install Geopandas, some dependencies must first be installed correctly.
+  - Dependecies: shapely, fiona, pyproj and rtree.
+  - Run the following command to install geopandas using pip
+    ```
+    $ pip install geopandas 
+    ```
+  - To install geopandas using anaconda prompt:
+    ```  
+    $ conda install -c conda-forge geopandas
+    ```
+
 * **Numpy** <br />
   - Run the following command to install numpy using pip
-    ```
+    ``` 
     $ pip install numpy
     ```
 
@@ -112,6 +130,13 @@ Run the following commands to install Python.
 
 **Instructions:**
 
+1. **Understanding How to Use the Program**
+
+
+
+
+
+
 ## Target Audience
 
 ## Focus Areas
@@ -135,22 +160,22 @@ Run the following commands to install Python.
         
 2. List of Use Cases
      * **Customer User Cases** <br />
-        2.1 Display Status (Overview)
-          2.1.2 Show Total Cases (Detail)
-          2.1.3 Show Total Deaths (Detail)
-          2.1.4 Show Total Recoveries (Detail)
-        2.2 Visualize Data through Charts (Overview)
-          2.2.1 Display Graph
-        2.3 Show Geographical Location of Data (Overview)
-        2.4 Preview Latest Updates (Detail)
-        2.5 Predict Cases (Overall)
-        2.6 Display Developer Team Informations (Detail)
+        2.1 Display Status (Overview)<br />
+          2.1.2 Show Total Cases (Detail)<br />
+          2.1.3 Show Total Deaths (Detail)<br />
+          2.1.4 Show Total Recoveries (Detail)<br />
+        2.2 Visualize Data through Charts (Overview)<br />
+          2.2.1 Display Graph<br />
+        2.3 Show Geographical Location of Data (Overview)<br />
+        2.4 Preview Latest Updates (Detail)<br />
+        2.5 Predict Cases (Overall)<br />
+        2.6 Display Developer Team Informations (Detail)<br />
 
      * **Software Developer Case** <br />
-        2.1 Show Status (Detail)
-        2.2 Show Stored Data (Detail)
-        2.3 Save Data in Database (Detail)
-        2.4 Show Geographical Data (Overview)
+        2.1 Show Status (Detail)<br />
+        2.2 Show Stored Data (Detail)<br />
+        2.3 Save Data in Database (Detail)<br />
+        2.4 Show Geographical Data (Overview)<br />
   
 ## System Architecture
 * **Case Diagram**
