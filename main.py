@@ -435,6 +435,10 @@ class Ui_MainWindow(object):
             dynamic_ax.plot(x,y,label='Cases',color='r')
             
             dynamic_ax.legend()
+            dynamic_ax.set_xlabel('Dates')
+            dynamic_ax.set_ylabel('Number of Cases')
+
+            dynamic_ax.set_title('COVID-19 Cases')
             self.layoutlim = 1
         
     def update_chart(self):
