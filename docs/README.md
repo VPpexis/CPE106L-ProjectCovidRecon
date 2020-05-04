@@ -3,7 +3,7 @@
 ![Stars](https://img.shields.io/github/stars/HollowMan6/Retro-Snaker?style=social)
 ![Forks](https://img.shields.io/github/forks/VPpexis/CPE106L-ProjectCovidRecon)
 ![GitHub last commit](https://img.shields.io/github/last-commit/VPpexis/CPE106L-ProjectCovidRecon)
-
+### [Documentation](https://mymailmapuaedu-my.sharepoint.com/:o:/g/personal/vpmpanugan_mymail_mapua_edu_ph/EjOJyVbfjLVCp0Nje925qrkBIh8zv-W8IjidFBcu8_nsIQ?e=m7PYIn)
 ## Getting Started
 **Project-CovidRecon** is a software application based from PyQt5 and Tweepy that tracks statuses of the number of Coronavirus Disease 2019 in National Captional Region in the Philippines. Through data science and mathematical models, the cases can be predicted and visualized through charts and tables. The application also provides prediction to the number of cases in the next days through logarithmic and exponential plotting.
 
@@ -65,4 +65,3 @@ Figure 4.0 * *Prediction of Patterns* *
 ![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_news.png) <br />
 Figure 5.0 * *Department of Health News* *
 
-# [Documentation](https://mymailmapuaedu-my.sharepoint.com/:o:/g/personal/vpmpanugan_mymail_mapua_edu_ph/EjOJyVbfjLVCp0Nje925qrkBIh8zv-W8IjidFBcu8_nsIQ?e=m7PYIn)
