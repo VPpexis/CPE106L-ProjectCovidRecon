@@ -265,17 +265,27 @@ class Ui_MainWindow(object):
 
         #Charts UI
         self.chartsView = QtWidgets.QGraphicsView(self.centralwidget)
-        self.chartsView.setGeometry(QtCore.QRect(228, 149, 541, 441))
+        self.chartsView.setGeometry(QtCore.QRect(228, 159, 541, 421))
         self.chartsView.setObjectName("chartsView")
         self.updateChart_button = QtWidgets.QPushButton(self.centralwidget)
-        self.updateChart_button.setGeometry(QtCore.QRect(550, 110, 221, 31))
+        self.updateChart_button.setGeometry(QtCore.QRect(610, 110, 161, 41))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.updateChart_button.setFont(font)
         self.updateChart_button.setObjectName("updateChart_button")
         self.updateChart_button.setText("Update")
+        self.guide1 = QtWidgets.QLabel(self.centralwidget)
+        self.guide1.setGeometry(QtCore.QRect(230, 100, 371, 20))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.guide1.setFont(font)
+        self.guide1.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
+        self.guide1.setObjectName("guide1")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(230, 100, 311, 51))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(230, 120, 371, 31))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -291,12 +301,13 @@ class Ui_MainWindow(object):
         self.prevDate.raise_()
         self.currentDate.raise_()
         self.chartsView.raise_()
+        self.guide1.raise_()
         self.chartsView.hide()
         self.updateChart_button.hide()
         self.horizontalLayoutWidget.hide()
         self.prevDate.hide()
         self.currentDate.hide()
-        self.chartlayout = 0
+        self.guide1.hide()
         #/ChartUI 
         
         #Location UI
@@ -306,8 +317,6 @@ class Ui_MainWindow(object):
         self.locationView.raise_()
         self.locationView.hide()
         
-        
-
         #Patterns UI
         fontforLabel = QtGui.QFont()
         fontforLabel.setFamily("Montserrat")
@@ -388,6 +397,7 @@ class Ui_MainWindow(object):
         self.news_button.setText(_translate("MainWindow", "DOH NEWS"))
         self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
         self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
+        self.guide1.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffffff;\">Date/Month/Year</span></p></body></html>"))
 
     def data_gather(self):
         cursor = data.cursor()
@@ -399,6 +409,7 @@ class Ui_MainWindow(object):
         self.cases_y = self.data_cases['cases']
         
     def setup_chart(self):
+    
     # Date gather
         cursor = data.cursor()
         cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
@@ -462,6 +473,7 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget.hide()
         self.prevDate.hide()
         self.currentDate.hide()
+        self.guide1.hide()
 
         
     def hide_location_ui(self):
@@ -493,6 +505,7 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget.show()
         self.prevDate.show()
         self.currentDate.show()
+        self.guide1.show()
         self.setup_chart()
         
 
