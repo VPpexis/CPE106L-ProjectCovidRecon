@@ -1,6 +1,6 @@
 import mysql.connector
 import datetime
-import math
+
 '''
 This is a subtractor function that subracts a specific date to the current date and gets the total cases during
 the subtracted date'
@@ -24,8 +24,9 @@ class getpastdate():
             mycursor.execute('SELECT DATE_FORMAT(DATE_SUB(max(date_rep_conf), INTERVAL '+ self.days +' DAY), \'%Y-%m-%d\') FROM casesByPH;')
             result1 = mycursor.fetchall()
             result1 = result1[0]
+            resutl1 = result1[0]
             result1 = result1[0]
-            #print('Subtracted Date: '+result1)
+            print('Subtracted Date: '+result1)
 
             mycursor.execute('SELECT date_rep_conf, COUNT(date_rep_conf) FROM casesByPH WHERE date_rep_conf between \'2020-03-06\' and \'' + result1 + '\' GROUP BY date_rep_conf HAVING COUNT(city_mun_res) > 1;')
             myresults = mycursor.fetchall()
@@ -38,27 +39,9 @@ class getpastdate():
             return final_results
 
         except ValueError:
-            #print('Not a number!')
+            print('Not a number!')
             return
 
-    def patterns_expected(self):
-        gpd=getpastdate()
-        week0=math.log(gpd.get_past(0))
-        week1=math.log(gpd.get_past(7))
-        week2=math.log(gpd.get_past(14))
-        week3=math.log(gpd.get_past(21))
-        #self.textBrowser_Current.setText(str(week0)) #current
-        varA=(week0-week3)/3
-        #print("A="+str(varA))
-        varB=((week0+week1+week2+week3)/4)-1.5*varA
-        #print("B="+str(varB))
-        expected=math.exp((varA)*(4)+varB)
-
-        return int(expected)
-
-    
-
-
-#if __name__ == '__main__':
-#    gpd = getpastdate()
-#    gpd.patterns_calcu()
+if __name__ == '__main__':
+    gpd = getpastdate()
+    print(gpd.get_past(52))
