@@ -48,7 +48,11 @@ class StdOutListener(StreamListener):
             return False
 
 if __name__ == '__main__':
+<<<<<<< HEAD
+    db = dataset.connect("sqlite:///tweets.db")
+=======
     db = dataset.connect("sqlite:///tweets-2.db")
+>>>>>>> 6b42f9c5980a22d5bd520d4382b39df79a5bf087
     l = StdOutListener()
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
