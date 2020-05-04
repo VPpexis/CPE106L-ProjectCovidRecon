@@ -17,7 +17,7 @@ import sys
 import time
 import numpy as np
 import ctypes
-from db.getpastdate import getpastdate
+from DB.getpastdate import getpastdate
 from UI.location_widget import location_widget
 from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
