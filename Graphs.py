@@ -66,12 +66,41 @@ class Ui_MainWindow(object):
         cursor = data.cursor()
         cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
         result = cursor.fetchall()  
-        self.df = pd.DataFrame(result, columns=['date','cases'])
-        self.data_cases = self.df[['date','cases']]
-        self.date_x = self.data_cases['date']
-        self.cases_y = self.data_cases['cases']
+        df = pd.DataFrame(result, columns=['date','cases'])
+        data_cases = df[['date','cases']]
+        self.date_x = data_cases['date']
+        self.cases_y = data_cases['cases']
         
+    def recovered_chart(self):
+        cursor = data.cursor()
+        if self.layoutlim == 0:
+            cursor.execute("SELECT date_rep_conf, Count(health_status) from casesByNCR where health_status = 'Recovered'GROUP BY date_rep_conf;")
+            result = cursor.fetchall()  
+        else:
+            cursor.execute("SELECT date_rep_conf,Count(health_status)from casesByNCR where (health_status = 'Recovered') And date_rep_conf between '2020-03-08' AND '2020-03-14' group by date_rep_conf")
+            result = cursor.fetchall()
+            
+        df = pd.DataFrame(result, columns=['date','recovered'])
+        data_cases = df[['date','recovered']]
+        self.R_x = data_cases['date']
+        self.R_y = np.cumsum(data_cases['recovered'])
+       
         
+    def died_chart(self):
+        
+        cursor = data.cursor()
+        if self.layoutlim == 0:
+            cursor.execute("SELECT date_rep_conf, Count(health_status) from casesByNCR where health_status = 'Died'GROUP BY date_rep_conf;")
+            result = cursor.fetchall()
+        else:
+            cursor.execute("SELECT date_rep_conf,Count(health_status)from casesByNCR where (health_status = 'Died') And date_rep_conf between %s AND %s group by date_rep_conf")
+            result = cursor.fetchall()
+            
+        df = pd.DataFrame(result, columns=['date','Died'])
+        data_cases = df[['date','Died']]
+        self.D_x = data_cases['date']
+        self.D_y = np.cumsum(data_cases['Died'])
+
     def setup_chart(self):
         
         self.layout = QtWidgets.QVBoxLayout(self.chartsView)
@@ -84,8 +113,12 @@ class Ui_MainWindow(object):
         dynamic_ax = self.dynamic_canvas.figure.subplots()
         self.dynamic_canvas.figure.autofmt_xdate() 
         self.dynamic_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+        
+        self.recovered_chart()
+        self.died_chart()
         dynamic_ax.plot(x,y,label='Cases',color='r')
-          
+        dynamic_ax.plot(self.D_x,self.D_y,label='Died',color='b') 
+        dynamic_ax.plot(self.R_x,self.R_y,label='Recovered',color='g')  
         dynamic_ax.legend()
         self.layoutlim = 1
     
@@ -103,10 +136,13 @@ class Ui_MainWindow(object):
 
         self.dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
         self.layout.addWidget(self.dynamic_canvas)
-        
         dynamic_ax = self.dynamic_canvas.figure.subplots()
         self.dynamic_canvas.figure.autofmt_xdate() 
         self.dynamic_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+        self.recovered_chart()
+        self.died_chart()
+        dynamic_ax.plot(self.D_x,self.D_y,label='Died',color='b') 
+        dynamic_ax.plot(self.R_x,self.R_y,label='Recovered',color='g')  
         dynamic_ax.plot(x,y,label='Cases',color='r')
         dynamic_ax.legend()
         ##new_dates_x = self.data_cases['date']

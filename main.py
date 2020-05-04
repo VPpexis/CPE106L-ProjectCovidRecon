@@ -437,14 +437,47 @@ class Ui_MainWindow(object):
             dynamic_ax = self.dynamic_canvas.figure.subplots()
             self.dynamic_canvas.figure.autofmt_xdate() 
             self.dynamic_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+            self.recovered_chart()
+            self.died_chart()
             dynamic_ax.plot(x,y,label='Cases',color='r')
-            
+            dynamic_ax.plot(self.R_x,self.R_y,label='Recovered',color='g')  
+            dynamic_ax.plot(self.D_x,self.D_y,label='Died',color='b') 
             dynamic_ax.legend()
             dynamic_ax.set_xlabel('Dates of Report')
-            dynamic_ax.set_ylabel('Number of Cases')
+            dynamic_ax.set_ylabel('Population Affected')
             dynamic_ax.set_title('COVID-19 Cases')
             self.layoutlim = 1
+            
+    def recovered_chart(self):
         
+        cursor = data.cursor()
+        if self.layoutlim == 0:
+            cursor.execute("SELECT date_rep_conf, Count(health_status) from casesByNCR where health_status = 'Recovered'GROUP BY date_rep_conf;")
+            result = cursor.fetchall()  
+        else:
+            cursor.execute("SELECT date_rep_conf,Count(health_status)from casesByNCR where (health_status = 'Recovered') And date_rep_conf between %s AND %s group by date_rep_conf" , (self.minDate,self.maxDate))
+            result = cursor.fetchall()
+            
+        df = pd.DataFrame(result, columns=['date','recovered'])
+        data_cases = df[['date','recovered']]
+        self.R_x = data_cases['date']
+        self.R_y = np.cumsum(data_cases['recovered'])
+       
+        
+    def died_chart(self):
+        
+        cursor = data.cursor()
+        if self.layoutlim == 0:
+            cursor.execute("SELECT date_rep_conf, Count(health_status) from casesByNCR where health_status = 'Died'GROUP BY date_rep_conf;")
+            result = cursor.fetchall()
+        else:
+            cursor.execute("SELECT date_rep_conf,Count(health_status)from casesByNCR where (health_status = 'Died') And date_rep_conf between %s AND %s group by date_rep_conf", (self.minDate,self.maxDate))
+            result = cursor.fetchall()
+        df = pd.DataFrame(result, columns=['date','Died'])
+        data_cases = df[['date','Died']]
+        self.D_x = data_cases['date']
+        self.D_y = np.cumsum(data_cases['Died'])
+            
     def update_chart(self):
         self.minDate= self.prevDate.date().toPyDate()
         self.maxDate = self.currentDate.date().toPyDate()
@@ -463,10 +496,14 @@ class Ui_MainWindow(object):
         dynamic_ax = self.dynamic_canvas.figure.subplots()
         self.dynamic_canvas.figure.autofmt_xdate() 
         self.dynamic_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+        self.recovered_chart()
+        self.died_chart()
         dynamic_ax.plot(x,y,label='Cases',color='r')
+        dynamic_ax.plot(self.R_x,self.R_y,label='Recovered',color='g')  
+        dynamic_ax.plot(self.D_x,self.D_y,label='Died',color='b') 
         dynamic_ax.legend()
         dynamic_ax.set_xlabel('Dates of Report')
-        dynamic_ax.set_ylabel('Number of Cases')
+        dynamic_ax.set_ylabel('Population Affected')
         dynamic_ax.set_title('COVID-19 Cases')
         
     def delete_canvas(self):
