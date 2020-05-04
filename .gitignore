@@ -5,3 +5,4 @@ UnitTest/__pycache__
 __pycache__/
 Images/location.png
 .vscode/
+.vscode/settings.json
