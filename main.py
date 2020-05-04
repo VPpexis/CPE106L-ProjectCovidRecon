@@ -5,24 +5,32 @@
 # Created by: PyQt5 UI code generator 5.13.2
 #
 # WARNING! All changes made in this file will be lost!
-
-import matplotlib.pyplot as plt
 from PyQt5 import QtCore, QtGui, QtWidgets
 from UI import news_ui
 from WebScraping import DOH_Scrapper
 from WebScraping import COVID19_Scrapper
-import mysql.connector
-import webbrowser
-import sys
-import time
-import numpy as np
-import ctypes
 from DB.getpastdate import getpastdate
 from UI.location_widget import location_widget
 from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
+from pandas.plotting import register_matplotlib_converters
+import webbrowser
+import sys
+import time
+import ctypes
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-import mysql.connector
+import mysql.connector 
+
+register_matplotlib_converters()
+data = mysql.connector.connect(
+    host="myrds1.cijcu6ghykxh.ap-southeast-1.rds.amazonaws.com",
+    user="myrds",
+    passwd="admin123",
+    database="myrds1"
+)
 
 class Ui_MainWindow(object):    
     def openOverview(self):
@@ -238,10 +246,57 @@ class Ui_MainWindow(object):
 
         #Charts UI
         self.chartsView = QtWidgets.QGraphicsView(self.centralwidget)
-        self.chartsView.setGeometry(QtCore.QRect(250, 130, 541, 471))
+        self.chartsView.setGeometry(QtCore.QRect(228, 159, 541, 421))
         self.chartsView.setObjectName("chartsView")
-        self.setup_chart()
-
+        self.updateChart_button = QtWidgets.QPushButton(self.centralwidget)
+        self.updateChart_button.setGeometry(QtCore.QRect(610, 110, 161, 41))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.updateChart_button.setFont(font)
+        self.updateChart_button.setObjectName("updateChart_button")
+        self.updateChart_button.setText("Update")
+        self.guide1 = QtWidgets.QLabel(self.centralwidget)
+        self.guide1.setGeometry(QtCore.QRect(230, 100, 371, 20))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.guide1.setFont(font)
+        self.guide1.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
+        self.guide1.setObjectName("guide1")
+        self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(230, 120, 371, 31))
+        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.prevDate = QtWidgets.QDateEdit(self.horizontalLayoutWidget)
+        self.prevDate.setMinimumDate(QtCore.QDate(2020, 3, 8))
+        self.prevDate.setDate(QtCore.QDate(2020, 3, 8))
+        self.prevDate.setObjectName("prevDate")
+        self.horizontalLayout.addWidget(self.prevDate)
+        self.currentDate = QtWidgets.QDateEdit(self.horizontalLayoutWidget)
+        self.currentDate.setMinimumDateTime(QtCore.QDateTime(QtCore.QDate(2020, 3, 9), QtCore.QTime(0, 0, 0)))
+        self.currentDate.setMinimumDate(QtCore.QDate(2020, 3, 9))
+        self.currentDate.setDate(QtCore.QDate(2020, 3, 9))
+        self.currentDate.setObjectName("currentDate")
+        self.horizontalLayout.addWidget(self.currentDate)
+        self.updateChart_button.raise_()
+        self.horizontalLayoutWidget.raise_()
+        self.prevDate.raise_()
+        self.currentDate.raise_()
+        self.chartsView.raise_()
+        self.guide1.raise_()
+        self.chartsView.hide()
+        self.updateChart_button.hide()
+        self.horizontalLayoutWidget.hide()
+        self.prevDate.hide()
+        self.currentDate.hide()
+        self.guide1.hide()
+        self.layoutlim = 0
+        #/ChartUI 
+        
         #Location UI
         self.locationView = QtWidgets.QLabel(self.centralwidget)
         self.locationView.setGeometry(QtCore.QRect(240, 110, 660, 520))
@@ -316,7 +371,7 @@ class Ui_MainWindow(object):
         self.recoverd_textBrowser.setText(data[2])
         #/Data for Overview
 
-
+        self.updateChart_button.clicked.connect(self.on_update_chart_clicked)
         self.charts_button.clicked.connect(self.on_charts_clicked)
         self.patterns_button.clicked.connect(self.on_patterns_clicked)
         self.location_button.clicked.connect(self.on_location_clicked)
@@ -348,41 +403,111 @@ class Ui_MainWindow(object):
         self.news_button.setText(_translate("MainWindow", "DOH NEWS"))
         self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
         self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
+        self.guide1.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffffff;\">Date/Month/Year</span></p></body></html>"))
 
-    
-    def setup_chart(self):
-    # Making the layout for the graph
-        mydb = mysql.connector.connect(
-        host = 'myrds1.cijcu6ghykxh.ap-southeast-1.rds.amazonaws.com',
-        user = 'myrds',
-        passwd = 'admin123',
-        database = 'myrds1'
-        )
-        mycursor = mydb.cursor()
-        mycursor.execute('SELECT date_rep_conf, COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;')
-        myresults = mycursor.fetchall()
+    def data_gather(self):
+        cursor = data.cursor()
+        cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
+        result = cursor.fetchall()  
+        self.df = pd.DataFrame(result, columns=['date','cases'])
+        self.data_cases = self.df[['date','cases']]
+        self.date_x = self.data_cases['date']
+        self.cases_y = self.data_cases['cases']
         
-        x = []
-        y = []
-        for row in myresults:
-            x.append(row[0])
-            y.append(row[1])
-        print(y)
-
-        layout = QtWidgets.QVBoxLayout(self.chartsView)
-        static_canvas = FigureCanvasQTAgg(Figure(figsize=(5,10)))
-        layout.addWidget(static_canvas)
+    def setup_chart(self):      
+        if self.layoutlim == 0:
+            # Date gather
+            cursor = data.cursor()
+            cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
+            result = cursor.fetchall()  
+            self.df = pd.DataFrame(result, columns=['date','cases'])
+            self.data_cases = self.df[['date','cases']]
+            date_x = self.data_cases['date']
+            cases_y = self.data_cases['cases']
+            
+            # Making the layout for the graph
+            self.layout = QtWidgets.QVBoxLayout(self.chartsView)
+            self.dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
+            self.layout.addWidget(self.dynamic_canvas)
+                
+            x = date_x
+            y = np.cumsum(cases_y)
+            
+            dynamic_ax = self.dynamic_canvas.figure.subplots()
+            self.dynamic_canvas.figure.autofmt_xdate() 
+            self.dynamic_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+            self.recovered_chart()
+            self.died_chart()
+            dynamic_ax.plot(x,y,label='Cases',color='r')
+            dynamic_ax.plot(self.R_x,self.R_y,label='Recovered',color='g')  
+            dynamic_ax.plot(self.D_x,self.D_y,label='Died',color='b') 
+            dynamic_ax.legend()
+            dynamic_ax.set_xlabel('Dates of Report')
+            dynamic_ax.set_ylabel('Population Affected')
+            dynamic_ax.set_title('COVID-19 Cases')
+            self.layoutlim = 1
+            
+    def recovered_chart(self):
         
-        static_canvas.figure.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d/%Y'))
-        static_canvas.figure.gca().xaxis.set_major_locator(mdates.DayLocator(interval=5))
-        self._static_ax = static_canvas.figure.add_subplot(111)
-        self._static_ax.clear()
-        self._static_ax.plot(x,y)
-        self._static_ax.set_title('Cases per day.')
-        static_canvas.figure.autofmt_xdate()
-        static_canvas.draw()
+        cursor = data.cursor()
+        if self.layoutlim == 0:
+            cursor.execute("SELECT date_rep_conf, Count(health_status) from casesByNCR where health_status = 'Recovered'GROUP BY date_rep_conf;")
+            result = cursor.fetchall()  
+        else:
+            cursor.execute("SELECT date_rep_conf,Count(health_status)from casesByNCR where (health_status = 'Recovered') And date_rep_conf between %s AND %s group by date_rep_conf" , (self.minDate,self.maxDate))
+            result = cursor.fetchall()
+            
+        df = pd.DataFrame(result, columns=['date','recovered'])
+        data_cases = df[['date','recovered']]
+        self.R_x = data_cases['date']
+        self.R_y = np.cumsum(data_cases['recovered'])
+       
+        
+    def died_chart(self):
+        
+        cursor = data.cursor()
+        if self.layoutlim == 0:
+            cursor.execute("SELECT date_rep_conf, Count(health_status) from casesByNCR where health_status = 'Died'GROUP BY date_rep_conf;")
+            result = cursor.fetchall()
+        else:
+            cursor.execute("SELECT date_rep_conf,Count(health_status)from casesByNCR where (health_status = 'Died') And date_rep_conf between %s AND %s group by date_rep_conf", (self.minDate,self.maxDate))
+            result = cursor.fetchall()
+        df = pd.DataFrame(result, columns=['date','Died'])
+        data_cases = df[['date','Died']]
+        self.D_x = data_cases['date']
+        self.D_y = np.cumsum(data_cases['Died'])
+            
+    def update_chart(self):
+        self.minDate= self.prevDate.date().toPyDate()
+        self.maxDate = self.currentDate.date().toPyDate()
+        cursor = data.cursor()
+        cursor.execute("SELECT date_rep_conf,Count(date_rep_conf) from casesByNCR where date_rep_conf between %s AND %s group by date_rep_conf having count(date_rep_conf) > 1;", (self.minDate,self.maxDate))
+        #cursor.execute("INSERT INTO table VALUES (%s, %s, %s)", (var1, var2, var3))
+        result = cursor.fetchall()  
+        df = pd.DataFrame(result, columns=['date','cases'])
+        data_cases = df[['date','cases']]
+        x = data_cases['date']
+        y = np.cumsum(data_cases['cases'])
 
-
+        self.dynamic_canvas = FigureCanvasQTAgg(Figure(figsize=(5, 3)))
+        self.layout.addWidget(self.dynamic_canvas)
+        
+        dynamic_ax = self.dynamic_canvas.figure.subplots()
+        self.dynamic_canvas.figure.autofmt_xdate() 
+        self.dynamic_canvas.figure.fmt_xdata = mdates.DateFormatter('%y-%m-%d')
+        self.recovered_chart()
+        self.died_chart()
+        dynamic_ax.plot(x,y,label='Cases',color='r')
+        dynamic_ax.plot(self.R_x,self.R_y,label='Recovered',color='g')  
+        dynamic_ax.plot(self.D_x,self.D_y,label='Died',color='b') 
+        dynamic_ax.legend()
+        dynamic_ax.set_xlabel('Dates of Report')
+        dynamic_ax.set_ylabel('Population Affected')
+        dynamic_ax.set_title('COVID-19 Cases')
+        
+    def delete_canvas(self):
+        self.dynamic_canvas.deleteLater()
+          
     def hide_overview_ui(self):
         self.total_cases.hide()
         self.total_death.hide()
@@ -393,6 +518,11 @@ class Ui_MainWindow(object):
     
     def hide_charts_ui(self):
         self.chartsView.hide()
+        self.updateChart_button.hide()
+        self.horizontalLayoutWidget.hide()
+        self.prevDate.hide()
+        self.currentDate.hide()
+        self.guide1.hide()
 
     def hide_location_ui(self):
         self.locationView.hide()
@@ -418,6 +548,12 @@ class Ui_MainWindow(object):
 
     def on_charts_ui(self):
         self.chartsView.show()
+        self.updateChart_button.show()
+        self.horizontalLayoutWidget.show()
+        self.prevDate.show()
+        self.currentDate.show()
+        self.guide1.show()
+        self.setup_chart() 
 
     def on_location_ui(self):
         self.locationView.show()
@@ -445,7 +581,15 @@ class Ui_MainWindow(object):
         self.hide_location_ui()
         self.hide_patterns_ui()
         self.hide_news_ui()
-
+        
+    def on_update_chart_clicked(self):
+        
+        if self.layoutlim == 0:
+            self.setup_chart()    
+        else:
+            self.delete_canvas()
+            self.update_chart()
+        
     def on_location_clicked(self):
         self.hide_overview_ui()
         self.hide_charts_ui()
