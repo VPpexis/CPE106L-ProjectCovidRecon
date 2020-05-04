@@ -161,10 +161,24 @@ Run the following commands to install Python.
     ```
 
 2. **How to Use the Program** <br />
-
-
-
-
+    **OVERVIEW**
+    - Running the program shows the main interface or the overview of COVID-19 cases in National Capital Region. Consists of the total cases of COVID-19, total deaths, and total recovered patients. <dr />
+    
+    **CHARTS**
+    - Clicking the `Charts` in the side panel, lets you show the line graph of cases per date.
+        In the upper portion, a setting for `From` and `To` what dates do you wish to see. Pressing the UPDATE button will automatically change the graph from the desired dates.
+    
+    **LOCATION**
+    - In this section, a geographical map of the National Capital Region is visualize in the application. The origin/labels is located in the lower right part of the map ranging from white (low case cities) to red (high cases cities).
+    
+    **PATTERNS**
+    
+    
+    **NEWS**
+    - A feature that updates you with latest news from the official website of the Department of Health is also in the application. In news section, by clicking article title allows the user to view articles that redirects them to a link in https://www.doh.gov.ph/.
+    
+    **ABOUT US**
+    
 
 ## Target Audience
 
@@ -210,24 +224,17 @@ Run the following commands to install Python.
 
 ## Sample Screenshots
 
+![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_main.png)
 Figure 1.0 * *Main Interface* *
 
-
-
+![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_charts.png)
 Figure 2.0 * *Graph Interface* *
 
-
-
+![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_geoloc.png)
 Figure 3.0 * *Geographical Location Tab Interface* *
 
-
-
+![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_patterns.png)
 Figure 4.0 * *Prediction of Patterns* *
 
-
-
+![](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/interface_news.png)
 Figure 5.0 * *Department of Health News* *
-
-
-
-Figure 6.0 * *About Us Tab**
