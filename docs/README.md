@@ -144,9 +144,9 @@ Run the following commands to install Python.
     $ git clone "https://github.com/VPpexis/CPE106L-ProjectCovidRecon.git"
     ```
     
-    - Open the `Anaconda Prompt` terminal and run:
-    
+    - Open the Anaconda Prompt terminal and run:
     ```
+   
     $ conda env create -f environment.yml
     ```
     
@@ -205,10 +205,29 @@ Run the following commands to install Python.
         2.4 Show Geographical Data (Overview)<br />
   
 ## System Architecture
-* **Use Case Diagram**<br />
-- This diagram shows the interaction of the user within the system. It also shows the relationship between the user and the different use cases in which the user is involved.
 
-![UseCase](docs/UseCaseDiagram.png)
 
 
 ## Sample Screenshots
+
+Figure 1.0 * *Main Interface* *
+
+
+
+Figure 2.0 * *Graph Interface* *
+
+
+
+Figure 3.0 * *Geographical Location Tab Interface* *
+
+
+
+Figure 4.0 * *Prediction of Patterns* *
+
+
+
+Figure 5.0 * *Department of Health News* *
+
+
+
+Figure 6.0 * *About Us Tab**
