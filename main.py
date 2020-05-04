@@ -11,20 +11,20 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from UI import news_ui
 from WebScraping import DOH_Scrapper
 from WebScraping import COVID19_Scrapper
+import mysql.connector
 import webbrowser
 import sys
 import time
 import numpy as np
 import ctypes
+from db.getpastdate import getpastdate
 from UI.location_widget import location_widget
 from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
 import matplotlib.dates as mdates
 import mysql.connector
-  
 
-class Ui_MainWindow(object):
-             
+class Ui_MainWindow(object):    
     def openOverview(self):
         self.window=QtWidgets.QMainWindow()
         self.ui=Ui_MainWindow()
@@ -284,9 +284,11 @@ class Ui_MainWindow(object):
         self.label_Tomorrow.setFont(fontforLabel)
         self.label_Current.raise_()
         self.label_Tomorrow.raise_()
+
+        self.patterns_calcu()
         #/Patterns UI
 
-           #News_UI
+        #News_UI
         self.doh_list = news_ui.news_ui(self.centralwidget)
         self.doh_list.setObjectName('doh_list')
         ws = DOH_Scrapper.DOH_Scrapper()
@@ -301,7 +303,6 @@ class Ui_MainWindow(object):
         self.doh_list.add_News(array_data)
         self.doh_list.raise_()
         #/News UI
-
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -340,7 +341,7 @@ class Ui_MainWindow(object):
         self.about_button.setText(_translate("MainWindow", "  ABOUT US"))
         
         self.label_Current.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline; color:#ffffff;\">Current</span></p></body></html>"))
-        self.label_Tomorrow.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline; color:#ffffff;text-align:center;\">Next 24 Hours</span></p></body></html>"))
+        self.label_Tomorrow.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline; color:#ffffff;text-align:center;\">After a Week</span></p></body></html>"))
         self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
         self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
    
@@ -466,6 +467,11 @@ class Ui_MainWindow(object):
         self.hide_location_ui()
         self.hide_patterns_ui()
         self.on_news_ui()
+
+    def patterns_calcu(self):
+        gpd=getpastdate()
+        self.textBrowser_Current.setText(str(gpd.get_past(0))) #current
+        self.textBrowser_Tomorrow.setText(str(gpd.patterns_expected()))
 
 
 import main_img
