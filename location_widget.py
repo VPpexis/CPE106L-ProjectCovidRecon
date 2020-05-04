@@ -74,6 +74,7 @@ class location_widget(QLabel):
         ax.set_title('Total Confirmed COVID-19 Cases in NCR Today', fontdict =
                         {'fontsize':27}, pad=12.5)
         ax.get_legend().set_bbox_to_anchor((1.3,0.3))
+
         plt.savefig(os.path.join(sys.path[0], 'images\location.png'))
         pixmap = QPixmap(os.path.join(sys.path[0], 'images\location.png'))
         pixmap = pixmap.scaled(650,570, Qt.KeepAspectRatio)
