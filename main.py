@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'main.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.2
-#
-# WARNING! All changes made in this file will be lost!
 from PyQt5 import QtCore, QtGui, QtWidgets
 from UI import news_ui
 from WebScraping import DOH_Scrapper
@@ -25,22 +18,26 @@ import matplotlib.dates as mdates
 import mysql.connector 
 
 register_matplotlib_converters()
-data = mysql.connector.connect(
-    host="myrds1.cijcu6ghykxh.ap-southeast-1.rds.amazonaws.com",
-    user="myrds",
-    passwd="admin123",
-    database="myrds1"
-)
 
 class Ui_MainWindow(object):    
     def openOverview(self):
+        #Connects to the SQL Server
         self.window=QtWidgets.QMainWindow()
         self.ui=Ui_MainWindow()
         self.ui.setupUi(self.window)
         MainWindow.close()
         self.window.show()
+        return
  
+
     def setupUi(self, MainWindow):
+        self.conn = mysql.connector.connect(
+            host="myrds1.cijcu6ghykxh.ap-southeast-1.rds.amazonaws.com",
+            user="myrds",
+            passwd="admin123",
+            database="myrds1"
+        )
+
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(831, 666)
         MainWindow.setToolTipDuration(0)
@@ -99,7 +96,8 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.title_status.setFont(font)
         self.title_status.setObjectName("title_status")
-      
+
+        ### GUI for the Overview Layout. ###
         self.cases_textBrowser = QtWidgets.QLabel(self.centralwidget)
         self.cases_textBrowser.setGeometry(QtCore.QRect(390, 190, 261, 61))
         self.cases_textBrowser.setObjectName("cases_textBrowser")
@@ -123,7 +121,9 @@ class Ui_MainWindow(object):
         self.cases_textBrowser.setFont(fontfortextbrowser)
         self.death_textBrowser.setFont(fontfortextbrowser)
         self.recoverd_textBrowser.setFont(fontfortextbrowser)
+        ###End.###
 
+        ###Layout for Overview. ###
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 130, 160, 371))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
@@ -134,6 +134,8 @@ class Ui_MainWindow(object):
         self.overview_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(10)
+
+        ### Buttons ####
         self.overview_button.setFont(font)
         self.overview_button.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.overview_button.setToolTipDuration(0)
@@ -178,7 +180,6 @@ class Ui_MainWindow(object):
         self.patterns_button.setIconSize(QtCore.QSize(40, 40))
         self.patterns_button.setObjectName("patterns_button")
         self.verticalLayout.addWidget(self.patterns_button)
-
         self.news_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -189,8 +190,9 @@ class Ui_MainWindow(object):
         self.news_button.setIcon(icon4)
         self.news_button.setIconSize(QtCore.QSize(40,40))
         self.verticalLayout.addWidget(self.news_button)
+        ### End  ####
 
-
+        ### Labels and Picture setup ###
         self.line_3 = QtWidgets.QFrame(self.centralwidget)
         self.line_3.setGeometry(QtCore.QRect(200, 0, 16, 711))
         self.line_3.setFrameShape(QtWidgets.QFrame.VLine)
@@ -221,6 +223,9 @@ class Ui_MainWindow(object):
         self.label_2.setStyleSheet("background-image: url(:/bg/Images/bg-main4.png);")
         self.label_2.setText("")
         self.label_2.setObjectName("label_2")
+        ### End    ###
+
+        ### Raises the widget.  ###
         self.label_2.raise_()
         self.line.raise_()
         self.line_2.raise_()
@@ -236,13 +241,16 @@ class Ui_MainWindow(object):
         self.about_button.raise_()
         self.label.raise_()
         self.label_3.raise_()
-        
+        ### End. ####
+
+        ### About Us Button ###
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.actionAbout_Us = QtWidgets.QAction(MainWindow)
         self.actionAbout_Us.setObjectName("actionAbout_Us")
+        ### End
 
         #Charts UI
         self.chartsView = QtWidgets.QGraphicsView(self.centralwidget)
@@ -339,7 +347,6 @@ class Ui_MainWindow(object):
         self.label_Tomorrow.setFont(fontforLabel)
         self.label_Current.raise_()
         self.label_Tomorrow.raise_()
-
         self.patterns_calcu()
         #/Patterns UI
 
@@ -378,8 +385,9 @@ class Ui_MainWindow(object):
         self.overview_button.clicked.connect(self.on_overview_clicked)
         self.news_button.clicked.connect(self.on_news_clicked)
         self.on_overview_clicked()
-
+        return
     
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "COVIDRecon"))
@@ -394,30 +402,32 @@ class Ui_MainWindow(object):
         self.location_button.setText(_translate("MainWindow", " LOCATION"))
         self.patterns_button.setText(_translate("MainWindow", " PATTERNS"))
         self.about_button.setText(_translate("MainWindow", "  ABOUT US"))
-        
         self.label_Current.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline; color:#ffffff;\">Current</span></p></body></html>"))
         self.label_Tomorrow.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline; color:#ffffff;text-align:center;\">After a Week</span></p></body></html>"))
         self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
         self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
-   
         self.news_button.setText(_translate("MainWindow", "DOH NEWS"))
         self.about_button.clicked.connect(lambda: webbrowser.open('https://vppexis.github.io/CPE106L-ProjectCovidRecon/'))
         self.actionAbout_Us.setText(_translate("MainWindow", "About Us"))
         self.guide1.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffffff;\">Date/Month/Year</span></p></body></html>"))
+        return
 
+    #Gathers data for the chart.
     def data_gather(self):
-        cursor = data.cursor()
+        cursor = self.conn.cursor()
         cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
         result = cursor.fetchall()  
         self.df = pd.DataFrame(result, columns=['date','cases'])
         self.data_cases = self.df[['date','cases']]
         self.date_x = self.data_cases['date']
         self.cases_y = self.data_cases['cases']
+        return
         
+    #Main functin for charts.
     def setup_chart(self):      
         if self.layoutlim == 0:
             # Date gather
-            cursor = data.cursor()
+            cursor = self.conn.cursor()
             cursor.execute("SELECT date_rep_conf,COUNT(date_rep_conf) FROM casesByNCR GROUP BY date_rep_conf HAVING COUNT(date_rep_conf) > 1;")
             result = cursor.fetchall()  
             self.df = pd.DataFrame(result, columns=['date','cases'])
@@ -446,10 +456,12 @@ class Ui_MainWindow(object):
             dynamic_ax.set_ylabel('Population Affected')
             dynamic_ax.set_title('COVID-19 Cases')
             self.layoutlim = 1
+        return
             
+
+    ### Chart for Recovered Data.
     def recovered_chart(self):
-        
-        cursor = data.cursor()
+        cursor = self.conn.cursor()
         if self.layoutlim == 0:
             cursor.execute("SELECT date_rep_conf, Count(health_status) from casesByNCR where health_status = 'Recovered'GROUP BY date_rep_conf;")
             result = cursor.fetchall()  
@@ -461,11 +473,12 @@ class Ui_MainWindow(object):
         data_cases = df[['date','recovered']]
         self.R_x = data_cases['date']
         self.R_y = np.cumsum(data_cases['recovered'])
+        return
        
-        
+    
+    ### Charts for dead data.
     def died_chart(self):
-        
-        cursor = data.cursor()
+        cursor = self.conn.cursor()
         if self.layoutlim == 0:
             cursor.execute("SELECT date_rep_conf, Count(health_status) from casesByNCR where health_status = 'Died'GROUP BY date_rep_conf;")
             result = cursor.fetchall()
@@ -476,13 +489,15 @@ class Ui_MainWindow(object):
         data_cases = df[['date','Died']]
         self.D_x = data_cases['date']
         self.D_y = np.cumsum(data_cases['Died'])
-            
+        return
+
+
+    ### Updates the Graph   
     def update_chart(self):
         self.minDate= self.prevDate.date().toPyDate()
         self.maxDate = self.currentDate.date().toPyDate()
-        cursor = data.cursor()
+        cursor = self.conn.cursor()
         cursor.execute("SELECT date_rep_conf,Count(date_rep_conf) from casesByNCR where date_rep_conf between %s AND %s group by date_rep_conf having count(date_rep_conf) > 1;", (self.minDate,self.maxDate))
-        #cursor.execute("INSERT INTO table VALUES (%s, %s, %s)", (var1, var2, var3))
         result = cursor.fetchall()  
         df = pd.DataFrame(result, columns=['date','cases'])
         data_cases = df[['date','cases']]
@@ -504,10 +519,16 @@ class Ui_MainWindow(object):
         dynamic_ax.set_xlabel('Dates of Report')
         dynamic_ax.set_ylabel('Population Affected')
         dynamic_ax.set_title('COVID-19 Cases')
-        
+        return
+
+    
+    ### Deletes the graph.
     def delete_canvas(self):
         self.dynamic_canvas.deleteLater()
+        return
+
           
+    ### Method for hiding Overview UI action
     def hide_overview_ui(self):
         self.total_cases.hide()
         self.total_death.hide()
@@ -515,7 +536,10 @@ class Ui_MainWindow(object):
         self.cases_textBrowser.hide()
         self.death_textBrowser.hide()
         self.recoverd_textBrowser.hide()
+        return
+
     
+    ### Method for hiding Charts UI action
     def hide_charts_ui(self):
         self.chartsView.hide()
         self.updateChart_button.hide()
@@ -523,21 +547,31 @@ class Ui_MainWindow(object):
         self.prevDate.hide()
         self.currentDate.hide()
         self.guide1.hide()
+        return
 
+
+    ### Method for hiding Location UI action
     def hide_location_ui(self):
         self.locationView.hide()
+        return
 
+
+    ### Method for hiding Patterns UI action
     def hide_patterns_ui(self):
         self.textBrowser_Current.hide()
         self.textBrowser_Tomorrow.hide()
         self.label_Current.hide()
         self.label_Tomorrow.hide()
+        return
 
+
+    ### Method for hiding News UI action.
     def hide_news_ui(self):
         self.doh_list.hide()
-    
+        return
 
-    #show methods
+
+    ### Method for Overview UI action.
     def on_overview_ui(self):
         self.total_cases.show()
         self.total_death.show()
@@ -545,7 +579,10 @@ class Ui_MainWindow(object):
         self.cases_textBrowser.show()
         self.death_textBrowser.show()
         self.recoverd_textBrowser.show()
+        return
 
+
+    ### Method for Charts UI action.
     def on_charts_ui(self):
         self.chartsView.show()
         self.updateChart_button.show()
@@ -553,69 +590,96 @@ class Ui_MainWindow(object):
         self.prevDate.show()
         self.currentDate.show()
         self.guide1.show()
-        self.setup_chart() 
+        self.setup_chart()
+        return
 
+
+    ### Method for Location UI action.
     def on_location_ui(self):
         self.locationView.show()
+        return
 
+
+    ### Method for Patterns UI action.
     def on_patterns_ui(self):
         self.textBrowser_Current.show()
         self.textBrowser_Tomorrow.show()
         self.label_Current.show()
         self.label_Tomorrow.show()
+        return
+
     
+    ### Method for News UI action.
     def on_news_ui(self):
         self.doh_list.show()
+        return
 
-    #button clicked methods
+
+    ### Button action when overview is clicked.
     def on_overview_clicked(self):
         self.on_overview_ui()
         self.hide_charts_ui()
         self.hide_location_ui()
         self.hide_patterns_ui()
         self.hide_news_ui()
+        return
+
    
+   ### Button action when charts button is clicked.
     def on_charts_clicked(self):
         self.hide_overview_ui()
         self.on_charts_ui()
         self.hide_location_ui()
         self.hide_patterns_ui()
         self.hide_news_ui()
+        return
+
         
-    def on_update_chart_clicked(self):
-        
+    ### Button action when update button in charts ui is clicked.
+    def on_update_chart_clicked(self): 
         if self.layoutlim == 0:
             self.setup_chart()    
         else:
             self.delete_canvas()
             self.update_chart()
+        return
+
         
+    ### Button action when location button is clicked.
     def on_location_clicked(self):
         self.hide_overview_ui()
         self.hide_charts_ui()
         self.on_location_ui()
         self.hide_patterns_ui()
         self.hide_news_ui()
-        
+        return
 
+        
+    ### Button action when patterns button is clicked.
     def on_patterns_clicked(self):
         self.hide_overview_ui()
         self.hide_charts_ui()
         self.hide_location_ui()
         self.on_patterns_ui()
         self.hide_news_ui()
+        return
 
+    ### Button action when news button is clicked.
     def on_news_clicked(self):
         self.hide_overview_ui()
         self.hide_charts_ui()
         self.hide_location_ui()
         self.hide_patterns_ui()
         self.on_news_ui()
+        return
 
+
+    ### Calculate the current data to predict future Cases.
     def patterns_calcu(self):
         gpd=getpastdate()
         self.textBrowser_Current.setText(str(gpd.get_past(0))) #current
         self.textBrowser_Tomorrow.setText(str(gpd.patterns_expected()))
+        return
 
 
 import main_img
