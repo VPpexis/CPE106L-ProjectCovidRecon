@@ -16,7 +16,7 @@ import sys
 import time
 import numpy as np
 import ctypes
-from location_widget import location_widget
+from UI.location_widget import location_widget
 from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
 import matplotlib.dates as mdates
