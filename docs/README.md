@@ -1,6 +1,8 @@
-# [Project-CovidRecon](https://vppexis.github.io/CPE106L-ProjectCovidRecon/)
+# COVIDRecon
+![GitHub Logo](https://github.com/VPpexis/CPE106L-ProjectCovidRecon/blob/master/Images/logo-github.jpg) <br />
 
 ### Project Members
+
     1. Cinco, Cedrick
     2. Directo, Claudee Khiarra
     3. Bake, Seungyoon
@@ -8,43 +10,96 @@
     5. Panugan, Van Philip
     6. Tipan, Ivan Patrick
 
-### Requirements
-- Python 3.7
-- PyQT5
-- Tweepy
+## Table of Contents
 
-### Running the Program
-1. Install al the requirements
-2. Run in terminal 'python main.py'
+- [Overview](#overview) <br />
+  - [Purpose](#purpose) <br />
+- [Introduction](#introduction) <br />
+  - [Scope](#scope) <br />
+  - [Requirements](#requirements) <br />
+  - [Definitions] (definitions-acronyms-and-abbreviations)
+ - [Target Audience](#target-audience) <br />
+ - [Focus Areas](#focus-areas) <br />
+    - [Scenarios](#scenarios) <br />
+    - [Languages](#languages) <br />
+ - [User Stories](#user-stories) <br />
+ - [System Architecture](#system-architecture) <br />
+  - [User Stories](#user-stories) <br />
+ - [Sample Screenshots](#sample-screenshots) <br />
 
-<br>
-<br>
+## Overview
+Project-CovidRecon is a software application based from PyQt5 and Tweepy that tracks statuses of the number of Coronavirus Disease 2019 in National Captional Region in the Philippines. Through data science and mathematical models, the cases can be predicted and visualized through charts and tables. The application also provides prediction to the number of cases in the next days through logarithmic and exponential plotting.
 
-# Project Documentation
-
-Written by: Laurence Kobe Navarro, Claudee Directo & Cedrick Cinco
-
+## Purpose
+The purpose of the program is as follows:
+* To gather COVID-19 data cases and its location
+* To visualize the data into charts.
+* To predict the logarithmic and exponential pattern
+* To show the geographical status of each province.
 
 # Introduction
 Data Science and mathematical models can help in shedding light on the evolution of the novel Coronavirus pandemic. By predicting, visualizing, and analyzing the virus, we will be able to put up an immunity against it through the help of data and information. This is an application that can forecast real-time COVID-19 data that can fill the gap between users and various sources of information in order to produce reliable data.  As the world plunged into a pandemic caused by COVID-19, both technology and medical field tries to understand how the virus had spread exponentially across the globe as well as on how to cure it. As people get wary about the health implications this pandemic poses on their health, economic, and social activity – they also want to gain information. However, to this day, there isn't a well-centered outlet to get data visualization and prediction of COVID-19, false information might constitute to the delay of the dissection of current data. With this application, it aims to bridge the user and the different sources of data that could visualize it for beneficiaries – not just for the people, but for health workers, and even for the common knowledge of the government. It delivers visualized data, its analysis, and the prediction of the movement of the virus. 
 
-## Purpose
-The purpose of the program is as follows:
-    
-* To gather COVID-19 data cases and its location
-    
-*  To visualize the data into charts.
-    
-* To predict the logarithmic and exponential pattern
-    
-* To show the geographical status of each province.
-
-
-
-
 ## Scope
+
 The scope of this software is limited to the Philippines. To be specific the NCR Region and its cities only since the data is readily available due to the different sources and the increase of production of test kits. The software does not gather the user's data since it does not need it. The software will only gather source from 
 
+Type CD Python <version> in the Terminal window and press Enter so that the terminal changes its directory to the Python folder on the system.
+  
+Type and press enter:
+```
+./configure
+```
+The script begins by checking the system build type and then performs a series of tasks based on the system you’re using. This process can require a minute or two because there is a large list of items to check.
+
+Type the command below and press Enter:
+```
+sudo make altinstall
+```
+The system may ask you for your administrator password. Type your password and press Enter. At this point, a number of tasks take place as the system installs Python on your system.
+
+
+### Requirements
+* **An IDE** <br />
+The developers used Visual Studio Code. Download it by going to the VS Code website https://code.visualstudio.com/, and choose what works for your system.
+
+* **Python** <br />
+Python is an interpreted, high-level, general-purpose programming language. The official website of Python is https://www.python.org/. After navigating the download site with your Linux browser, click the appropriate link for your version of Linux you wish to install, then click SAVE. <br />
+Run the following commands to install Python. 
+  ```
+  $ sudo apt update
+  $ sudo apt install python3 python3-pip3
+  ```
+  And to verify, run:
+  ```
+  $ python3 --version
+  ```
+
+  ##### Packages:
+* **Pandas** <br />
+  - Run the following command to install pandas using pip
+    ```
+    $ pip install pandas 
+    ```
+    
+* **Numpy** <br />
+  - Run the following command to install numpy using pip
+    ```
+    $ pip install numpy
+    ```
+
+* **PyQt** <br />
+  - To install PyQt, type in the terminal:
+    ```
+    $ pip3 install --user pyqt5  
+    $ sudo apt-get install python3-pyqt5  
+    $ sudo apt-get install pyqt5-dev-tools
+    $ sudo apt-get install qttools5-dev-tools
+    ```
+    **Modules used in the program:**
+    ```
+    from PyQt5 import QtCore, QtGui, QtWidgets
+    ```
 
 ## Definitions, Acronyms, and Abbreviations
 * **Tweepy** – Tweepy is a Python library to access the Twitter API. It is usually used for simple automation and creating twitter function and bots. With Tweepy, developers can accumulate tweets, create and delete tweets, and follow or unfollow users. 
@@ -53,36 +108,35 @@ The scope of this software is limited to the Philippines. To be specific the NCR
     
 * **RDS** – RDS or Relational Database Services
 
-## Reference 
-The Software Design Document is divided into 11 sections with various subsections. The sections of the Software 
-    
-Design Document is:
-1. Introduction
-2. Use Cases
-3. Design Overview
-4. System Object Model
-5. Object Descriptions
-6. Object Collaborations
-7. Data Design
-8. Dynamic Model
-9. Non-function Requirements
-Supplementary Documentation    
+## User Manual
 
+**Instructions:**
 
+## Target Audience
 
-# [Use Case](https://mymailmapuaedu-my.sharepoint.com/:b:/g/personal/vpmpanugan_mymail_mapua_edu_ph/EYXU1spIrMJHhMdwh3PTaxQB_mQ30y2tDTq4hT5FtrIBbg?e=yOU3CJ)
+## Focus Areas
 
+### Scenarios
 
+### Languages
 
+## User Cases
+1. Actors
+     * **Customer User** <br />
+     
+         
+     * **Software Developer** <br />
+     
+        
+2. List of Use Cases
+     * **Customer User Cases** <br />
+     
 
-
+     * **Software Developer Case** <br />
+     
+            
+  
 ## System Architecture
+* **Case Diagram**
 
-
-
-## System Interfaces
-
-
-
-# System Object Model
-
+## Sample Screenshots

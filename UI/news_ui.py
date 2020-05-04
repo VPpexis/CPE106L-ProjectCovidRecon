@@ -4,7 +4,7 @@ import webbrowser
 class news_ui(QtWidgets.QListWidget):
     def __init__(self, *args, **kwargs):
         super(news_ui, self).__init__(*args, **kwargs)
-        self.setGeometry(QtCore.QRect(240, 110, 520, 450))
+        self.setGeometry(QtCore.QRect(260, 130, 520, 450))
         self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.setWordWrap(True)
         self.setSpacing(5)
