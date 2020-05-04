@@ -4,6 +4,7 @@ import datetime
 '''
 This is a subtractor function that subracts a specific date to the current date and gets the total cases during
 the subtracted date'
+Author: Baek
 '''
 class getpastdate():
     def __init__(self):
