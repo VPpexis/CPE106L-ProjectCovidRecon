@@ -17,7 +17,7 @@
 
 This instructions will get you a copy of the project and running on your local machine for development and testing purpose.
 
-### Prerequesites
+### Prerequisite
     Anaconda (Latest Version)
 
 ### Installing
