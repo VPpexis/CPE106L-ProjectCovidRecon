@@ -1,8 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from UI import news_ui
-from WebScraping import DOH_Scrapper
-from WebScraping import COVID19_Scrapper
-from DB.getpastdate import getpastdate
+from DAL import DOH_Scrapper
+from DAL import COVID19_Scrapper
+from BLL.getpastdate import getpastdate
 from UI.location_widget import location_widget
 from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
