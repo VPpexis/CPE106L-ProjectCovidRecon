@@ -55,12 +55,13 @@ class location_widget(QLabel):
         ncr_cities.replace('Kalookan City', 'Caloocan City', inplace=True)
 
 
-
+        '''
         for index,rows in df.iterrows():
             if index not in ncr_cities['City'].to_list():
                 print(items + ' is not in the NCR cities list')
             else:
                 pass
+        '''
                 
         combined=ncr_cities.merge(df, on = 'City')
         ax =combined.plot(column = 'Cases_per_City',
